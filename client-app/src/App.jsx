@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
 import { getCourses } from "../redux/actions";
+import { Create } from "../redux/actions";
+import { Base } from "../CursosBases"
+
 
 // compoents
 import Home from "./components/home/home";
@@ -33,6 +36,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourses());
+    Base.map(e=> Create(e)() )
   });
 
   const AppLayout = () => (
@@ -42,7 +46,7 @@ function App() {
       <Outlet />
     </>
   );
-
+  
   return (
     <div className={style.AppBody}>
       <Routes>
@@ -59,7 +63,7 @@ function App() {
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
             <Route element={<AppLayout />}>
-            <Route path="/favoritos" element={<Courses theme={theme} detail={user.courses} />}></Route>
+              <Route path="/favoritos" element={<Courses theme={theme} detail={user.courses} />}></Route>
             </Route>
             <Route
               path="/course/:idCourse/:idLesson"

@@ -16,6 +16,7 @@ import {
 // index reducers app
 const initialState = {
   user: {},
+  detail:{},
   isLogged: false,
   topTen: [],
   allUsers: [],
@@ -93,6 +94,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         arrowUpDown: payload,
       };
+    case  "GET_DETAIL":
+      return{
+        ...state, detail:payload
+      }
     default:
       return state;
   }

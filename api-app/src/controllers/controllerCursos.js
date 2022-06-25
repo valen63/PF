@@ -20,7 +20,7 @@ const getCursos = async (req, res, next) => {
 
 const getCursoById = async (req, res, next) => {
   try {
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findById({_id: req.params.id});
     res.send(course);
     return;
   } catch (err) {
@@ -45,11 +45,13 @@ const getCursoName = async (req, res, next) => {
 };
 
 const createCurso = async (req, res, next) => {
-  const { body } = req;
+  const body = req.body;
   try {
-    const course = await new Course(body);
+    const find = await Course.find({titulo: body.titulo})
+    if(find.length!==0){res.send(find);}
+    else {const course = await new Course(body);
     await course.save();
-    res.send(course);
+    res.send(course);}
   } catch (err) {
     next(new ErrorResponse("Error al crear el curso", 500, false));
     console.error(err);
@@ -60,7 +62,7 @@ const addFavorite = async (req, res, next) => {
   const { idUser, idCurso } = req.body;
   try {
     const usuario = await User.findById({ _id: idUser });
-    let find = usuario.courses.find(e => e.course._id.toString() === idCurso);
+    let find = usuario.courses.find(e => e.course && e.course._id.toString() === idCurso);
     if (find) {
       let correccion = usuario.courses.map(e => { if (e.course._id.toString() === idCurso) { e.isFavorite = true; return e } return e })
       const user = await User.findByIdAndUpdate(
@@ -89,7 +91,7 @@ const addFavorite = async (req, res, next) => {
 
   } catch (err) {
     console.log(err)
-    next(new ErrorResponse("Error al crear el curso", 500, false));
+    next(new ErrorResponse("Error al añadir favorito el curso", 500, false));
   }
 };
 
@@ -112,23 +114,23 @@ const removeFavorite = async (req, res, next) => {
 };
 
 const addVotes = async (req, res, next) => {
-  const id = req.user._id;
-  const { idUser, votes } = req.body;
+  const {idCurso, idUser, votes, calificacion } = req.body;
   try {
     const curso = await Course.findByIdAndUpdate(
-      { _id: id },
+      { _id: idCurso },
       {
         $push: {
           userVotes: {
             user: idUser,
           },
           votes,
-        },
+        },calificacion
       },
       { new: true }
     );
     res.send({ info: "Votacion exitosa", curso, success: true });
   } catch (err) {
+    console.log(err)
     next(new ErrorResponse("Error al votar el curso", 500, false));
   }
 };

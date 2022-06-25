@@ -68,19 +68,9 @@ export const updateUser = (userObject) => {
 };
 
 export const logout = (dispatch) => {
-  dispatch ({type: LOGOUT,});
+  dispatch({ type: LOGOUT, });
 };
 
-export const addVotes = async function (id, info) {
-  try {
-    const data = await axios.put(
-      `/api/cursosprivate/${id}/votes`,
-      info
-    );
-  } catch (err) {
-    new Error(err);
-  }
-};
 
 export const setRanking = (ranking) => {
   return {
@@ -118,14 +108,29 @@ export const register = (userData) => {
     }
   };
 };
+export const addVotes = function (id, info) {
+  return async function () {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const data = await axios.put(`/api/cursosprivate/${id}/votes`, info, config);
+      dispatch({ type: "GET_DETAIL",payload: data.curso})
+    } catch (err) {
+      new Error(err);
+    }
+  }
+};
 
 export const findCourse = (id) => {
   return async function (dispatch) {
     try {
-      const resp = await axios.get(`/api/cursos/${id}`);
-      return resp.data;
+      const resp = await axios.get(`/api/cursos/data/${id}`);
+      dispatch({ type: "GET_DETAIL", payload: resp.data });
     } catch (err) {
-      alert("Ups! Something went wrong...");
       new Error(err);
     }
   };
@@ -208,7 +213,7 @@ export const editUsername = (username, id) => {
 };
 
 export const editPassword = (email) => {
-  return async function (dispatch) {
+  return async function () {
     try {
       const metaData = await axios.put(
         `/api/auth/forgotPassword`,
@@ -246,7 +251,7 @@ export const bookmarkCourse = (idUser, idCurso) => {
       };
 
       const resp = await axios.put(
-        `http://localhost:3001/api/cursosprivate/favorite`,
+        `/api/cursosprivate/favorite`,
         { idUser, idCurso },
         config
       );
@@ -280,7 +285,7 @@ export const unmarkfavorites = (idUser, idCurso) => {
 };
 
 export const getLesson = (idLesson) => {
-  return async function (dispatch) {
+  return async function () {
     try {
       /*A LA ESPERA DE LA CREACION DE LA RUTA*/
       const metaData = await axios(
@@ -445,6 +450,16 @@ export const BanearDef = (userId, estado) => {
       return { successful: true, data: metaData }
     } catch (err) {
       return { successful: false, error: err }
+    }
+  }
+}
+
+export const Create = (data) => {
+  return async function () {
+    try {
+      await axios.post(`/api/cursosprivate/first/`, data);
+    } catch (err) {
+      console.log(err)
     }
   }
 }

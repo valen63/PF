@@ -1,5 +1,6 @@
 // libraries
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // hardDate
 import { CursoBase } from "./CurssoBase";
@@ -12,11 +13,12 @@ import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
 
 export default function CardD(props) {
-  let [idClase, setIdClase] = useState(1);
-  let Curso = CursoBase;
-  let claseSumary = Curso.clases.find((o) => o.id === idClase);
+  let { detail, user } = useSelector(state => state)
+  let Curso = detail;
+  let claseSumary = user.courses ? user.courses.find((o) => o.course && o.course._id === detail._id) : [];
   let style = darkTheme;
 
+  if(!detail.titulo){return <div></div>}
   return (
     <ThemeProvider
       theme={
@@ -26,34 +28,28 @@ export default function CardD(props) {
       <div className={style.flexContainer}>
         <div className={style.Container}>
           <div className={style.flexContainer2}>
-            <h1 className={style.titulo}>{Curso.titulo}</h1>
+            <h1 className={style.titulo}>{Curso.titulo.toUpperCase()}</h1>
             <div className={style.data}>
               <label className={style.label}>
-                Clasificacion: {Curso.calificacion}
+                Clasificacion: {Curso.votes.length>0?(Curso.votes.reduce((a, b) => a + b, 0)/Curso.userVotes.length).toFixed(1) : 0}
               </label>
               <label className={style.label}>
-                Usuarios Inscriptos: {Curso.userIncript}
+                Usuarios Inscriptos: {Curso.userInscript}
               </label>
-              <Stars />
+              <Stars idCurso={detail._id} idUser={user._id} calificacion={detail.calificacion} />
             </div>
             <img className={style.imagen} alt="" src={Curso.imagen} />
           </div>
           <div className={style.flexContainer3}>
             <div className={style.containerDescrip}>
               <h3>Descripcion</h3>
-              <p>{Curso.description}</p>
-              <h3>Comentarios</h3>
+              <p>{Curso.descripcion}</p>
             </div>
-            <div className={style.flexContainer4}>
+            {/* {claseSumary.length === 0 ? "boton" : <div className={style.flexContainer4}>
               <div className={style.flexContainer5}>
-                <p>
-                  {" "}
-                  --------------------------Barra de progreso
-                  aca--------------------------
-                </p>
                 <div className={style.progreso}>
                   <div className={style.input}>
-                    {Curso.clases.map((e) => (
+                    {claseSumary.lessons.length===0 ? null: claseSumary.lessons.map((e) => (
                       <div className={style.ClasP}>
                         {e.isCompleted ? (
                           <input
@@ -83,27 +79,11 @@ export default function CardD(props) {
                     ))}
                   </div>
                 </div>
-                <div className={style.info}>
-                  <div className={style.input}>
-                    <input checked type="radio" id="completada" />
-                  </div>
-                  <p>Completada</p>
-
-                  <div className={style.input}>
-                    <input type="radio" id="disponible" />
-                  </div>
-                  <p>Disponible</p>
-
-                  <div className={style.input}>
-                    <input type="radio" disabled />
-                  </div>
-                  <p>Bloqueada</p>
+                <div className={style.lessonSumary}>
+                  <LessonSumary clase={claseSumary} /> 
                 </div>
               </div>
-              <div className={style.lessonSumary}>
-                <LessonSumary clase={claseSumary} />
-              </div>
-            </div>
+            </div>} */}
           </div>
         </div>
       </div>

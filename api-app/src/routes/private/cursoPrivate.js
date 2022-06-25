@@ -6,6 +6,7 @@ const { createCurso, addFavorite, removeFavorite, addVotes } = require('../../co
 const { createLesson, getLesson } = require('../../controllers/controllerLession.js')
 
 router.post('/', protect, createCurso)
+router.post('/first', createCurso)
 router.put('/favorite', protect, addFavorite)
 router.put('/unfavorite', protect, removeFavorite)
 router.put('/:id', protect, createLesson)

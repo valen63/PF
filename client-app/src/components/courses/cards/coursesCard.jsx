@@ -51,7 +51,7 @@ function CoursesCard({ courses }) {
           <div className={style.containerCourse}>
             <div className={style.flexContainer}>
               <NavLink
-                to={`/course/${course.titulo}`}
+                to={`/course/${course._id}`}
                 className={style.courseName}
               >
                 {course.titulo.toUpperCase()}
@@ -63,10 +63,10 @@ function CoursesCard({ courses }) {
                 :
                   <AiOutlineHeart onClick={() => navigate("/login")}/>
               }
-                <span>Rating: {course.calificacion/course.userVotes.length || 0}</span>
+                <span>Rating: {course.votes.length>0?(course.votes.reduce((a, b) => a + b, 0)/course.userVotes.length).toFixed(1) : 0}</span>                
               </div>
               <div className={style.descripcion}>
-                <span>Descripcion: {course.descripcion}</span>
+                <span>Descripcion: {course.descripcion.slice(0,150)}{course.descripcion.slice(150,151)?<NavLink to={`/course/${course._id}`} className={lightTheme.mas}>(...)</NavLink>:null}</span>
               </div>
             </div>
             <div className={style.lenguaje}>

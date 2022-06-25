@@ -97,6 +97,12 @@
     display: inline-block;
     width: 100%;
 }
+.mas{
+    text-decoration: none;
+    color: gray;
+    margin: 5px;
+    font-style: italic;
+}
 
 @media (max-width: 768px) {
 
