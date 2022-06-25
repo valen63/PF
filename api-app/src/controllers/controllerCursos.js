@@ -1,3 +1,4 @@
+const { isObjectIdOrHexString } = require("mongoose");
 const Course = require("../model/modelCurso");
 const User = require("../model/modelUser");
 const ErrorResponse = require("../utils/errorResponse.js");
@@ -23,7 +24,7 @@ const getCursoById = async (req, res, next) => {
     res.send(course);
     return;
   } catch (err) {
-    next(new ErrorResponse("Error al crear el curso", 500, false));
+    next(new ErrorResponse("Error al encontrar el curso", 500, false));
     console.error(err);
   }
 };
@@ -33,12 +34,12 @@ const getCursoName = async (req, res, next) => {
   try {
     const course = await Course.find({ titulo: { $regex, $options: "i" } });
     if (!course.length) {
-      next(new ErrorResponse("Error al crear el curso", 500, false));
+      next(new ErrorResponse("Error al este curso no existe el curso", 404, false));
     } else {
       res.send(course);
     }
   } catch (err) {
-    next(new ErrorResponse("Error al crear el curso", 500, false));
+    next(new ErrorResponse("Error al encontrar el curso", 500, false));
     console.error(err);
   }
 };
@@ -56,52 +57,62 @@ const createCurso = async (req, res, next) => {
 };
 
 const addFavorite = async (req, res, next) => {
-  const  id  = req.user._id;
-  const { idCurso, isFavorite } = req.body;
+  const { idUser, idCurso } = req.body;
   try {
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        $push: {
-          courses: {
-            course: idCurso,
-            isFavorite,
+    const usuario = await User.findById({ _id: idUser });
+    let find = usuario.courses.find(e => e.course._id.toString() === idCurso);
+    if (find) {
+      let correccion = usuario.courses.map(e => { if (e.course._id.toString() === idCurso) { e.isFavorite = true; return e } return e })
+      const user = await User.findByIdAndUpdate(
+        { _id: idUser },
+        { courses: correccion },
+        { new: true }
+      );
+      res.send({ info: "Curso modificado exitosamente", user, success: true }).end();
+    }
+    if (!find) {
+      const user = await User.findByIdAndUpdate(
+        { _id: idUser },
+        {
+          $push: {
+            courses: {
+              course: { _id: idCurso },
+              isFavorite: true,
+            },
           },
         },
-      },
-      { new: true }
-    );
-    res.send({ info: "Curso añadido exitosamente", user, success: true });
+        { new: true }
+      );
+      res.send({ info: "Curso añadido exitosamente", user, success: true });
+    }
+
+
   } catch (err) {
+    console.log(err)
     next(new ErrorResponse("Error al crear el curso", 500, false));
   }
 };
 
 const removeFavorite = async (req, res, next) => {
-  const  id  = req.user._id;
-  const { idCursoFavorito } = req.body;
+  const { idUser, idCurso } = req.body;
 
   try {
+    const usuario = await User.findById({ _id: idUser })
+    let filtrado = usuario.courses.map(e => { if (e.course._id.toString() === idCurso) { e.isFavorite = false } return e })
     const eliminado = await User.findByIdAndUpdate(
-      { _id: id },
-      {
-        $pull: {
-          courses: {
-            _id: idCursoFavorito,
-          },
-        },
-      },
+      { _id: idUser },
+      { courses: filtrado },
       { new: true }
     );
 
-    res.send({ info: "Curso eliminado exitosamente", success: true });
+    res.send({ info: "Curso eliminado exitosamente", user: eliminado, success: true });
   } catch (err) {
     next(new ErrorResponse("Error al eliminar el curso", 500, false));
   }
 };
 
 const addVotes = async (req, res, next) => {
-  const  id  = req.user._id;
+  const id = req.user._id;
   const { idUser, votes } = req.body;
   try {
     const curso = await Course.findByIdAndUpdate(

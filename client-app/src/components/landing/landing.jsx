@@ -9,10 +9,8 @@ const Landing = () => {
         <div className={style.item}>
           <h1>CodeLearn</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia,
-            deserunt rerum. Aspernatur, quos. Quasi dolores earum, non minus
-            ipsa iure sunt, odio distinctio assumenda ullam sit ea perferendis
-            quaerat facilis?
+            Mejora tus habilidades completando las clases que desafían e
+            impulsan continuamente su practica en programación
           </p>
 
           <div className={style.containerButton}>
@@ -25,7 +23,7 @@ const Landing = () => {
             </NavLink>
           </div>
         </div>
-        <div className={style.item}>
+        <div className={style.item2}>
           <img
             className={style.img}
             src="../../../public/img/Landing_Draw.svg"

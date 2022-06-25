@@ -2,7 +2,6 @@
   display:flex;
   width: 30%;
   height: 100%;
-  border-right: rgb(85, 85, 85) solid 2px;
   flex-direction: column;
 
 }
@@ -64,6 +63,7 @@
   position: absolute;
   display: flex;
   height: 8em;
+  z-index: 0;
 
 }
 
@@ -75,4 +75,15 @@
 .userRank {
   width: 100%;
   font-size: 160px;
+}
+
+@media (max-width: 768px) {
+  .flexContainer{
+    width: 100%;
+  }
+
+  .userRank h1{
+    font-size: 50px;
+  }
+
 }

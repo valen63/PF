@@ -24,6 +24,29 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+const getALLUsers = async (req, res, next) => {
+  const { isAdmin } = req.user;
+  if (!isAdmin)
+    return res.send({
+      info: "No tienes permisos para ver los usuarios",
+      success: false,
+    });
+  const limit = parseInt(req.query.limit) || 8;
+  const page = parseInt(req.query.page) || 1;
+  try {
+    const users = await User.paginate({ limit, page });
+    res.send({
+      info: "Todos lo usuarios enviados",
+      users: users,
+      success: true,
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .send({ info: "Error al realizar la peticion", success: false });
+  }
+};
+
 const getUserById = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -72,11 +95,11 @@ const overallPosition = async (req, res) => {
       return (
         a.courses.map((c) => {
           // cursos
-          return c.lesson.filter((l) => l.isCompleted === true); // lecciones completas
+          return c.course ? c.course.lessons.filter((l) => l.isCompleted === true):0; // lecciones completas
         }).length +
         34 -
         (b.courses.map((c) => {
-          return c.lesson.filter((l) => l.isCompleted === true);
+          return c.course ?c.course.lessons.filter((l) => l.isCompleted === true):0;
         }).length +
           34)
       );
@@ -96,18 +119,19 @@ const topTen = async (req, res) => {
       return (
         a.courses.map((c) => {
           // cursos
-          return c.lesson.filter((l) => l.isCompleted === true); // lecciones completas
+          return c.course ? c.course.lessons.filter((l) => l.isCompleted === true):0; // lecciones completas
         }).length +
         34 -
         (b.courses.map((c) => {
-          return c.lesson.filter((l) => l.isCompleted === true);
+          return c.course ?c.course.lessons.filter((l) => l.isCompleted === true):0;
         }).length +
           34)
       );
     });
     res.send({ info: "Proceso completado con exito", sorted, success: true }); // :D
   } catch (err) {
-    res.status(500).send({ info: "Algo salio mal", success: false });
+    console.log(err)
+    res.status(500).send({ info: "Algo salio mal", success: false ,err});
   }
 };
 
@@ -121,15 +145,15 @@ const editIsAdmin = async (req, res) => {
         success: false,
       });
   try {
-    const { id, change } = req.body;
-
+    const { id, change } = req.body 
     await User.findByIdAndUpdate(id, {
-      isAdmin: change,
-    });
+      isAdmin: change
+    })
+    res.send({info: 'Estado isAdmin cambiado', success: true})
+  }
+  catch {
+    res.status(500).send({info: 'Algo salio mal', success: false})
 
-    res.send({ info: "Estado isAdmin cambiado", success: true });
-  } catch {
-    res.status(500).send({ info: "Algo salio mal", success: false });
   }
 };
 
@@ -156,7 +180,37 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const banUsers = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  try {
+    const { id, fecha } = req.body;
+    await User.findByIdAndUpdate(id, {
+      timeBanned: fecha
+    }, { new: true })
+    res.send({info: 'Usuario baneado', success: true})
+  } catch {
+    res.status(500).send({info: 'Error al intentar banear al usuario', success: false})
+  }
+}
+
+const permaBanUsers = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  try { 
+    const { id, estado } = req.body;
+    await User.findByIdAndUpdate(id, {
+      estado: estado
+    })
+    res.send({info: 'Estado cambiado exitosamente', success: true})
+  } catch {
+    res.status(500).send({info: 'Error al intentar banear al usuario', success: false})
+  }
+}
+
+
 module.exports = {
+  getALLUsers,
   getUsers,
   getUserById,
   getUsersByName,
@@ -165,4 +219,7 @@ module.exports = {
   topTen,
   editIsAdmin,
   deleteUser,
+  banUsers,
+  permaBanUsers
+
 };

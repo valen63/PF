@@ -28,7 +28,6 @@ function App() {
   const theme = useSelector((store) => store.theme);
   const isLogged = useSelector((store) => store.isLogged);
   const user = useSelector((store) => store.user);
-  console.log(user);
 
   const dispatch = useDispatch();
 
@@ -52,13 +51,16 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} />} />
-          <Route path="/courses" element={<Courses />}></Route>
+          <Route path="/courses" element={<Courses theme={theme} />}></Route>
           <Route
             path="/course/:id"
             element={<CourseDetailPage theme={theme} />}
           />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
+            <Route element={<AppLayout />}>
+            <Route path="/favoritos" element={<Courses theme={theme} detail={user.courses} />}></Route>
+            </Route>
             <Route
               path="/course/:idCourse/:idLesson"
               element={<LessonPage />}
