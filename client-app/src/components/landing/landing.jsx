@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import imagen from "/img/Landing_Draw.svg"
 
 import style from "./landing.module.css";
 
@@ -26,7 +27,7 @@ const Landing = () => {
         <div className={style.item2}>
           <img
             className={style.img}
-            src="../../../public/img/Landing_Draw.svg"
+            src={imagen}
             alt="Landing"
             referrerPolicy="no-referrer"
           />
