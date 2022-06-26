@@ -1,6 +1,6 @@
-const Lesson = require('../model/modelLesson')
 const Curso = require('../model/modelCurso')
 const User = require('../model/modelUser')
+const Lesson = require('../model/modelLesson')
 const ErrorResponse = require('../utils/errorResponse.js')
 
 const createLesson = async (req, res, next) => {
@@ -11,40 +11,40 @@ const createLesson = async (req, res, next) => {
     const curso = await Curso.findByIdAndUpdate(req.params.id, {
       $push: { lessons: newLesson }
     })
-    if (curso.lessons[0]._id === newLesson._id) {
+    if (curso.lessons[0] === newLesson) {
       curso.lessons[0].isLocked = false
     }
-    res.send({ info: 'Curso creado exitosamente', newLesson })
+    const all = await Curso.find()
+    res.send({ info: 'Curso creado exitosamente', all })
   } catch (err) {
     next(new ErrorResponse(err, 500))
   }
 }
 const getLesson = async (req, res, next) => {
-  const { id } = req.params;
+  let id = req.params.id
   try {
-    const lesson = await Lesson.findById(id);
-
-    res.send({info: 'Clase obtenida correctamente', lesson})
+    const lesson2 = await Lesson.find({_id: id})
+    res.send({info: 'Clase obtenida correctamente', lesson2})
   } catch (err){
+    console.log(err)
     next(new ErrorResponse('Error al obtener la clase', 500))
   }
 }
 const isCompleted = async (req, res) => {
-  const id = req.user._id
-  const idLesson = req.body
-  const idCourse = req.body
+  const {idLesson, idCourse, idUser} = req.body
   try {
-    const user = await User.findById(id)
+    const user = await User.findById(idUser)
     const currentCourse = user.courses.filter(c => c._id == idCourse)
     currentCourse.lessons[idLesson].isCompleted = true
     const currentIndex = currentCourse.lessons.indexOf(idLesson)
-    if (currentIndex < currentCourse.lessons.length) {
-      const index = currentIndex + 1
-      currentCourse.lessons[index].isLocked = false
-    }
-    if (currentIndex === currentCourse.lessons.length) {
-      currentCourse.completed = true
-    }
+    console.log(currentCourse)
+    // if (currentIndex < currentCourse.lessons.length) {
+    //   const index = currentIndex + 1
+    //   currentCourse.lessons[index].isLocked = true
+    // }
+    // if (currentIndex === currentCourse.lessons.length) {
+    //   currentCourse.completed = true
+    // }
   } catch (err) {
     res.status(500).send({ info: 'Error al obtener la consulta', err, success: false })
   }

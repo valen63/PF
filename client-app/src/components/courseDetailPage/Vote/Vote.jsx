@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addVotes, getCourses } from "../../../../redux/actions/index";
+import { addVotes, getCourses ,findCourse } from "../../../../redux/actions/index";
 import "./vote.css";
 
 export default function Stars({ idCurso, idUser, calificacion }) {
@@ -34,6 +34,7 @@ export default function Stars({ idCurso, idUser, calificacion }) {
       addVotes(idCurso, {idCurso, calificacion: calificacion + parseInt(max) , idUser: idUser, votes: parseInt(max) })();
     }
     getCourses()(dispatch);
+    findCourse(idCurso)(dispatch);
   }
   return (
     <div className="Conteiner_rating">

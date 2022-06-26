@@ -285,13 +285,16 @@ export const unmarkfavorites = (idUser, idCurso) => {
 };
 
 export const getLesson = (idLesson) => {
-  return async function () {
+  return async function (dispatch) {
     try {
-      /*A LA ESPERA DE LA CREACION DE LA RUTA*/
-      const metaData = await axios(
-        `/api/cursosprivate/${idLesson}/lesson`
-      );
-      return metaData.data;
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const metaData = await axios.get(`/api/cursosprivate/${idLesson}/lessons`,config);
+      dispatch({type: "GET_LESSON",payload: metaData.data.lesson2[0]});
     } catch (err) {
       return err;
     }
@@ -454,10 +457,21 @@ export const BanearDef = (userId, estado) => {
   }
 }
 
-export const Create = (data) => {
+export const Create = (data, lessons) => {
   return async function () {
     try {
-      await axios.post(`/api/cursosprivate/first/`, data);
+      await axios.post(`/api/cursosprivate/first/`, {body:data, lessons});
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const CreateLesson = (idCurso, data) => {
+  return async function (dispatch) {
+    try {
+      let info = await axios.put(`/api/cursosprivate/new/${idCurso}`, data);
+      dispatch(setCourses(info))
     } catch (err) {
       console.log(err)
     }

@@ -1,3 +1,16 @@
+export const Lesson1 = {
+    titulo: "Arrays",
+    descripcion: "Voy a tener una",
+    num: 1,
+    quiz:
+        {
+            data: "acatengo el quiz",
+            preguntas: [{ texto: "la pregunta", respuestas: ["option1", "option2", "option3"] }],
+            respuestas: ["option1"],
+            Resp_min: 1, 
+        }
+    ,
+}
 export const Base = [
     {
         titulo: "Javascript Basico",
@@ -5,7 +18,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson1, Lesson1,Lesson1],
         userVotes: [],
         votes: [],
         lenguaje: "JavaScript"
@@ -96,3 +109,4 @@ export const Base = [
         lenguaje: "CSS"
     },
 ]
+

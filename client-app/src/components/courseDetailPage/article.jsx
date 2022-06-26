@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 // hardDate
-import { CursoBase } from "./CurssoBase";
 import Stars from "./Vote/Vote";
 
 // styles
@@ -13,12 +12,13 @@ import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
 
 export default function CardD(props) {
+  const [idClase, setIdClase] = useState(0);
   let { detail, user } = useSelector(state => state)
   let Curso = detail;
-  let claseSumary = user.courses ? user.courses.find((o) => o.course && o.course._id === detail._id) : [];
+  let claseSumary = user.courses ? user.courses.find((o) => o && o.course._id === detail._id) : [];
   let style = darkTheme;
 
-  if(!detail.titulo){return <div></div>}
+  if (!detail.titulo) { return <div></div> }
   return (
     <ThemeProvider
       theme={
@@ -31,7 +31,7 @@ export default function CardD(props) {
             <h1 className={style.titulo}>{Curso.titulo.toUpperCase()}</h1>
             <div className={style.data}>
               <label className={style.label}>
-                Clasificacion: {Curso.votes.length>0?(Curso.votes.reduce((a, b) => a + b, 0)/Curso.userVotes.length).toFixed(1) : 0}
+                Clasificacion: {Curso.votes.length > 0 ? (Curso.votes.reduce((a, b) => a + b, 0) / Curso.userVotes.length).toFixed(1) : 0}
               </label>
               <label className={style.label}>
                 Usuarios Inscriptos: {Curso.userInscript}
@@ -45,45 +45,40 @@ export default function CardD(props) {
               <h3>Descripcion</h3>
               <p>{Curso.descripcion}</p>
             </div>
-            {/* {claseSumary.length === 0 ? "boton" : <div className={style.flexContainer4}>
+            {!claseSumary ?null: claseSumary.course ? <div className={style.flexContainer4}>
               <div className={style.flexContainer5}>
                 <div className={style.progreso}>
-                  <div className={style.input}>
-                    {claseSumary.lessons.length===0 ? null: claseSumary.lessons.map((e) => (
-                      <div className={style.ClasP}>
-                        {e.isCompleted ? (
-                          <input
-                            key={e.id}
-                            checked
-                            type="radio"
-                            readOnly
-                            onClick={() => setIdClase(e.id)}
-                          />
-                        ) : e.isLocked ? (
-                          <input
-                            key={e.id}
-                            type="radio"
-                            disabled
-                            onClick={() => setIdClase(e.id)}
-                          />
-                        ) : (
-                          <input
-                            key={e.id}
-                            type="radio"
-                            checked={false}
-                            onClick={() => setIdClase(e.id)}
-                            className={style.locked}
-                          />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className={style.lessonSumary}>
-                  <LessonSumary clase={claseSumary} /> 
+                  {claseSumary.course.lessons ? claseSumary.course.lessons.map((e,index) => (
+                    <div className={style.ClasP} key ={index}>
+                      {e.isComplete ? (
+                        <>
+                          <div className={style.input}>
+                            <input readOnly checked type="radio" name="completada" key={e.id} onClick={() => setIdClase(index)} />
+                          </div>
+                          <p>Completada</p></>
+
+                      ) : e.isLocked ? (
+                        <>
+                          <div className={style.input}>
+                            <input disabled type="radio" name="complbloqueada" key={e.id} className={style.locked} onClick={() => setIdClase(index)} />
+                          </div>
+                          <p>Bloqueada</p></>
+                      ) : (
+                        <>
+                          <div className={style.input}>
+                            <input defaultChecked={false} type="radio" name="disponible" key={e.id} onClick={() => setIdClase(index)} />
+                          </div>
+                          <p>Disponible</p></>
+                      )}
+                    </div>
+                  )).reverse() : null}
+              
                 </div>
               </div>
-            </div>} */}
+              {claseSumary.course.lessons ?<div className={style.lessonSumary}>
+                <LessonSumary clase={Curso.lessons[idClase].lesson} idCurse={detail._id}  />
+              </div>:null}
+            </div> : null}
           </div>
         </div>
       </div>

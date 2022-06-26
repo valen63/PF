@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
 import { getCourses } from "../redux/actions";
-import { Create } from "../redux/actions";
-import { Base } from "../CursosBases"
+import { Create,CreateLesson } from "../redux/actions";
+import { Base, Lesson1 } from "../CursosBases"
 
 
 // compoents
@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourses());
-    Base.map(e=> Create(e)() )
+    Base.map(async(e)=> await Create({...e,lessons:[]}, e.lessons)() ) //EJECUTAR SOLO LA PRIMERA VEZ QUE LO USAS para generar los modelos de curso en la base de datos (procura limpiar la base de datos antes)
   });
 
   const AppLayout = () => (

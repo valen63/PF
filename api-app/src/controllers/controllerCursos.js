@@ -1,5 +1,6 @@
 const { isObjectIdOrHexString } = require("mongoose");
 const Course = require("../model/modelCurso");
+const Lesson = require('../model/modelLesson')
 const User = require("../model/modelUser");
 const ErrorResponse = require("../utils/errorResponse.js");
 
@@ -20,7 +21,7 @@ const getCursos = async (req, res, next) => {
 
 const getCursoById = async (req, res, next) => {
   try {
-    const course = await Course.findById({_id: req.params.id});
+    const course = await Course.findById({ _id: req.params.id }).populate({ path: 'lessons.lesson' });
     res.send(course);
     return;
   } catch (err) {
@@ -45,13 +46,38 @@ const getCursoName = async (req, res, next) => {
 };
 
 const createCurso = async (req, res, next) => {
-  const body = req.body;
+  const {body, lessons} = req.body;
   try {
-    const find = await Course.find({titulo: body.titulo})
-    if(find.length!==0){res.send(find);}
-    else {const course = await new Course(body);
-    await course.save();
-    res.send(course);}
+    const curso = await Course.find({ titulo: body.titulo });
+    if (curso.length) {
+      res.send(curso);
+    }
+    if (!curso.length) {
+      const course = await new Course(body);
+      await course.save();
+      if (lessons.length !== 0) {
+        lessons.map(async (e, i) => {
+          let id = await Lesson.create(e);
+          let isLocked = true;
+          if (i === 0) { isLocked = false }
+          await Course.findByIdAndUpdate(course._id,
+            {
+              $push: {
+                lessons: {
+                  lesson: { _id: id._id },
+                  isLocked,
+                }
+              }
+            }
+          );
+        }
+        )
+        let ElCURSO = await Course.findByIdAndUpdate(course._id)
+        // console.log(ElCURSO)
+        return res.send(course)
+      }
+      else { res.send(course); }
+    }
   } catch (err) {
     next(new ErrorResponse("Error al crear el curso", 500, false));
     console.error(err);
@@ -62,7 +88,8 @@ const addFavorite = async (req, res, next) => {
   const { idUser, idCurso } = req.body;
   try {
     const usuario = await User.findById({ _id: idUser });
-    let find = usuario.courses.find(e => e.course && e.course._id.toString() === idCurso);
+    let filter = usuario.courses.filter(e => e.course !== null)
+    let find = filter.find(e => e.course._id.toString() === idCurso);
     if (find) {
       let correccion = usuario.courses.map(e => { if (e.course._id.toString() === idCurso) { e.isFavorite = true; return e } return e })
       const user = await User.findByIdAndUpdate(
@@ -100,7 +127,8 @@ const removeFavorite = async (req, res, next) => {
 
   try {
     const usuario = await User.findById({ _id: idUser })
-    let filtrado = usuario.courses.map(e => { if (e.course._id.toString() === idCurso) { e.isFavorite = false } return e })
+    let filter = usuario.courses.filter(e => e.course !== null)
+    let filtrado = filter.map(e => { if (e.course._id.toString() === idCurso) { e.isFavorite = false } return e })
     const eliminado = await User.findByIdAndUpdate(
       { _id: idUser },
       { courses: filtrado },
@@ -114,7 +142,7 @@ const removeFavorite = async (req, res, next) => {
 };
 
 const addVotes = async (req, res, next) => {
-  const {idCurso, idUser, votes, calificacion } = req.body;
+  const { idCurso, idUser, votes, calificacion } = req.body;
   try {
     const curso = await Course.findByIdAndUpdate(
       { _id: idCurso },
@@ -124,7 +152,7 @@ const addVotes = async (req, res, next) => {
             user: idUser,
           },
           votes,
-        },calificacion
+        }, calificacion
       },
       { new: true }
     );
