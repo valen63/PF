@@ -2,8 +2,10 @@ import React from "react";
 import style from "./lessonSumary.module.css";
 import { NavLink } from "react-router-dom";
 
-function LessonSumary({ clase, idCurse }) {
-  var completo = clase.isComplete === true ? "Completada" : "Disponible";
+function LessonSumary({ clase, num ,idCurse, state }) {
+  clase = clase.lessons.find(e=> e.lesson.num===num)
+  if (!clase) {return null}
+  clase= clase.lesson
   return (
     <div className={style.flexContainer}>
       <div className={style.container}>
@@ -12,8 +14,8 @@ function LessonSumary({ clase, idCurse }) {
             Clase: {clase.titulo}
           </h3> : null}
           <div className={style.disponible}>
-            <p>{completo}</p>
-            <NavLink to={`/course/${idCurse}/${clase._id}`}> Ver clase </NavLink>
+            <p>{state}</p>
+            <NavLink to={`/course/${idCurse}/${num}`}> Ver clase </NavLink>
           </div>
         </div>
         <h1>{clase.descripcion}</h1>

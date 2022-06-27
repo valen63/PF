@@ -109,7 +109,7 @@ function NavBarUser() {
           </a>
         </div>
         <div data-dropdown className={style.dropdown}>
-          <input
+          <img
             type="image"
             src={
               isLogged
@@ -119,19 +119,19 @@ function NavBarUser() {
             data-dropdown-button
             className={activeArrow ? style.icon3Active : style.icon3}
           />
-          <h2 className={style.username}>{user.username?user.username.split(" ")[0]:"Invitado" }</h2>
+          <h2 className={style.username}>{user.username ? user.username.split(" ")[0] : "Invitado"}</h2>
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
-            <NavLink to="/perfil" data-dropdown-button>
-              Perfil
-            </NavLink>
+
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ? <NavLink to="#" onClick={()=> logout(dispatch)} data-dropdown-button>
-                  Log Out
-                </NavLink> : (
+            {isLogged ? (<><NavLink to="#" onClick={() => logout(dispatch)} data-dropdown-button>
+              Log Out
+            </NavLink><NavLink to="/perfil" data-dropdown-button>
+                Perfil
+              </NavLink></>) : (
               <>
                 <NavLink to="/login" data-dropdown-button>
                   Log In
@@ -139,6 +139,7 @@ function NavBarUser() {
                 <NavLink to="/register" data-dropdown-button>
                   Registrarse
                 </NavLink>
+
               </>
             )}
             {user.isAdmin ? (

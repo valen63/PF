@@ -35,6 +35,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case SET_VALIDATEUSER:
       var filtar = payload.courses
       if(payload.courses.length){ filtar = payload.courses.filter(e=> e.course)}
+      var filtrar2 = payload.lessons
+      if(payload.lessons.length){filtar2 = payload.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1) }
       return {
         ...state,
         user: {...payload, courses: filtar},

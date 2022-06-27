@@ -20,6 +20,8 @@
 
 ### Añadir Favoritos **PRIVADA** **PUT** /api/cursosprivate/favorite
 
+### Añadir Curso **PRIVADA** **PUT** /api/cursosprivate/add
+
 ### Remove Favoritos **PRIVADA** **PUT** /api/cursosprivate/unfavorite
 
 ### Anadir Voto **PRIVADA** **PUT** /api/cursosprivate/:id/votes

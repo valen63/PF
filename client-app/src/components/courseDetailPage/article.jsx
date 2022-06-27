@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 // hardDate
 import Stars from "./Vote/Vote";
+import { Añadir } from "../../../redux/actions";
 
 // styles
 import { ThemeProvider } from "styled-components";
@@ -12,10 +13,12 @@ import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
 
 export default function CardD(props) {
-  const [idClase, setIdClase] = useState(0);
+  const [idClase, setIdClase] = useState({ num: 0, state: "Disponible" });
   let { detail, user } = useSelector(state => state)
   let Curso = detail;
-  let claseSumary = user.courses ? user.courses.find((o) => o && o.course._id === detail._id) : [];
+  let array = [];
+  let ids = user.lessons ? user.lessons.map(e => e.lesson._id) : []
+  let claseSumary = user.courses ? user.courses.find((o) => o.course._id === detail._id).course : null;
   let style = darkTheme;
 
   if (!detail.titulo) { return <div></div> }
@@ -28,7 +31,10 @@ export default function CardD(props) {
       <div className={style.flexContainer}>
         <div className={style.Container}>
           <div className={style.flexContainer2}>
-            <h1 className={style.titulo}>{Curso.titulo.toUpperCase()}</h1>
+            <div className={lightTheme.botoncito}>
+              <h1 className={style.titulo}>{Curso.titulo.toUpperCase()}</h1>
+              {user.courses ? claseSumary ? null : <button onClick={() => Añadir(user._id, detail._id)(props.dispatch)}>Añadir curso +</button> : null}
+            </div>
             <div className={style.data}>
               <label className={style.label}>
                 Clasificacion: {Curso.votes.length > 0 ? (Curso.votes.reduce((a, b) => a + b, 0) / Curso.userVotes.length).toFixed(1) : 0}
@@ -45,39 +51,47 @@ export default function CardD(props) {
               <h3>Descripcion</h3>
               <p>{Curso.descripcion}</p>
             </div>
-            {!claseSumary ?null: claseSumary.course ? <div className={style.flexContainer4}>
+            {claseSumary ? claseSumary.lessons.length === 0 ? null : <div className={style.flexContainer4}>
               <div className={style.flexContainer5}>
                 <div className={style.progreso}>
-                  {claseSumary.course.lessons ? claseSumary.course.lessons.map((e,index) => (
-                    <div className={style.ClasP} key ={index}>
-                      {e.isComplete ? (
-                        <>
-                          <div className={style.input}>
-                            <input readOnly checked type="radio" name="completada" key={e.id} onClick={() => setIdClase(index)} />
-                          </div>
-                          <p>Completada</p></>
+                  {claseSumary.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1).map((e, i) => {
+                    console.log(e.lesson.num, i===0)
+                    let complete = false
+                    let lock = true
+                    if (ids.find((ele, index) => ele === e.lesson._id && !user.lessons[index].isLocked)) {; lock = false }
+                    if (ids.find((ele, index) => ele === e.lesson._id && user.lessons[index].isComplete)) {; complete = true }
+                    if (i === 0) {; lock = false }
+                    return (
+                      <div className={style.ClasP} key={i}>
+                        {complete ? (
+                          <>
+                            <div className={style.input}>
+                              <input readOnly checked type="radio" name={"completada" + i} key={e.id} onClick={() => setIdClase({ num: i, state: "Completa" })} />
+                            </div>
+                            <p>Completada</p></>
 
-                      ) : e.isLocked ? (
-                        <>
-                          <div className={style.input}>
-                            <input disabled type="radio" name="complbloqueada" key={e.id} className={style.locked} onClick={() => setIdClase(index)} />
-                          </div>
-                          <p>Bloqueada</p></>
-                      ) : (
-                        <>
-                          <div className={style.input}>
-                            <input defaultChecked={false} type="radio" name="disponible" key={e.id} onClick={() => setIdClase(index)} />
-                          </div>
-                          <p>Disponible</p></>
-                      )}
-                    </div>
-                  )).reverse() : null}
-              
+                        ) : lock ? (
+                          <>
+                            <div className={style.input}>
+                              <input disabled type="radio" name="complbloqueada" key={e.id} className={style.locked} />
+                            </div>
+                            <p>Bloqueada</p></>
+                        ) : (
+                          <>
+                            <div className={style.input}>
+                              <input defaultChecked={false} type="radio" name="disponible" key={e.id} onClick={() => setIdClase({ num:i, state: "Disponible" })} />
+                            </div>
+                            <p>Disponible</p></>
+                        )}
+                      </div>
+                    )
+                  })}
+
                 </div>
               </div>
-              {claseSumary.course.lessons ?<div className={style.lessonSumary}>
-                <LessonSumary clase={Curso.lessons[idClase].lesson} idCurse={detail._id}  />
-              </div>:null}
+              {claseSumary ? claseSumary.lessons.length !== 0 ? <div className={style.lessonSumary}>
+                <LessonSumary clase={claseSumary} num ={idClase.num} state={idClase.state} idCurse={detail._id} />
+              </div> : null : null}
             </div> : null}
           </div>
         </div>

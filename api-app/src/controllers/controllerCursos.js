@@ -25,7 +25,7 @@ const getCursoById = async (req, res, next) => {
     res.send(course);
     return;
   } catch (err) {
-    next(new ErrorResponse("Error al encontrar el curso", 500, false));
+    // next(new ErrorResponse("Error al encontrar el curso", 500, false));
     console.error(err);
   }
 };
@@ -56,24 +56,20 @@ const createCurso = async (req, res, next) => {
       const course = await new Course(body);
       await course.save();
       if (lessons.length !== 0) {
-        lessons.map(async (e, i) => {
+        lessons.map(async (e) => {
           let id = await Lesson.create(e);
-          let isLocked = true;
-          if (i === 0) { isLocked = false }
           await Course.findByIdAndUpdate(course._id,
             {
               $push: {
                 lessons: {
                   lesson: { _id: id._id },
-                  isLocked,
                 }
               }
             }
           );
+          isLocked = true;
         }
         )
-        let ElCURSO = await Course.findByIdAndUpdate(course._id)
-        // console.log(ElCURSO)
         return res.send(course)
       }
       else { res.send(course); }
@@ -107,6 +103,37 @@ const addFavorite = async (req, res, next) => {
             courses: {
               course: { _id: idCurso },
               isFavorite: true,
+            },
+          },
+        },
+        { new: true }
+      );
+      res.send({ info: "Curso añadido exitosamente", user, success: true });
+    }
+
+
+  } catch (err) {
+    console.log(err)
+    next(new ErrorResponse("Error al añadir favorito el curso", 500, false));
+  }
+};
+
+const add = async (req, res, next) => {
+  const { idUser, idCurso } = req.body;
+  try {
+    const usuario = await User.findById({ _id: idUser });
+    let filter = usuario.courses.filter(e => e.course !== null)
+    let find = filter.find(e => e.course._id.toString() === idCurso);
+    if (find) {
+      res.send({ info: "Curso ya existente",user: usuario, success: false }).end();
+    }
+    if (!find) {
+      const user = await User.findByIdAndUpdate(
+        { _id: idUser },
+        {
+          $push: {
+            courses: {
+              course: { _id: idCurso },
             },
           },
         },
@@ -171,4 +198,5 @@ module.exports = {
   addFavorite,
   removeFavorite,
   addVotes,
+  add,
 };

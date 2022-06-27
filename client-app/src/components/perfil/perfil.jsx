@@ -15,6 +15,7 @@ import { ThemeProvider } from "styled-components";
 
 const Perfil = (props) => {
   var style = darkTheme;
+  let fecha = new Date; fecha = fecha.toDateString().slice(4,24);
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
 
@@ -25,16 +26,18 @@ const Perfil = (props) => {
     else if (specification === "username") setUsernamePopUp(bool);
   };
   const coursesAll = user.courses.map((course) => {
-    let completados = course.course.lessons.filter(e=> e.completed)
-    console.log(completados)
+
+    let completados = user.lessons.filter(e=> e.isComplete).map(e=> e.lesson._id);
+    let lessons = course.course.lessons.map(e=> e.lesson._id);
+    lessons=completados.filter(e=> lessons.find(el=> el===e))
     return (
       <div className={style.cartYourCourse} key={course.id}>
         <label className={style.cursos}> {course.course.titulo} </label>
         <label className={style.cursos}>
-          {course.isFavorite === true ? "FAVORITO" : "NOT FAVORITO"}
+          {course.isFavorite === true ? "FAVORITO" : "NO FAVORITO"}
         </label>
         <label className={style.cursos}> {course.course.lessons.length} </label>
-        <label className={style.cursos}> {completados.length} </label>
+        <label className={style.cursos}> {lessons.length} </label>
         <div className={style.lenguaje}>
           <JSIcon lenguajes={course.course.lenguaje.toLowerCase()} />
         </div>
@@ -91,7 +94,7 @@ const Perfil = (props) => {
                 <div className={style.item}>
                   <div>
                     <label> Ultima Conexion : </label>
-                    <span> {user.Last_Seen || "sin implementar"} </span>
+                    <span> {fecha} </span>
                   </div>
                 </div>
               </div>

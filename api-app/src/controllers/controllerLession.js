@@ -23,30 +23,62 @@ const createLesson = async (req, res, next) => {
 const getLesson = async (req, res, next) => {
   let id = req.params.id
   try {
-    const lesson2 = await Lesson.find({_id: id})
-    res.send({info: 'Clase obtenida correctamente', lesson2})
-  } catch (err){
+    const lesson2 = await Lesson.find({ num: id })
+    res.send({ info: 'Clase obtenida correctamente', lesson2 })
+  } catch (err) {
     console.log(err)
     next(new ErrorResponse('Error al obtener la clase', 500))
   }
 }
 const isCompleted = async (req, res) => {
-  const {idLesson, idCourse, idUser} = req.body
+  const { idLesson, idUser, num } = req.body
   try {
-    const user = await User.findById(idUser)
-    const currentCourse = user.courses.filter(c => c._id == idCourse)
-    currentCourse.lessons[idLesson].isCompleted = true
-    const currentIndex = currentCourse.lessons.indexOf(idLesson)
-    console.log(currentCourse)
-    // if (currentIndex < currentCourse.lessons.length) {
-    //   const index = currentIndex + 1
-    //   currentCourse.lessons[index].isLocked = true
-    // }
-    // if (currentIndex === currentCourse.lessons.length) {
-    //   currentCourse.completed = true
-    // }
+    const usuario = await User.findById({ _id: idUser });
+    let filter = usuario.lessons.filter(e => e.lesson !== null)
+    let find = filter.length? filter.find(e => e.lesson._id.toString() === idLesson):null;
+    if (find) {
+      let correccion = filter.map(e => { if (e.lesson._id.toString() === idLesson) { e.isComplete= true; e.isLocked= false; return e } return e })
+      const user = await User.findByIdAndUpdate(
+        { _id: idUser },
+        { lesson: correccion },
+        { new: true }
+      );
+      res.send({ info: "Lesson modificado exitosamente", user, success: true }).end();
+    }
+    if (!find) {
+      var user =await User.findByIdAndUpdate(
+        { _id: idUser },
+        {
+          $push: {
+            lessons: {
+              lesson: { _id: idLesson },
+              isComplete: true,
+              isLocked: false,
+            }
+          }
+        },
+        { new: true }
+      );
+      let lesson2 = await Lesson.find({num:num+1})
+      if(lesson2.length){user = await User.findByIdAndUpdate(
+        { _id: idUser },
+        {
+          $push: {
+            lessons: {
+              lesson: { _id: lesson2[0]._id },
+              isLocked: false,
+            }
+          }
+        },
+        { new: true }
+      );}
+      res.send({ info: "Lesson añadido y modificada exitosamente", user: user.lessons.filter(e=> e.lesson!==null), success: true });
+    }
+
+
   } catch (err) {
-    res.status(500).send({ info: 'Error al obtener la consulta', err, success: false })
+    console.log(err)
+    next(new ErrorResponse("Error al añadir el complete", 500, false));
   }
 }
 

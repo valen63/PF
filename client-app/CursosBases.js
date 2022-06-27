@@ -1,16 +1,46 @@
 export const Lesson1 = {
     titulo: "Arrays",
-    descripcion: "Voy a tener una",
-    num: 1,
-    quiz:
+    descripcion: "Descripcion de Arrays",
+    video: "https://vimeo.com/47483575",
+    // quiz:
+    // {
+    //     data: "acatengo el quiz",
+    //     preguntas: [{ texto: "la pregunta", respuestas: ["option1", "option2", "option3"] }],
+    //     respuestas: ["option1"],
+    //     Resp_min: 1,
+    //     Resp_min_forAb:1,
+    // },
+    quiz: [
         {
-            data: "acatengo el quiz",
-            preguntas: [{ texto: "la pregunta", respuestas: ["option1", "option2", "option3"] }],
-            respuestas: ["option1"],
-            Resp_min: 1, 
+            "titulo": "¿Cuál es el mejor lenguaje de programación?",
+            "opciones": [
+                { "textoRespuesta": "JavaScript", "isCorrect": true },
+                { "textoRespuesta": "PHP", "isCorrect": false },
+                { "textoRespuesta": "C++", "isCorrect": false },
+                { "textoRespuesta": "Kotlin", "isCorrect": false }
+            ]
+        },
+        {
+            "titulo": "Con Lasfito aprendes de tutoriales...?",
+            "opciones": [
+                { "textoRespuesta": "sin contenido", "isCorrect": false },
+                { "textoRespuesta": "sin relleno", "isCorrect": true },
+                { "textoRespuesta": "sin gracia :v", "isCorrect": false },
+                { "textoRespuesta": "sin código", "isCorrect": false }
+            ]
         }
-    ,
+    ],
 }
+export var Reco = [
+    { name: "FLEXBOX FROGGY", hr: "http://flexboxfroggy.com/#es", etiqueta: "css" },
+    { name: "GRID GARDEN", hr: "https://cssgridgarden.com/#es", etiqueta: "css" },
+    { name: "Ruby Warrior", hr: "https://github.com/ryanb/ruby-warrior", etiqueta: "javascript" },
+    { name: "Flappy Bird", hr: "https://studio.code.org/flappy/1", etiqueta: "javascript" },
+    { name: "Code Combat", hr: "https://codecombat.com/", etiqueta: "html" },
+    { name: "CSS DINNER", hr: "https://flukeout.github.io/", etiqueta: "css" },
+    { name: "Robocode ", hr: "https://robocode.sourceforge.io/", etiqueta: "javascript" },
+    { name: "Elevator Saga", hr: "http://play.elevatorsaga.com/", etiqueta: "html" }
+]
 export const Base = [
     {
         titulo: "Javascript Basico",
@@ -18,7 +48,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
         userInscript: 0,
-        lessons: [Lesson1, Lesson1,Lesson1],
+        lessons: [{ ...Lesson1, num: 0 }, { ...Lesson1, num: 1 }, { ...Lesson1, num: 2 }],
         userVotes: [],
         votes: [],
         lenguaje: "JavaScript"

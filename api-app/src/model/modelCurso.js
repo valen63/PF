@@ -30,14 +30,6 @@ const courseSchema = new Schema(
           ref: 'Lesson',
           autopopulate: true
         },
-        isComplete: {
-          type: Boolean,
-          default: false
-        },
-        isLocked: {
-          type: Boolean,
-          default: true
-        }
       }
     ],
     userVotes: [

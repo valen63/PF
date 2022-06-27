@@ -1,6 +1,10 @@
 const { model, Schema } = require('mongoose')
 
 const lessonSchema = new Schema({
+  num: {
+    type: Number,
+    required: true
+  },
   titulo: {
     type: String,
     required: true
@@ -9,11 +13,8 @@ const lessonSchema = new Schema({
     type: String,
     required: true
   },
-  num: {
-    type: Number,
-    required: true
-  },
-  quiz:Object,
+  video: String,
+  quiz:  Object,
 }, { timestamps: true, versionKey: false })
 
 module.exports = model('Lesson', lessonSchema)

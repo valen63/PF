@@ -57,6 +57,23 @@ const userSchema = new Schema(
         }
       }
     ],
+    lessons: [
+      {
+        lesson: {
+          type: Schema.ObjectId,
+          ref: 'Lesson',
+          autopopulate: true
+        },
+        isComplete: {
+          type: Boolean,
+          default: false
+        },
+        isLocked: {
+          type: Boolean,
+          default: true
+        }
+      }
+    ],
     password: {
       type: String,
       required: [true, 'La contraseña es requerida'],

@@ -12,18 +12,6 @@ const YourCourse = ({ coursesAll }) => {
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
     >
       <div className={style.container}>
-        <div className={style.listDetail}>
-          <button className={style.button} onClick={() => handleClick()}>
-            {" "}
-            Cursos{" "}
-          </button>
-          <button className={style.button} onClick={() => handleClick()}>
-            {" "}
-            Favoritos{" "}
-          </button>
-          <button className={style.button}> Completados </button>
-        </div>
-
         <div className={style.containerListYourCourse}>
           <div className={style.List}>
             <span className={style.cursos}>Nombre</span>

@@ -244,7 +244,20 @@
     display: flex;
     align-self: center;
 }
-
+.botoncito{
+    display: flex;
+    flex-direction: column;
+}
+.botoncito button{
+    margin-left: 2em;
+    padding: 4px;
+    border-radius: 4px;
+    background: #ff990057;
+    font-family: 'Roboto Slab';
+    color: white;
+    mix-blend-mode: difference;
+    border: 1px solid;
+}
 @media (max-width: 900px) {
     .flexContainer2{
         flex-direction: column;

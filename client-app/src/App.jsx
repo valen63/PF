@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
 import { getCourses } from "../redux/actions";
-import { Create,CreateLesson } from "../redux/actions";
-import { Base, Lesson1 } from "../CursosBases"
+import { Create, CreateLesson } from "../redux/actions";
+import { Base } from "../CursosBases"
 
 
 // compoents
@@ -23,6 +23,7 @@ import PrivateAdminRoute from "./components/privateRoute/privateAdminRoute";
 import CourseDetailPage from "./components/courseDetailPage/course/course";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
+import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 
 // styles
 import style from "./index.modules.css";
@@ -36,7 +37,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourses());
-    Base.map(async(e)=> await Create({...e,lessons:[]}, e.lessons)() ) //EJECUTAR SOLO LA PRIMERA VEZ QUE LO USAS para generar los modelos de curso en la base de datos (procura limpiar la base de datos antes)
+    Base.map(async (e) => await Create({ ...e, lessons: [] }, e.lessons)()) //EJECUTAR SOLO LA PRIMERA VEZ QUE LO USAS para generar los modelos de curso en la base de datos (procura limpiar la base de datos antes)
   });
 
   const AppLayout = () => (
@@ -46,15 +47,19 @@ function App() {
       <Outlet />
     </>
   );
-  
+
   return (
     <div className={style.AppBody}>
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
+        <Route element={<PrivateRoute isLogged={isLogged} />}>
+        <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
+        <Route path="/pay" element={<PaymentGateway />} />
+        </Route>
         <Route element={<AppLayout />}>
-          <Route path="/home" element={<Home theme={theme} />} />
+          <Route path="/home" element={<Home theme={theme} user={user} />} />
           <Route path="/courses" element={<Courses theme={theme} />}></Route>
           <Route
             path="/course/:id"
@@ -65,10 +70,6 @@ function App() {
             <Route element={<AppLayout />}>
               <Route path="/favoritos" element={<Courses theme={theme} detail={user.courses} />}></Route>
             </Route>
-            <Route
-              path="/course/:idCourse/:idLesson"
-              element={<LessonPage />}
-            />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

@@ -137,6 +137,7 @@ const reset = async (req, res) => {
   try{
     await Curso.deleteMany() ;
     await Lesson.deleteMany();
+    await User.deleteMany();
     res.json({info:"Borrado todo"});
   }
   catch(err){

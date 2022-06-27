@@ -118,7 +118,7 @@ export const addVotes = function (id, info) {
         },
       };
       const data = await axios.put(`/api/cursosprivate/${id}/votes`, info, config);
-      dispatch({ type: "GET_DETAIL",payload: data.curso})
+      dispatch({ type: "GET_DETAIL", payload: data.curso })
     } catch (err) {
       new Error(err);
     }
@@ -262,6 +262,42 @@ export const bookmarkCourse = (idUser, idCurso) => {
   };
 };
 
+
+export const Añadir = (idUser, idCurso) => {
+  return async function (dispatch) {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const resp = await axios.put( `/api/cursosprivate/add`,{ idUser, idCurso },config );
+      if(resp.data.success){dispatch(updateUser(resp.data.user));}
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const Aprobar  = (idUser, idLesson, num, id) => {
+  return async function (dispatch) {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const resp = await axios.put( `/api/cursosprivate/complete`,{ idLesson, num, idUser },config );
+      if(resp.data.success){dispatch(updateUser(resp.data.user));}
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const unmarkfavorites = (idUser, idCurso) => {
   return async function (dispatch) {
     try {
@@ -293,8 +329,8 @@ export const getLesson = (idLesson) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       };
-      const metaData = await axios.get(`/api/cursosprivate/${idLesson}/lessons`,config);
-      dispatch({type: "GET_LESSON",payload: metaData.data.lesson2[0]});
+      const metaData = await axios.get(`/api/cursosprivate/${idLesson}/lessons`, config);
+      dispatch({ type: "GET_LESSON", payload: metaData.data.lesson2[0] });
     } catch (err) {
       return err;
     }
@@ -460,7 +496,7 @@ export const BanearDef = (userId, estado) => {
 export const Create = (data, lessons) => {
   return async function () {
     try {
-      await axios.post(`/api/cursosprivate/first/`, {body:data, lessons});
+      await axios.post(`/api/cursosprivate/first/`, { body: data, lessons });
     } catch (err) {
       console.log(err)
     }

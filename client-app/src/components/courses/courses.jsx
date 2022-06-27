@@ -26,24 +26,26 @@ function Courses({detail}) {
 
   const dispatch = useDispatch();
 
-  const allCourses = useSelector((store) => store.courses);
-  const tema = useSelector((store) => store.theme);
-  const showedCourses = useSelector((store) => store.showedCourses);
-  const direction = useSelector((store) => store.arrowUpDown);
+  const {user, courses, tema, showedCourses, direction} = useSelector((store) => store);
 
   //forcing the re-render of the component
   const [refresh, setRefresh] = useState(true);
   const [activeArrow, setActiveArrow] = useState(false);
 
   const sorted = (event) => {
-    const sortedArray = sortByRating(event, showedCourses, allCourses);
+    const sortedArray = sortByRating(event, showedCourses, courses);
     dispatch(setShowedCourses(sortedArray));
     refresh ? setRefresh(false) : setRefresh(true);
   };
 
+  const filtered2 = (dato) => {
+    var filterArray = user.courses.filter(e=> e.isFavorite==true)
+    if (dato === "favorito" && filterArray.length) {filterArray.map(e=>e.course); dispatch(setShowedCourses(filterArray)); }
+    else { dispatch(setShowedCourses(courses)); }
+  };
   const filtered = (dato) => {
-    const filterArray = allCourses.filter(e => e.lenguaje.toLowerCase() === dato.target.value);
-    if (dato.target.value === "all") { dispatch(setShowedCourses(allCourses)); }
+    const filterArray = courses.filter(e => e.lenguaje.toLowerCase() === dato.target.value);
+    if (dato.target.value === "all") { dispatch(setShowedCourses(courses)); }
     else { dispatch(setShowedCourses(filterArray)); }
   };
 
@@ -115,10 +117,10 @@ function Courses({detail}) {
               <input type="radio" value="html" name="languages"></input>
 
             </div>
-            <p className={activeArrow ? style.pActive : style.p}>Progreso</p>
+            <p className={activeArrow ? style.pActive : style.p}>Favoritos</p>
             <div
               className={activeArrow ? style.select2Active : style.select2}
-              onChange={() => filtered()}
+              onChange={(e) => filtered2(e.target.value)}
             >
               <label>Todos</label>
               <input
@@ -127,8 +129,8 @@ function Courses({detail}) {
                 name="progreso"
                 defaultChecked
               ></input>
-              <label>En Progreso</label>
-              <input type="radio" value="En progreso" name="progreso"></input>
+              <label>Favoritos</label>
+              <input type="radio" value="favorito" name="progreso" disabled={user.courses? false:true}></input>
             </div>
             <div className={style.icon} onClick={arrowDir}>
               <ArrowsUpDown />
