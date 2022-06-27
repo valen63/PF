@@ -15,6 +15,10 @@ const lessonSchema = new Schema({
   },
   video: String,
   quiz:  Object,
+  last: {
+          type: Boolean,
+          default: false
+        },
 }, { timestamps: true, versionKey: false })
 
 module.exports = model('Lesson', lessonSchema)

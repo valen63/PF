@@ -1,12 +1,9 @@
-//npm i react-stripe-checkout e import
-// nota el numero de tarjeta para pruebas es 4242424242424242 puros 42 la cantidad de 8 pares de digitos,
-const stripeKey = 'pk_test_51LDY5GIVPvJhAX4qtHGolwRm87FZ0m5e8PoMSMvWDmu5MdYT68Xq6VuVnZM1ry4PzdXu66pk5PfFL8j775zGhpqh00j64vGFxg' //esta es la key publica que genere en la plataforma de stripe
 
-// import "./styles.css"
+import "./styles.css"
 import StripeCheckout from 'react-stripe-checkout';
 import { useState, useEffect } from 'react';
 
-export default function PaymentGateway() {
+export default function CreditCard() {
 
 
     const [tokenStripe, setTokenStripe] = useState();
@@ -31,7 +28,7 @@ export default function PaymentGateway() {
 
     return (
         <div>
-            {/* <div class="credit-card-wrap">
+             <div class="credit-card-wrap">
                 <div class="mk-icon-world-map"></div>
                 <div class="credit-card-inner">
                     <header class="header">
@@ -51,23 +48,7 @@ export default function PaymentGateway() {
                         </div>
                     </footer>
                 </div>
-            </div> */}
+            </div> 
         </div>
     )
 }
-
-
-/*
-    card {informacion de la card}
-            client_ip: 0.0.0.0
-            created: 161616161
-            email: email@email.com
-            id: este es el token!!!!
-            livemode: false
-            object: "token",
-            type: "card"
-            used: false
-            */
-
-    //despues cuando procesa llega un objeto con mucha instanceOf, alli si me lo regresas para entonces hacer lo del premium, q estoy en eso.. */}
-

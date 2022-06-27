@@ -330,6 +330,7 @@ export const getLesson = (idLesson) => {
         },
       };
       const metaData = await axios.get(`/api/cursosprivate/${idLesson}/lessons`, config);
+      console.log(metaData)
       dispatch({ type: "GET_LESSON", payload: metaData.data.lesson2[0] });
     } catch (err) {
       return err;
@@ -368,10 +369,12 @@ export const auhtGoogle = (tokenId) => {
       dispatch(setValidateUser({ ...metaData.data.user, Last_Seen: new Date().toDateString().slice(4, 24) }));
       return metaData.data;
     } catch (err) {
+      console.log(err)
       return err.response.data;
     }
   };
 };
+
 
 export const getUserRank = (userId) => {
   return async function () {

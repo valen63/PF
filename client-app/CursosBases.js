@@ -27,7 +27,7 @@ export const Lesson1 = {
                 { "textoRespuesta": "sin relleno", "isCorrect": true },
                 { "textoRespuesta": "sin gracia :v", "isCorrect": false },
                 { "textoRespuesta": "sin código", "isCorrect": false }
-            ]
+            ],
         }
     ],
 }
@@ -48,7 +48,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
         userInscript: 0,
-        lessons: [{ ...Lesson1, num: 0 }, { ...Lesson1, num: 1 }, { ...Lesson1, num: 2 }],
+        lessons: [{ ...Lesson1, num: 0 }, { ...Lesson1, num: 1 }, { ...Lesson1, num: 2, last:true }],
         userVotes: [],
         votes: [],
         lenguaje: "JavaScript"

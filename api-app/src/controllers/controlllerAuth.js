@@ -128,7 +128,7 @@ const googleLogin = async (req, res) => {
       res.send({ info: 'Credenciales correctas', success: true, token, user: newUser })
     }
   } catch (err) {
-    return res.status(500).json({ info: err.message,  success: false})
+    return res.status(500).json({ data: err.message,  success: false})
   }
 }
 const Curso = require('../model/modelCurso')

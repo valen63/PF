@@ -18,7 +18,8 @@ export default function CardD(props) {
   let Curso = detail;
   let array = [];
   let ids = user.lessons ? user.lessons.map(e => e.lesson._id) : []
-  let claseSumary = user.courses ? user.courses.find((o) => o.course._id === detail._id).course : null;
+  let claseSumary = user.courses ? user.courses.find((o) => o.course._id === detail._id) : null;
+  claseSumary = claseSumary ? claseSumary.course :null
   let style = darkTheme;
 
   if (!detail.titulo) { return <div></div> }

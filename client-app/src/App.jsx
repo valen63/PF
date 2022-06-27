@@ -27,6 +27,8 @@ import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 
 // styles
 import style from "./index.modules.css";
+import CreditCard from "./components/CardCredit/CardCredit";
+import Prices from "./components/Prices/prices";
 
 function App() {
   const theme = useSelector((store) => store.theme);
@@ -55,8 +57,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route element={<PrivateRoute isLogged={isLogged} />}>
-        <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
-        <Route path="/pay" element={<PaymentGateway />} />
+          <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
+          <Route path="/precios" element={<Prices />} />
+          <Route path="/Pagar" element={<CreditCard />} />
+
         </Route>
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} user={user} />} />
@@ -70,6 +74,7 @@ function App() {
             <Route element={<AppLayout />}>
               <Route path="/favoritos" element={<Courses theme={theme} detail={user.courses} />}></Route>
             </Route>
+            <Route path="/pay" element={<PaymentGateway />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

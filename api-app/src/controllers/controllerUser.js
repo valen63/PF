@@ -93,17 +93,9 @@ const overallPosition = async (req, res) => {
     const allUsers = await User.find();
     const sorted = allUsers.sort((a, b) => {
       return (
-        a.courses.map((c) => {
-          // cursos
-          return c.course ? c.course.lessons.filter((l) => l.isCompleted === true):0; // lecciones completas
-        }).length +
-        34 -
-        (b.courses.map((c) => {
-          return c.course ?c.course.lessons.filter((l) => l.isCompleted === true):0;
-        }).length +
-          34)
+        a.lessons.filter((c) => c && c.isComplete === true).length >(b.lessons.filter((c) => c && c.isComplete === true).length) ? -1:1
       );
-    }); // ordenado
+    });
 
     const response = sorted.findIndex((u) => u.id === id); // Posicion dentro del arreglo
     res.send({ info: "Proceso completado con exito", response, success: true }); // :D
@@ -114,21 +106,14 @@ const overallPosition = async (req, res) => {
 
 const topTen = async (req, res) => {
   try {
-    const allUsers = await User.find();
-    const sorted = allUsers.slice(0, 5).sort((a, b) => {
+    const allUsers = await User.find(); 
+    const sorted = allUsers.sort((a, b) => {
+      // a.lesson.num > b.lesson.num ? 1 : -1
       return (
-        a.courses.map((c) => {
-          // cursos
-          return c.course ? c.course.lessons.filter((l) => l.isCompleted === true):0; // lecciones completas
-        }).length +
-        34 -
-        (b.courses.map((c) => {
-          return c.course ?c.course.lessons.filter((l) => l.isCompleted === true):0;
-        }).length +
-          34)
+        a.lessons.filter((c) => c && c.isComplete === true).length >(b.lessons.filter((c) => c && c.isComplete === true).length) ? -1:1
       );
     });
-    res.send({ info: "Proceso completado con exito", sorted, success: true }); // :D
+    res.send({ info: "Proceso completado con exito", sorted: sorted.splice(0,5), success: true }); // :D
   } catch (err) {
     console.log(err)
     res.status(500).send({ info: "Algo salio mal", success: false ,err});

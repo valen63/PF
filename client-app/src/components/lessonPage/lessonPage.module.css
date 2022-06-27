@@ -1,11 +1,27 @@
-
 .infoContainer {
   min-height: 100vh;
+    display: flex;
+    padding: 40px;
+    background-color: rgb(181, 181, 181);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.volver{
   display: flex;
-  padding: 40px;
-  background-color: rgb(181, 181, 181);
-  justify-content: center;
-  align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    padding: 10px 20px;
+    margin: 10px 0px;
+    background: #3a3a3a;
+    border-radius: 4px;
+}
+.volver a{
+  mix-blend-mode: difference;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: larger;
 }
 
 .form {
@@ -28,14 +44,15 @@
   font-family: 'Roboto Slab';
 }
 
-.description{
+.description {
   margin: 10px 12px;
   font-size: small;
   color: white;
   mix-blend-mode: difference;
   font-family: 'Roboto Slab';
 }
-.pregunta{
+
+.pregunta {
   margin: 10px 20px;
   display: flex;
   flex-direction: column;
@@ -43,35 +60,40 @@
   background: #ffffffb8;
   border-radius: 10px;
 }
-.pregunta h3{
+
+.pregunta h3 {
   font-size: small;
 }
-.separar{
+
+.separar {
   width: 100%;
 }
-.opciones{
+
+.opciones {
   display: flex;
   justify-content: space-between;
   width: 80%;
   margin: 7px 0px;
 }
-.input{
+
+.input {
   display: flex;
-    min-height: 25px;
-    align-items: center;
+  min-height: 25px;
+  align-items: center;
 }
+
 .input input[type="radio"] {
   -webkit-appearance: none;
-    appearance: none;
-    background-color: var(--form-background);
-    margin: 0px 10px;
-    font: inherit;
-    color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    border-radius: 0.5em;
-    transform: translateY(0);
-    border: 1px solid currentColor;
+  appearance: none;
+  background-color: var(--form-background);
+  margin: 0px 10px;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 0.5em;
+  transform: translateY(0);
+  border: 1px solid currentColor;
 }
 
 .input input[type="radio"]::before {
@@ -94,11 +116,13 @@
   top: 20%;
   left: 20%;
 }
+
 .input input[type="radio"]:focus {
   outline: max(1px, 1px) solid gray;
   outline-offset: max(2px, 0.15em);
 }
-.Revisar{
+
+.Revisar {
   background-color: #790e19ba;
   color: #eee7e7;
   border-radius: 5px;
@@ -108,11 +132,14 @@
   bottom: 20px;
   right: 20px;
 }
-.video{
+
+.video {
   margin: 0 100px;
   text-align: -webkit-center;
 }
-.label, .label1{
+
+.label,
+.label1 {
   max-width: 700px;
   align-self: center;
   background: #8aff8a91;
@@ -122,16 +149,32 @@
   padding: 4px 5px;
   font-size: small;
 }
-.label1{
+
+.label1 {
   background: #ff8a8a91;
 }
-.send{
+
+.send,
+.sendN {
   mix-blend-mode: difference;
-    margin: 0 40px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    color: black;
-    padding: 2px;
+  margin: 40px 40px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  color: black;
+  padding: 2px;
+}
+
+.sendN {
+  margin: 0 40px;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+.sendb{
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
 }
 
 * {
@@ -152,7 +195,7 @@
 
 
 /* PREGUNTAS */
-.lado{
+.lado {
   width: 100%;
   position: relative;
   display: flex;
