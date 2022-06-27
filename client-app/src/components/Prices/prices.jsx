@@ -2,7 +2,7 @@
 import "./prices.css"
 export default function Prices() {
 
-    return (<div class="Contenedorprecios">
+    return (<div class="body"><div class="Contenedorprecios">
         <div class="card">
 
             <div class="imgBox">
@@ -45,5 +45,5 @@ export default function Prices() {
 
         </div>
     </div>
-    )
+    </div>)
 }
