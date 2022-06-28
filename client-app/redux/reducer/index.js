@@ -34,9 +34,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
     //Para obtener la lista completa de mi api y almacenarla en el estado
     case SET_VALIDATEUSER:
       var filtar = payload.courses
-      if(payload.courses.length){ filtar = payload.courses.filter(e=> e.course)}
+      if(filtar.length){ filtar = payload.courses.filter(e=> e.course)}
       var filtrar2 = payload.lessons
-      if(payload.lessons.length){filtrar2 = payload.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1) }
+      if(filtrar2.length){filtrar2 = payload.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1) }
       return {
         ...state,
         user: {...payload, courses: filtar, lessons: filtrar2},
@@ -50,10 +50,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case SET_UPDATEUSER:
       var filtar = payload.courses
-      if(payload.courses.length){ filtar = payload.courses.filter(e=> e.course)}
+      if(filtar.length){ filtar = payload.courses.filter(e=> e.course)}
+      var filtrar2 = payload.lessons
+      if(filtrar2.length){filtrar2 = payload.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1) }
       return {
         ...state,
-        user: {...payload, courses: filtar},
+        user: {...payload, courses: filtar, lessons: filtrar2},
       };
     case SET_COURSES:
       return {

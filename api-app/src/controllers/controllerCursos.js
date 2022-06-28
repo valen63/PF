@@ -46,7 +46,7 @@ const getCursoName = async (req, res, next) => {
 };
 
 const createCurso = async (req, res, next) => {
-  const {body, lessons} = req.body;
+  const { body, lessons } = req.body;
   try {
     const curso = await Course.find({ titulo: body.titulo });
     if (curso.length) {
@@ -125,7 +125,7 @@ const add = async (req, res, next) => {
     let filter = usuario.courses.filter(e => e.course !== null)
     let find = filter.find(e => e.course._id.toString() === idCurso);
     if (find) {
-      res.send({ info: "Curso ya existente",user: usuario, success: false }).end();
+      res.send({ info: "Curso ya existente", user: usuario, success: false }).end();
     }
     if (!find) {
       const user = await User.findByIdAndUpdate(
@@ -190,6 +190,30 @@ const addVotes = async (req, res, next) => {
   }
 };
 
+const isCompletedCourse = async (req, res) => {
+  const { idUser, idCurso } = req.body
+  try {
+    const usuario = await User.findById({ _id: idUser });
+    let filter = usuario.courses.filter(e => e.course !== null)
+    let correccion = filter.map((e) => {
+      if (e.course._id.toString() === idCurso) {
+        e.completed = true;
+        return e
+      }
+      return e
+    })
+    var user = await User.findByIdAndUpdate(
+      { _id: idUser },
+      { courses: correccion },
+      { new: true }
+    );
+    res.send({ info: "Lesson modificado exitosamente", user, success: true }).end();
+
+  } catch (err) {
+    console.log(err)
+    next(new ErrorResponse("Error al añadir el complete", 500, false));
+  }
+}
 module.exports = {
   getCursos,
   getCursoById,
@@ -199,4 +223,5 @@ module.exports = {
   removeFavorite,
   addVotes,
   add,
+  isCompletedCourse
 };

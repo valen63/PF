@@ -15,7 +15,7 @@ import { ThemeProvider } from "styled-components";
 
 const Perfil = (props) => {
   var style = darkTheme;
-  let fecha = new Date; fecha = fecha.toDateString().slice(4,24);
+  let fecha = new Date; fecha = fecha.toDateString().slice(4, 24);
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
 
@@ -27,9 +27,9 @@ const Perfil = (props) => {
   };
   const coursesAll = user.courses.map((course) => {
 
-    let completados = user.lessons.filter(e=> e.isComplete).map(e=> e.lesson._id);
-    let lessons = course.course.lessons.map(e=> e.lesson._id);
-    lessons=completados.filter(e=> lessons.find(el=> el===e))
+    let completados = user.lessons.filter(e => e.isComplete).map(e => e.lesson._id);
+    let lessons = course.course.lessons.map(e => e.lesson._id);
+    lessons = completados.filter(e => lessons.find(el => el === e))
     return (
       <div className={style.cartYourCourse} key={course.id}>
         <label className={style.cursos}> {course.course.titulo} </label>
@@ -95,7 +95,10 @@ const Perfil = (props) => {
                   <div>
                     <label> Ultima Conexion : </label>
                     <span> {fecha} </span>
+
                   </div>
+                  <div><label> Cursos Completados : </label>
+                    <span> {user.courses.filter(e => e.completed === true).length} </span></div>
                 </div>
               </div>
             </div>

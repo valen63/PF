@@ -8,8 +8,7 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    background: rgb(255, 29, 56);
-    background: linear-gradient(9deg, rgba(255, 29, 56, 1) 0%, rgba(255, 102, 108, 1) 65%);
+    background: linear-gradient(to right, #34e89e, #0f3443);
 
 }
 
@@ -24,6 +23,7 @@
     width: 400px;
     -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.54);
     box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.54);
+    padding-bottom: 30px;
 }
 
 .logo {
@@ -35,14 +35,28 @@
 
 .logo img {
     margin-top: 5px;
-    width: 8em;
-    height: 8em;
+    width: 4em;
+    height: 4em;
+
 }
 
 .home {
     display: flex;
     width: 100%;
-    justify-content: center;
+    padding: 5px 15px 0;
+    justify-content: flex-start;
+}
+.home a, .send{
+    text-decoration: none;
+    font-family: 'Anek Latin';
+    border-radius: 15px ;
+    background: #626262;
+    color: #d1d1d1;
+    padding: 5px 10px;
+}
+.send{
+    padding: 8px 20px;
+    border: none;
 }
 
 .form {
@@ -60,7 +74,8 @@
     margin: 0em 0px 0px 0px;
     color: #383838;
     font-family: 'Kdam Thmor Pro', sans-serif;
-    font-size: xxx-large;
+    font-size: xx-large;
+    text-align: center;
 }
 
 .label1 {
@@ -68,6 +83,8 @@
     position: relative;
     font-style: italic;
     font-size: small;
+    padding: 0 10px;
+    text-align: center;
 }
 
 .divs,
@@ -113,10 +130,9 @@
 .btns {
     display: flex;
     align-items: center;
-    flex-direction: column;
 }
 
-.send,
+
 .send2 {
     width: 100px;
     height: 30px;
@@ -142,86 +158,20 @@
     cursor: pointer;
     transition: color 0.3s;
 }
-
-.eye {
-    height: 20px;
-    width: 24px;
-    padding: 0px 3px;
-}
-
-.beye {
-    border: none;
-    border-radius: 10px;
-}
-
-.errors {
-    width: 90%;
-    margin-top: 1em;
-    margin-bottom: -1em;
-    text-align: center;
-    font-size: small;
-    color: rgb(193, 0, 0);
-    font-style: italic;
-}
-
-.errors::before+.divs {
-    margin-top: 5em;
-}
-
-.good {
-    background-color: #20cd008a;
+.errors,.good, .error{
     width: 90%;
     text-align: center;
-    color: white;
-    font-style: italic;
+    background-color: #91ffdae0;
+    font-size: smaller;
+    font-family: cursive;
+    border-radius: 100px;
+    padding: 10px;
 }
-
-.policy {
-    margin-top: 2em;
-    width: 30em;
-    text-align: center;
-    justify-self: center;
+.errors{
+    background-color: #ff9191e0;
 }
-
-.policy h1 {
-    font-size: 1em;
-    font-weight: 300;
-}
-
-.policy a {
-    text-decoration: none;
-}
-
-.signIn {
-    display: inline-flex;
-    width: 100%;
-    margin-top: 1em;
-    margin-bottom: 1em;
-
-}
-
-.signIn h1 {
-    font-size: 1em;
-    font-weight: 400;
-    margin-left: 32%;
-}
-
-.signIn a {
-    margin-left: 1em;
-}
-
-
-.signInGoogle {
-    width: 100%;
-    text-align: center;
-}
-
-.signInGoogle h1 {
-    font-size: 1em;
-    font-weight: 400;
-}
-
-.signInGoogle svg {
-    width: 2.5em;
-    height: 2.5em;
+.error{
+    padding: 2px;
+    background-color: #ff9191e0;
+    font-weight: bold;
 }

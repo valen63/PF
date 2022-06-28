@@ -39,10 +39,21 @@ function Courses({detail}) {
   };
 
   const filtered2 = (dato) => {
-    var filterArray = user.courses.filter(e=> e.isFavorite==true)
-    if (dato === "favorito" && filterArray.length) {filterArray.map(e=>e.course); dispatch(setShowedCourses(filterArray)); }
+    var filterArray = user.courses.filter(e=> e.isFavorite===true)
+    var filterArray2= user.courses.filter(e=> e.completed===true)
+    if (dato === "favorito" && filterArray.length) {
+      filterArray= filterArray.map(e=>e.course); 
+      dispatch(setShowedCourses(filterArray)); 
+      return
+    }
+    if (dato === "completo" && filterArray2.length) {
+      filterArray2= filterArray2.map(e=>e.course); 
+      dispatch(setShowedCourses(filterArray2)); 
+      return
+    }
     else { dispatch(setShowedCourses(courses)); }
   };
+
   const filtered = (dato) => {
     const filterArray = courses.filter(e => e.lenguaje.toLowerCase() === dato.target.value);
     if (dato.target.value === "all") { dispatch(setShowedCourses(courses)); }
@@ -131,7 +142,10 @@ function Courses({detail}) {
               ></input>
               <label>Favoritos</label>
               <input type="radio" value="favorito" name="progreso" disabled={user.courses? false:true}></input>
+              <label>Completos</label>
+              <input type="radio" value="completo" name="progreso" disabled={user.courses? false:true}></input>
             </div>
+            
             <div className={style.icon} onClick={arrowDir}>
               <ArrowsUpDown />
             </div>

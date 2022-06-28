@@ -37,6 +37,8 @@
   flex-grow: 4;
   margin: 0;
   font-size: 30px;
+  font-family: 'Roboto Slab';
+
 }
 
 .pop_up > h4 {
@@ -99,4 +101,11 @@
 }
 .label2{
   background: #2be32863;
+}
+.send{
+  padding: 2px 20px;
+    color: #474747;
+    background: transparent;
+    border: 1px solid;
+    border-radius: 3px;
 }

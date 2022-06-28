@@ -273,12 +273,32 @@ export const Añadir = (idUser, idCurso) => {
         },
       };
       const resp = await axios.put( `/api/cursosprivate/add`,{ idUser, idCurso },config );
-      if(resp.data.success){dispatch(updateUser(resp.data.user));}
+      if(resp.data.success){console.log(resp.data.user);dispatch(updateUser(resp.data.user));}
     } catch (err) {
       console.log(err);
     }
   };
 };
+export const ResetearContraseña = (token, password) => {
+  return async function () {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const resp = await axios.put( `/api/auth/resetPassword/${token}`,{ password },config );
+      if(resp.data.success){ return ({info:"Genial!!, ya se actualizo tu contraseña, ve al login y ingres con tus nuevos datos",success:true})}
+    } catch (err) {
+      if(err.request.status == 400){
+        return ({info:"El token para reestablecer contraseña es invalido"})
+      }
+      console.log(err)
+    }
+  };
+};
+
 
 export const Aprobar  = (idUser, idLesson, num, id) => {
   return async function (dispatch) {
@@ -290,6 +310,24 @@ export const Aprobar  = (idUser, idLesson, num, id) => {
         },
       };
       const resp = await axios.put( `/api/cursosprivate/complete`,{ idLesson, num, idUser },config );
+      if(resp.data.success){dispatch(updateUser(resp.data.user));}
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const AprobarCurso  = (idUser, idCurso) => {
+  return async function (dispatch) {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const resp = await axios.put( `/api/cursosprivate/completeCourse`,{ idCurso, idUser },config );
       if(resp.data.success){dispatch(updateUser(resp.data.user));}
 
     } catch (err) {
@@ -330,7 +368,6 @@ export const getLesson = (idLesson) => {
         },
       };
       const metaData = await axios.get(`/api/cursosprivate/${idLesson}/lessons`, config);
-      console.log(metaData)
       dispatch({ type: "GET_LESSON", payload: metaData.data.lesson2[0] });
     } catch (err) {
       return err;

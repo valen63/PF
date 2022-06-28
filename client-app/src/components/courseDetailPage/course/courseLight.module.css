@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 2em;
-    margin-top: 1em;
+    margin-top: 1.5em;
 }
 
 .imagen {
@@ -248,7 +248,7 @@
     display: flex;
     flex-direction: column;
 }
-.botoncito button{
+.botoncito button, .botoncito a{
     margin-left: 2em;
     padding: 4px;
     border-radius: 4px;
@@ -257,6 +257,11 @@
     color: white;
     mix-blend-mode: difference;
     border: 1px solid;
+    cursor: pointer;
+}
+.botoncito a{
+    text-decoration: none;
+    text-align: center;
 }
 @media (max-width: 900px) {
     .flexContainer2{

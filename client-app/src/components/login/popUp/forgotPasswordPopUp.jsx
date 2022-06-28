@@ -52,8 +52,10 @@ const ForgotPopUp = ({ popUpFunction }) => {
           ...input,
           success: response.info,
         });
+        setUpdateError({})
       } else {
         setUpdateError({ err: response.data });
+        setInput({...input, success: null})
       }
     }
   };
@@ -87,7 +89,7 @@ const ForgotPopUp = ({ popUpFunction }) => {
               <label className={style.error}>{error.email}</label>
             )}
           </div>
-          <input type="submit" value="Listo"></input>
+          <input type="submit" value="Listo" className={style.send}></input>
           {input.success && (
             <label className={style.label2}>{input.success}</label>
           )}

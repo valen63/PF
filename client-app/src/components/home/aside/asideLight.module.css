@@ -3,7 +3,7 @@
   background-color: rgb(226, 31, 50);
   position: fixed;
   height: 100%;
-  width: 8em;
+  width: 7em;
   z-index: 10;
   margin-left: 0;
   -webkit-transition: width 1.6s;
@@ -12,9 +12,15 @@
   box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
 -webkit-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
+padding-top: 30px;
 }
 .navbar:hover{
-  width:14em;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  justify-content: flex-start;
+  padding-top: 30px;
+  width: 14em;
 }
 
 .logo{

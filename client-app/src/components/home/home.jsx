@@ -20,7 +20,7 @@ function Recomendaciones(name, hr, etiqueta, style, key) {
   if (etiqueta.toLowerCase() === "javascript") { etiquet = <label className="js">{etiqueta.toUpperCase()}</label> }
   if (etiqueta.toLowerCase() === "html") { etiquet = <label className="html">{etiqueta.toUpperCase()}</label> }
   else { etiquet === null }
-  return (<div key={key} className={style.recos}><h2>{name.toUpperCase()}</h2>{etiquet}<a href={hr}>Go Now!</a></div>)
+  return (<div key={key} className={style.recos}><h2>{name.toUpperCase()}</h2>{etiquet}<a target="_blank" rel="noopener noreferrer" href={hr}>Go Now!</a></div>)
 }
 
 function Home(props) {

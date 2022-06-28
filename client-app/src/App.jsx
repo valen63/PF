@@ -29,6 +29,8 @@ import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 import style from "./index.modules.css";
 import CreditCard from "./components/CardCredit/CardCredit";
 import Prices from "./components/Prices/prices";
+import ChangePassw from "./components/ChangePassword/Change";
+import NotFound from "./NotFound/NotFound";
 
 function App() {
   const theme = useSelector((store) => store.theme);
@@ -56,10 +58,11 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/passwordreset/:token" element={<ChangePassw />} />
         <Route element={<PrivateRoute isLogged={isLogged} />}>
           <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
           <Route path="/precios" element={<Prices />} />
-          <Route path="/Pagar" element={<CreditCard />} />
+          <Route path="/Pagar/:type" element={<CreditCard />} />
 
         </Route>
         <Route element={<AppLayout />}>
@@ -80,6 +83,9 @@ function App() {
             <Route path="/users" element={<UsersPage />} />
           </Route>
         </Route>
+        <Route path="/:other" element={<NotFound btn={true}/>} />
+        <Route path="/:other/:otro" element={<NotFound btn={true}/>} />
+        <Route path="/:other/:otro/:otracos" element={<NotFound btn={true}/>} />
       </Routes>
     </div>
   );

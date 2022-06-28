@@ -67,9 +67,9 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
   if (answersShown)
     return (
       <main className={style.quiz}>
-        <div className={style.lado}>
+        <div className={style.ladocomplete}>
           <div className={style.numero}>
-            <span> Pregunta {preguntaActual + 1} de</span> {questions.length}
+            <span> Pregunta {preguntaActual + 1} de {questions.length}</span>
           </div>
           <div className={style.titulo}>
             {questions[preguntaActual].titulo}
@@ -107,7 +107,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
     <main className={style.quiz}>
       <div className={style.lado}>
         <div className={style.numero}>
-          <span> Pregunta {preguntaActual + 1} de</span> {questions.length}
+          <span> Pregunta {preguntaActual + 1} de {questions.length}</span>
         </div>
         <div className={style.titulo}>
           {questions[preguntaActual].titulo}
@@ -119,7 +119,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
             </span>
           ) : (
             <button
-              className={style.button}
+              className={style.botoncont}
               onClick={() => {
                 setTiempoRestante(10);
                 setAreDisabled(false);

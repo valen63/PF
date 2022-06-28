@@ -7,8 +7,8 @@
 
 
 .body {
-  background: rgb(255, 29, 56);
-  background: linear-gradient(9deg, rgba(255, 29, 56, 1) 0%, rgba(255, 102, 108, 1) 65%);
+  background: linear-gradient(to right, #ec008c, #fc6767);
+  
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -33,6 +33,7 @@
   display: flex;
   background-color: rgb(212, 212, 212);
   border-radius: .5em 0px 0px .5em;
+  box-shadow: -4px 5px 15px 5px rgb(0 0 0 / 41%)
 }
 
 .childContainer {
@@ -75,6 +76,7 @@
 
 .forgot {
   width: 100%;
+  font-family: 'Anek Latin';
   text-align: center;
   justify-content: center;
   color: rgb(95, 95, 95);
@@ -92,6 +94,8 @@
 .childContainer:last-child {
   gap: 2em;
   color: #fff;
+  font-family: 'Roboto Slab';
+
 }
 
 .childContainer:last-child>h1 {
@@ -101,6 +105,8 @@
   text-align: start;
   text-shadow: 2px 2px 1px rgba(150, 150, 150, 1);
   text-align: center;
+  font-family: 'Roboto Slab';
+
 }
 
 .form {
@@ -123,6 +129,8 @@
   width: 100%;
   letter-spacing: 1px;
   font-weight: bolder;
+  font-family: 'Roboto Slab';
+
   text-shadow: 2px 2px 1px rgba(150, 150, 150, 1);
 }
 
@@ -131,6 +139,7 @@
   padding: 2px 6px;
   ;
   height: 2em;
+  font-family: 'Anek Latin';
   border: none;
   outline: none;
   background: none;
@@ -266,6 +275,7 @@
 .googleLabel {
   width: 100%;
   letter-spacing: 1px;
+  font-family: monospace;
   font-weight: bolder;
   text-align: center;
   color: rgb(95, 95, 95);

@@ -104,7 +104,7 @@ function NavBarUser() {
           </NavLink>
         </div>
         <div className={activeArrow ? style.icon4Active : style.icon4}>
-          <a href="https://discord.gg/kwXhPtE">
+          <a href="https://discord.gg/kwXhPtE" target="_blank" rel="noopener noreferrer">
             <Discord />
           </a>
         </div>
@@ -118,6 +118,8 @@ function NavBarUser() {
             }
             data-dropdown-button
             className={activeArrow ? style.icon3Active : style.icon3}
+            onError="this.onerror=null; 
+   this.src='https://i.ebayimg.com/images/g/AFoAAOSw5e5cbgL6/s-l400.jpg';"
           />
           <h2 className={style.username}>{user.username ? user.username.split(" ")[0] : "Invitado"}</h2>
           <div

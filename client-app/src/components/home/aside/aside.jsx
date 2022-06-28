@@ -56,8 +56,8 @@ function NavBar(props) {
           </NavLink>
         </div>
         <div className={style.icon}>
-        <a href="https://discord.gg/kwXhPtED"><Discord /></a>
-          <a href="https://discord.gg/kwXhPtED" className={style.hide}>
+        <a href="https://discord.gg/kwXhPtED" target="_blank" rel="noopener noreferrer"><Discord /></a>
+          <a href="https://discord.gg/kwXhPtED" target="_blank" rel="noopener noreferrer" className={style.hide}>
             Unete a Discord!
           </a>
         </div>

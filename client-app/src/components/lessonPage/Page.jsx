@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import QuiztCart from "./quiztCart";
 import { NavLink } from "react-router-dom";
 // redux actions 
-import { Aprobar } from "../../../redux/actions";
+import { Aprobar, AprobarCurso } from "../../../redux/actions";
 // style
 import style from './lessonPage.module.css';
 
@@ -20,23 +20,19 @@ export default function Page(props) {
     setquiz(apro);
   };
   const { lesson, user, detail } = useSelector(state => state);
-  // let inicial = []
-  // if (lesson.titulo) {
-  //   inicial = lesson.quiz.respuestas.map(e => false)
-  // }
-  // let [aprob, setAprob] = useState(false);
-  // let [resp, setresp] = useState(inicial);
 
   if (!lesson.titulo) { return <></> }
   let next = lesson.num + 1
 
   function Revisar() {
-
     Aprobar(user._id, lesson._id, lesson.num, detail._id)(props.dispatch)
     props.setRefresh(true)
     setquiz(false)
     setApproved(false)
-
+  }
+  function Finalizar(){
+    Revisar();
+    AprobarCurso(user._id, detail._id)(props.dispatch);
   }
   return (
     <div className={style.infoContainer}>
@@ -56,13 +52,13 @@ export default function Page(props) {
           approved={approved}
         /> : <button className={style.send} onClick={() => handleQuiz(true)}> Hacer quiz</button>}
         {approved && !lesson.last ?
-          <NavLink  className={style.sendN} to={`/course/${detail._id}/${next}`}><button  className={style.sendb} onClick={() => Revisar()}>
+          <button  className={style.sendb} onClick={() => Revisar()}><NavLink  className={style.sendN} to={`/course/${detail._id}/${next}`}>
             Siguiente leccion
-          </button></NavLink> : null}
-        {lesson.last ?
-          <NavLink className={style.sendN} to={`/course/${detail._id}`}><button className={style.sendb}onClick={() => { }}>
+          </NavLink></button> : null}
+        {approved && lesson.last  ?
+          <button className={style.sendb}onClick={() => {Finalizar()}}><NavLink className={style.sendN} to={`/course/${detail._id}`}>
             Terminar el Curso
-          </button></NavLink> : null}
+          </NavLink></button> : null}
       </div>
     </div>
   )

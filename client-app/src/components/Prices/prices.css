@@ -11,16 +11,18 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #212121;
+  background: #3a3a3a;
 }
 
 .card {
   position: relative;
   width: 320px;
-  height: 480px;
+  height: 450px;
   background: #191919;
   border-radius: 20px;
   overflow: hidden;
+  border: #c0c0c0ba 2px solid;
+    box-shadow: 10px 10px 58px -24px rgb(192 192 192 / 50%);
 }
 
 .card::before {
@@ -29,7 +31,7 @@
   top: -50%;
   width: 100%;
   height: 100%;
-  background: #660900;
+  background: #a70f00;
   transform: skewY(345deg);
   transition: 0.5s;
 }
@@ -81,11 +83,13 @@
 }
 
 .card .contentBox h3 {
-  font-size: 18px;
-  color: white;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+    font-size: 18px;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
 }
 
 .card .contentBox .price {
@@ -95,29 +99,31 @@
   letter-spacing: 1px;
 }
 
-.card .contentBox .buy {
-  position: relative;
-  top: 100px;
-  opacity: 0;
-  padding: 10px 30px;
-  margin-top: 15px;
-  color: white;
-  text-decoration: none;
-  background: #ab1001;
-  border-radius: 30px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: 0.5s;
+.card .contentBox a {
+    position: relative;
+    top: 100px;
+    opacity: 0;
+    padding: 10px 30px;
+    margin-top: 15px;
+    background: #50cb5a;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.5s;
 }
 
-.card:hover .contentBox .buy {
-  top: 0;
-  opacity: 1;
+.card:hover .contentBox a {
+    top: 0;
+    opacity: 1;
+    background: green;
 }
 
 .mouse {
-  height: 300px;
-  width: auto;
+    max-height: 300px;
+    max-width: 250px;
 }
 .Contenedorprecios{
     display: flex;
@@ -126,6 +132,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: center;
+}
+.best{
+    border: #ffd70099 2px solid;
+    box-shadow: 10px 10px 58px -24px rgb(255 215 0);
 }
 @media (max-width: 160vh) {
     .Contenedorprecios{

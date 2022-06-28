@@ -117,12 +117,13 @@
   border: 1px solid gray;
   font-weight: 10;
   position: absolute;
-  bottom: -10px;
+  bottom: -17px;
   right: 7px;
   font-size: small;
   background: #e4e6e7;
   border-radius: 5px;
   padding: 5px;
+  right: 12px;
 }
 
 .dropdown {

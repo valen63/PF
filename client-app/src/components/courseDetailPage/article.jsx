@@ -11,6 +11,8 @@ import { ThemeProvider } from "styled-components";
 import darkTheme from "./course/courseDark.module.css";
 import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
+import NotFound from "../../NotFound/NotFound";
+import { NavLink } from "react-router-dom";
 
 export default function CardD(props) {
   const [idClase, setIdClase] = useState({ num: 0, state: "Disponible" });
@@ -22,7 +24,7 @@ export default function CardD(props) {
   claseSumary = claseSumary ? claseSumary.course :null
   let style = darkTheme;
 
-  if (!detail.titulo) { return <div></div> }
+  if (!detail.titulo) { return <NotFound /> }
   return (
     <ThemeProvider
       theme={
@@ -34,14 +36,17 @@ export default function CardD(props) {
           <div className={style.flexContainer2}>
             <div className={lightTheme.botoncito}>
               <h1 className={style.titulo}>{Curso.titulo.toUpperCase()}</h1>
-              {user.courses ? claseSumary ? null : <button onClick={() => Añadir(user._id, detail._id)(props.dispatch)}>Añadir curso +</button> : null}
+              {user.courses ? claseSumary ? null : <button onClick={() => Añadir(user._id, detail._id)(props.dispatch)}>Añadir curso +</button> : <NavLink to="/login">Añadir curso +</NavLink>}
             </div>
             <div className={style.data}>
+            <label className={style.label}>
+                Numero de clases: {Curso.lessons.length}
+              </label>
               <label className={style.label}>
                 Clasificacion: {Curso.votes.length > 0 ? (Curso.votes.reduce((a, b) => a + b, 0) / Curso.userVotes.length).toFixed(1) : 0}
               </label>
               <label className={style.label}>
-                Usuarios Inscriptos: {Curso.userInscript}
+                Numero de votos: {Curso.userVotes.length}
               </label>
               <Stars idCurso={detail._id} idUser={user._id} calificacion={detail.calificacion} />
             </div>
@@ -56,7 +61,6 @@ export default function CardD(props) {
               <div className={style.flexContainer5}>
                 <div className={style.progreso}>
                   {claseSumary.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1).map((e, i) => {
-                    console.log(e.lesson.num, i===0)
                     let complete = false
                     let lock = true
                     if (ids.find((ele, index) => ele === e.lesson._id && !user.lessons[index].isLocked)) {; lock = false }

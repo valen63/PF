@@ -37,7 +37,7 @@
 
 .form {
 
-  color: rgb(0, 0, 0);
+  color: white;
   display: flex;
   padding: 2px;
   border: 1px solid currentColor;
@@ -89,7 +89,6 @@
   color: rgb(185, 185, 185);
   display: flex;
   padding: 2px;
-  border: 1px solid black;
   border-radius: 4.5px;
   background-color: rgb(54, 54, 54, 0.823);
   margin-top: 0em;
@@ -102,7 +101,8 @@
   color: rgb(185, 185, 185);
   display: flex;
   padding: 2px;
-  border: 1px solid black;
+  border: 1px solid ;
+  align-items: center;
   border-radius: 4.5px;
   background-color: rgb(54, 54, 54, 0.823);
   margin-top: 0em;
@@ -115,10 +115,6 @@
   align-self: flex-start;
   margin-left: 1em;
   margin: 0.5em;
-}
-
-.select2 input[type="radio"] {
-  margin-top: 0.5em;
 }
 
 .select2 input[type="checkbox"] {

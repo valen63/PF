@@ -147,7 +147,9 @@ export default function Stars({ idCurso, idUser, calificacion }) {
         <button className="boton_send" onClick={() => SendVote()}>
           Send Vote
         </button>
-      ) : null}
+      ) : <button className="boton_send disab">
+      Send Vote
+    </button>}
     </div>
   );
 }

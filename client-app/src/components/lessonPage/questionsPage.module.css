@@ -3,6 +3,7 @@
   }
   
   .quiz {
+    font-family: 'Roboto Slab';
     margin: 40px;
     background-color: #252d4a;
     height: min-content;
@@ -16,23 +17,33 @@
   
   
   /* PREGUNTAS */
-  .lado{
+  .lado, .ladocomplete{
     width: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    
+  }
+  .ladocomplete{
+    width: 100%;
+    padding: 0 20px;
+
+  }
+  .ladocomplete span, .lado span{
+    font-weight: bold;
+    font-family: 'Roboto Slab';
   }
   
-  .pregunta-numero {
+  .preguntanumero {
     margin-bottom: 20px;
   }
   
-  .pregunta-numero span {
+  .preguntanumero span {
     font-size: 28px;
   }
   
-  .pregunta-titulo {
+  .preguntatitulo {
     margin-bottom: 12px;
   }
   
@@ -51,10 +62,15 @@
     font-size: 20px;
     align-items: center;
   }
+  .juegoterminado span{
+    font-weight: bold;
+    font-family: 'Roboto Slab';
+  }
   
   /* GRAL */
-  .button {
+  .button, .botoncont {
     width: 100%;
+    margin: 4px;
     font-size: 16px;
     color: #ffffff;
     background-color: #252d4a;
@@ -65,6 +81,10 @@
     align-items: center;
     border: 5px solid #234668;
     cursor: pointer;
+    justify-content: center;
+  }
+  .botoncont{
+    width: 80%;
   }
   
   .tiempo-restante {
