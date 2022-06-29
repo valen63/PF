@@ -35,7 +35,7 @@ function App() {
   const theme = useSelector((store) => store.theme);
   const isLogged = useSelector((store) => store.isLogged);
   const user = useSelector((store) => store.user);
-
+console.log( import.meta.env.VITE_API)
   const dispatch = useDispatch();
 
   useEffect(() => {
