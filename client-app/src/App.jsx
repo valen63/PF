@@ -4,8 +4,8 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
-import { getCourses } from "../redux/actions";
-import { Create, CreateLesson } from "../redux/actions";
+import { getCourses, getRanking } from "../redux/actions";
+import { Create } from "../redux/actions";
 import { Base } from "../CursosBases"
 
 
@@ -27,7 +27,6 @@ import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 
 // styles
 import style from "./index.modules.css";
-import CreditCard from "./components/CardCredit/CardCredit";
 import Prices from "./components/Prices/prices";
 import ChangePassw from "./components/ChangePassword/Change";
 import NotFound from "./NotFound/NotFound";
@@ -41,6 +40,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourses());
+    getRanking()(dispatch)
     Base.map(async (e) => await Create({ ...e, lessons: [] }, e.lessons)()) //EJECUTAR SOLO LA PRIMERA VEZ QUE LO USAS para generar los modelos de curso en la base de datos (procura limpiar la base de datos antes)
   });
 
@@ -59,11 +59,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/passwordreset/:token" element={<ChangePassw />} />
+        <Route path="/Pagar" element={<PaymentGateway />} />
         <Route element={<PrivateRoute isLogged={isLogged} />}>
           <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
           <Route path="/precios" element={<Prices />} />
-          <Route path="/Pagar/:type" element={<CreditCard />} />
-
         </Route>
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} user={user} />} />
@@ -77,7 +76,7 @@ function App() {
             <Route element={<AppLayout />}>
               <Route path="/favoritos" element={<Courses theme={theme} detail={user.courses} />}></Route>
             </Route>
-            <Route path="/pay" element={<PaymentGateway />} />
+            <Route path="/Pagar/:type" element={<PaymentGateway />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

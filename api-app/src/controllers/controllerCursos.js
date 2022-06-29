@@ -207,7 +207,7 @@ const isCompletedCourse = async (req, res) => {
       { courses: correccion },
       { new: true }
     );
-    res.send({ info: "Lesson modificado exitosamente", user, success: true }).end();
+    res.send({ info: "Curso modificado exitosamente", user, success: true }).end();
 
   } catch (err) {
     console.log(err)

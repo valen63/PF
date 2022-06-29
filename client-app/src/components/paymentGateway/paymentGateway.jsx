@@ -1,73 +1,76 @@
-//npm i react-stripe-checkout e import
-// nota el numero de tarjeta para pruebas es 4242424242424242 puros 42 la cantidad de 8 pares de digitos,
-const stripeKey = 'pk_test_51LDY5GIVPvJhAX4qtHGolwRm87FZ0m5e8PoMSMvWDmu5MdYT68Xq6VuVnZM1ry4PzdXu66pk5PfFL8j775zGhpqh00j64vGFxg' //esta es la key publica que genere en la plataforma de stripe
+import React from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Premium } from '../../../redux/actions';
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-// import "./styles.css"
-import StripeCheckout from 'react-stripe-checkout';
-import { useState, useEffect } from 'react';
+import style from "./paymentGateway.module.css"
 
-export default function PaymentGateway() {
+const stripePromise = loadStripe('pk_test_51LFUVvA8axHMWg4IbzM18cLI1cIUBXdzdQXFeuYR8wG3mnRTcazOmb4fS7lmWUYn95D7bRe4uAdDDC4DrxH2vDUK004ZMldw6F');
+let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
+const CheckoutForm = ({ user, type }) => {
 
-    const [tokenStripe, setTokenStripe] = useState();
+    let stripe = useStripe();
+    let elements = useElements();
 
-    const onToken = (token) => {
-        setTokenStripe(token)
-    }
-
-    useEffect(() => {
-        const makeReq = async () => {
-            try {
-                const response = await axios.post('http://localhost:3001/api/paysprivate', { tokenId: tokenStripe.id, amount: 500 })
-                console.log(response) // ya aca hay q ejecutar otra funcion si en esa data es success para agregar el is Premium
-
-            } catch (err) {
-                console.error(err)
+    async function handleSubmit(e) {
+        e.preventDefault()
+        const { error, paymentMethod } = await stripe.createPaymentMethod({ type: "card", card: elements.getElement(CardElement) })
+        let date = new Date().toDateString().split(" ");
+        let mes = meses.findIndex(e => e === date[1]);
+        if (!error) {
+            if (type === "AllYear") {
+                date = `${meses[0]} ${1 + parseInt(date[2])} ${date[3] + 1}`
+                const { id } = paymentMethod
+                await Premium({
+                    id,
+                    amount: 4000, //USD*100
+                    plan: "AllOneYear",
+                    date,
+                    idUser: user._id
+                })()
             }
+            if (type === "OneMount") {
+                if (mes === 11) { date = `${meses[0]} ${1 + parseInt(date[2])} ${date[3]}` }
+                else { date = `${meses[mes + 1]} ${1 + parseInt(date[2])} ${date[3]}` }
+                const { id } = paymentMethod
+                await Premium({
+                    id,
+                    amount: 1450, //USD*100
+                    plan: "AllOneMount",
+                    date,
+                    idUser: user._id
+                })()
+            }
+            if (type === "OneCourseYear") {
+                date = `${meses[0]} ${1 + parseInt(date[2])} ${date[3] + 1}`
+                const { id } = paymentMethod
+                await Premium({
+                    id,
+                    amount: 498, //USD*100
+                    plan: null,
+                    date,
+                    idUser: user._id
+                })()
+            }
+            return
         }
-
-
-    }, [tokenStripe])
-
-    return (
-        <div>
-            {/* <div class="credit-card-wrap">
-                <div class="mk-icon-world-map"></div>
-                <div class="credit-card-inner">
-                    <header class="header">
-                        <div class="credit-logo">
-                            <div class="shape"><span class="txt">PB</span></div> <span class="text">Public Bank of Nepal</span>
-                        </div>
-                    </header>
-                    <div class="mk-icon-sim"></div>
-                    <div class="credit-font credit-card-number" data-text="4716">4716 6109 5211 3010</div>
-                    <footer class="footer">
-                        <div class="clearfix">
-                            <div class="pull-left">
-                                <div class="credit-card-date"><span class="title">Expires End</span><span class="credit-font">01/018</span></div>
-                                <div class="credit-font credit-author">MOHAN KHADKA</div>
-                            </div>
-                            <div class="pull-right"><div class="mk-icon-visa"></div></div>
-                        </div>
-                    </footer>
-                </div>
-            </div> */}
-        </div>
-    )
+        else{console.log(error)}
+    }
+    return <form onSubmit={(e) => { handleSubmit(e) }}>
+        <CardElement className={style.tarjeta} />
+        <button>Pagar</button>
+    </form>
 }
 
-
-/*
-    card {informacion de la card}
-            client_ip: 0.0.0.0
-            created: 161616161
-            email: email@email.com
-            id: este es el token!!!!
-            livemode: false
-            object: "token",
-            type: "card"
-            used: false
-            */
-
-    //despues cuando procesa llega un objeto con mucha instanceOf, alli si me lo regresas para entonces hacer lo del premium, q estoy en eso.. */}
-
+export default function App() {
+    const { user } = useSelector((store) => store);
+    const { type } = useParams();
+    return (
+        <Elements stripe={stripePromise}>
+            <CheckoutForm user={user} type={type} />
+        </Elements>
+    );
+};

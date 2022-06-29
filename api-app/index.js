@@ -8,8 +8,8 @@ const errorHandler = require('./src/middleware/error.js')
 
 // config
 const app = express()
-const port = process.env.PORT || 3001
-const db = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cursos_db'
+const port = process.env.PORT 
+const db = process.env.MONGODB_URI 
 
 // middlewares
 app.use(express.json())

@@ -242,6 +242,14 @@
 /* .corazon{
     display: flex;
 } */
+.tit{
+    margin-top: 20px;
+    color: white;
+    mix-blend-mode: exclusion;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
+    text-transform: uppercase;
+}
 @media (max-width: 768px) {
     .flexContainer {
         display: -webkit-box;
@@ -282,7 +290,8 @@
 
     .container2 {
         width: 20em;
-        height: 20em;
+        min-height: 20em;
+
     }
 
     .container3 {

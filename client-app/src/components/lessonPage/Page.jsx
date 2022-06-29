@@ -51,6 +51,10 @@ export default function Page(props) {
           handleApproved={handleApproved}
           approved={approved}
         /> : <button className={style.send} onClick={() => handleQuiz(true)}> Hacer quiz</button>}
+         {approved ?
+          <label>
+            *Recuerda que deber oprimir el boton para guardar tu progreso*
+          </label> : null}
         {approved && !lesson.last ?
           <button  className={style.sendb} onClick={() => Revisar()}><NavLink  className={style.sendN} to={`/course/${detail._id}/${next}`}>
             Siguiente leccion

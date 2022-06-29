@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-import { register, auhtGoogle } from "../../../redux/actions";
+import { useState } from "react";
+import { register } from "../../../redux/actions";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
 import { useNavigate, Link, NavLink } from "react-router-dom";
-import Google from "../../icons/google";
 import { useDispatch } from "react-redux";
 
 function Register() {

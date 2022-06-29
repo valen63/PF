@@ -439,7 +439,7 @@ export const getRanking = () => {
       const metaData = await axios.get(
         "/api/users/topten"
       );
-      dispatch(setRanking(metaData.data.sorted));
+      metaData.data.sorted.length? dispatch(setRanking(metaData.data.sorted)): null;
     } catch (err) {
       console.log(err);
     }
@@ -550,6 +550,24 @@ export const CreateLesson = (idCurso, data) => {
       dispatch(setCourses(info))
     } catch (err) {
       console.log(err)
+    }
+  }
+}
+
+export const Premium =(datos)=>{
+ let {id,amount, plan, date, idUser} = datos
+  return async function(dispatch){
+    try{
+      // let config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     authorization: `Bearer ${localStorage.getItem("authToken")}`
+      //   }
+      // };
+      let info = await axios.post(`/api/pay`,{id, amount, plan, fecha: date, idUser})
+      console.log(info.data)
+    }catch (err) {
+      console.log(err.response.data)
     }
   }
 }

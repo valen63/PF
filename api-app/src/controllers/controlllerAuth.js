@@ -13,7 +13,7 @@ const registerUser = async (req, res, next) => {
     const user = await User.create(req.body)
     await user.save()
     const token = user.generateToken()
-    try { Bienvenida(username, email);res.status(201).send({ info: 'Usuario creado y correo enenviado', success: true, token, user }).end() }
+    try { Bienvenida(username, email);res.status(201).send({ info: 'Usuario creado y correo enenviado', success: true, token, user }).end();return }
     catch(err){console.log(err)}
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token, user })
   } catch (err) {

@@ -1,15 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getRanking } from "../../../../redux/actions";
-import UserRank from "../userRank/userRank";
+import NotFound from "../../../NotFound/NotFound";
 import style from "./ranking.module.css";
 
 export default function Ranking() {
   const dispatch = useDispatch();
-
   const { topTen } = useSelector((store) => store);
-
-  if (!topTen.length) {
-    getRanking()(dispatch);
+  if (topTen[0] === "No hay usuarios") {
+    getRanking()(dispatch)
+    return <NotFound type={2} />
   }
   let usuarios = topTen;
 

@@ -19,7 +19,7 @@ const initialState = {
   lesson:{},
   detail:{},
   isLogged: false,
-  topTen: [],
+  topTen: ["No hay usuarios"],
   allUsers: [],
   showedUsers: [],
   courses: [],

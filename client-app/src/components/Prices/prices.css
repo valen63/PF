@@ -14,7 +14,7 @@
   background: #3a3a3a;
 }
 
-.card {
+.cardd {
   position: relative;
   width: 320px;
   height: 450px;
@@ -25,7 +25,7 @@
     box-shadow: 10px 10px 58px -24px rgb(192 192 192 / 50%);
 }
 
-.card::before {
+.cardd::before {
   content: "";
   position: absolute;
   top: -50%;
@@ -36,12 +36,12 @@
   transition: 0.5s;
 }
 
-.card:hover::before {
+.cardd:hover::before {
   top: -70%;
   transform: skewY(390deg);
 }
 
-.card::after {
+.cardd::after {
   content: "CORSAIR";
   position: absolute;
   bottom: 0;
@@ -51,7 +51,7 @@
   color: rgba(0, 0, 0, 0.1);
 }
 
-.card .imgBox {
+.cardd .imgBox {
   position: relative;
   width: 100%;
   display: flex;
@@ -72,7 +72,7 @@
       
 }
 */
-.card .contentBox {
+.cardd .contentBox {
   position: relative;
   padding: 20px;
   display: flex;
@@ -82,7 +82,7 @@
   z-index: 2;
 }
 
-.card .contentBox h3 {
+.cardd .contentBox h3 {
     font-size: 18px;
     text-align: center;
     color: white;
@@ -92,14 +92,14 @@
     padding-bottom: 10px;
 }
 
-.card .contentBox .price {
+.cardd .contentBox .price {
   font-size: 24px;
   color: white;
   font-weight: 700;
   letter-spacing: 1px;
 }
 
-.card .contentBox a {
+.cardd .contentBox a {
     position: relative;
     top: 100px;
     opacity: 0;
@@ -115,7 +115,7 @@
     transition: 0.5s;
 }
 
-.card:hover .contentBox a {
+.cardd:hover .contentBox a {
     top: 0;
     opacity: 1;
     background: green;

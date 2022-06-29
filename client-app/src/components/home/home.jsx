@@ -26,6 +26,7 @@ function Recomendaciones(name, hr, etiqueta, style, key) {
 function Home(props) {
 
   const { courses, user } = useSelector((store) => store);
+  
   let favoritos = user.courses ? user.courses.filter(e => e.isFavorite).map(e => e.course) : []
 
   let style = props;
@@ -55,12 +56,14 @@ function Home(props) {
                   Comparativas con otros usuarios y mas.
                 </h1>
                 <div className={style.button}>
-                  <Link to="/precios">Ver mas</Link>
+                  <Link to="/Precios">Ver mas</Link>
                 </div>
               </div>
             </div>
             <div>
-              {favoritos ? favoritos.map((course,i )=> <div key={i} className={style.container3}>
+              {favoritos.length ? <h1 className={style.tit}>Favoritos</h1> : null}
+              {favoritos ? favoritos.map((course, i) => <div key={i} className={style.container3}>
+
                 <div className={style.flexContainerCard}>
                   <NavLink
                     to={`/course/${course._id}`}
@@ -82,8 +85,10 @@ function Home(props) {
 
                   <div></div></div>
               </div>).slice(0, 2) : null}
-              {courses ? courses.map((course,i) =>
+              {courses.length ? <h1 className={style.tit}>Mas Votados</h1> : null}
+              {courses ? courses.sort((a, b) => (a.votes.length > 0 ? (a.votes.reduce((a1, b1) => a1 + b1, 0) / a.userVotes.length).toFixed(1) : 0) < (b.votes.length > 0 ? (b.votes.reduce((a1, b1) => a1 + b1, 0) / b.userVotes.length).toFixed(1) : 0)? 1:-1).slice(0, 2).map((course, i) =>
                 <div key={i} className={style.container3}>
+
                   <div className={style.flexContainerCard}>
                     <NavLink
                       to={`/course/${course._id}`}
@@ -102,7 +107,7 @@ function Home(props) {
                     </div>
 
                     <div></div></div>
-                </div>).slice(6,8)  : null}
+                </div>) : null}
             </div>
           </div>
         </div>

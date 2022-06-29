@@ -210,6 +210,14 @@
     color: white;
     font-size: 0.9em;
 }
+.tit{
+    margin-top: 20px;
+    /* color: white; */
+    mix-blend-mode: exclusion;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
+    text-transform: uppercase;
+}
 
 @media (max-width: 768px) {
     .flexContainer{
@@ -237,6 +245,8 @@
             align-items: center;
     gap: 1em;
     margin-top: 2em;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .flexContainer3{
@@ -250,15 +260,21 @@
 
 .container2{
     width: 20em;
-    height: 20em;
+    min-height: 20em;
 }
 
 .container3{
     width: 20em;
+    height: auto;
 }
 
 .container3Text{
     width: 10em;
+    display: flex;
+    flex-direction: column;
+}
+.button{
+    margin: 0;
 }
 
 .container3Text h3{
@@ -273,5 +289,16 @@
 .container31{
     width: 20em;
     min-height: 10em;
+}
+.recos{
+    flex-direction: column;
+}
+.recos h2{
+    width: 100%;
+    text-align: center;
+}
+.recos a{
+    width: 60%;
+    text-align: center;
 }
 }

@@ -13,7 +13,7 @@ router.use("/cursos", cursos);
 router.use("/auth", auth);
 router.use("/usersprivate", usersPrivate);
 router.use("/cursosprivate", cursosPrivate);
-router.use('/paysprivate', paysMethods)
+router.use('/pay', paysMethods)
 router.get("/reset", reset);
 
 module.exports = router;

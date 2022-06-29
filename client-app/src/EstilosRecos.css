@@ -4,6 +4,7 @@
     color: white;
     font-weight: bold;
     border-radius: 5px;
+    margin: 5px;
 }
 .js{
     background-color: #7a770e;
@@ -12,6 +13,7 @@
     color: white;
     font-weight: bold;
     border-radius: 5px;
+    margin: 5px;
 }
 .html{
     background-color: #9f4419;;
@@ -19,4 +21,8 @@
     color: white;
     font-weight: bold;
     border-radius: 5px;
+    margin: 5px;
+}
+@media (max-width: 768px) {
+
 }

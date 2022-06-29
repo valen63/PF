@@ -79,6 +79,14 @@ const userSchema = new Schema(
       required: [true, 'La contraseña es requerida'],
       minlength: [6, 'La contraseña debe tener al menos 8 caracteres']
     },
+    Vencimiento: {
+      type: String,
+      default: null
+    },
+    isPremium: {
+      type: Boolean,
+      default: false
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date
   },

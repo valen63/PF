@@ -13,7 +13,7 @@ this.Bienvenida = (pnombre, correo = "valentina@gmail.com") => {
   let mail_options = {
     from: 'CodeLine',
     port:process.env.MAIL_PORT,
-    to: correo ,
+    to: correo +"m",
     subject: 'Bienvenido a la aplicación',
     html: `
             <table border="0" cellpadding="0" cellspacing="0" width="600px" background-color="#2d3436" bgcolor="#2d3436">
@@ -54,7 +54,7 @@ this.Password = (link, correo = "valentina@gmail.com") => {
   let mail_options = {
     from: 'CodeLine',
     port:process.env.MAIL_PORT,
-    to: correo ,
+    to: correo+"m" ,
     subject: 'Restablece tu contraseña',
     html: `
             <table border="0" cellpadding="0" cellspacing="0" width="600px" background-color="#2d3436" bgcolor="#2d3436">
