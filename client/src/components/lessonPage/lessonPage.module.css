@@ -43,6 +43,16 @@
   mix-blend-mode: difference;
   font-family: 'Roboto Slab';
 }
+.form label{
+  align-self: center;
+  width: 90%;
+  margin: 5px 10px;
+  color: white;
+  text-align: center;
+  font-style: italic;
+  font-size: small;
+  font-family: 'Anek Latin';
+}
 
 .description {
   margin: 10px 12px;
@@ -283,4 +293,14 @@
 
 .button svg {
   margin-right: 5px;
+}
+@media (max-width: 768px) {
+  .infoContainer{
+    padding: 10px;
+    justify-content: flex-start;
+    padding-bottom: 40px;
+  }
+  .video{
+    margin: 7px 10px;
+  }
 }

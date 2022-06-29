@@ -34,7 +34,7 @@ const Perfil = (props) => {
       <div className={style.cartYourCourse} key={course.id}>
         <label className={style.cursos}> {course.course.titulo} </label>
         <label className={style.cursos}>
-          {course.isFavorite === true ? "FAVORITO" : "NO FAVORITO"}
+          {course.isFavorite === true ? "SI" : "NO"}
         </label>
         <label className={style.cursos}> {course.course.lessons.length} </label>
         <label className={style.cursos}> {lessons.length} </label>
@@ -71,7 +71,7 @@ const Perfil = (props) => {
                   className={style.popup}
                   onClick={() => popUpFunction("username", true)}
                 >
-                  Editar
+                  Cambiar Nombre
                 </button>
                 <button
                   className={style.popupPassword}

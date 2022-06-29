@@ -158,12 +158,10 @@
     justify-items: center;
 
   }
-
   .flexContainer {
     width: 100%;
     flex-direction: column;
-    justify-content: center;
-    justify-items: center;
+    margin-left: 0;
 
   }
 

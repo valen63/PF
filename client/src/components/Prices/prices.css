@@ -6,12 +6,31 @@
   font-family: "Istok Web", sans-serif;
 }
 
-.body {
+.body, .body2 {
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background: #3a3a3a;
+  background: linear-gradient(to right, #000000, #434343);
+  flex-direction: column;
+}
+.body{
+  background: linear-gradient(280deg, #686868, #9f9f9f, #ababab, #686868);
+}
+.back{
+  margin: 40px 0 0 40px;
+  display: flex;
+  background: white;
+  width: 100px;
+  padding: 10px;
+  position: relative;
+  justify-content: space-around;
+  border-radius: 5px;
+}
+.back a{
+  color: #191919;
+  font-family: 'Roboto Slab';
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .cardd {
@@ -20,9 +39,10 @@
   height: 450px;
   background: #191919;
   border-radius: 20px;
+  margin: 20px 0;
   overflow: hidden;
-  border: #c0c0c0ba 2px solid;
-    box-shadow: 10px 10px 58px -24px rgb(192 192 192 / 50%);
+  box-shadow: 10px 10px 58px -24px rgb(255 234 234);
+
 }
 
 .cardd::before {
@@ -126,21 +146,28 @@
     max-width: 250px;
 }
 .Contenedorprecios{
-    display: flex;
-    width: 160vh;
-    min-height: 100vh;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: center;
+  display: flex;
+  margin: 50px;
+  min-height: 80vh;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
 }
 .best{
-    border: #ffd70099 2px solid;
-    box-shadow: 10px 10px 58px -24px rgb(255 215 0);
+  box-shadow: 10px 10px 100px -10px rgb(255 215 0);
 }
-@media (max-width: 160vh) {
+.best::before{
+  background: #e7c300;
+}
+.best:hover .contentBox a{
+  background: #01ff09;
+  color: black;
+}
+@media (max-width: 800px) {
     .Contenedorprecios{
         margin: 20px 50px;
         justify-content: space-evenly;
         width: auto;
+        flex-direction: column-reverse;
     }
 }

@@ -259,12 +259,22 @@
 }
 @media (max-width: 630px) {
     .imagen{
-        top: 40%;
+    position: relative;
+    margin-left: auto;
+    right: 0;
+    height: 3em;
     }
     .flexContainer{
         margin: 50px;margin-top: 65px;
     }
     .titulo{
         width: 50%;
+    }
+    .flexContainer3{
+        flex-direction: column-reverse;
+    }
+    .containerDescrip{
+        padding: 0 30px 20px 30px;
+        margin: 0;
     }
 }

@@ -50,9 +50,9 @@ function NavBar(props) {
           </NavLink>
         </div>
         <div className={style.icon}>
-        <NavLink to="#"><CodeIcon /></NavLink>
-          <NavLink to="#" className={style.hide}>
-            Ejercicios
+        <NavLink to="/favoritos"><CodeIcon /></NavLink>
+          <NavLink to="/favoritos" className={style.hide}>
+           Tus Cursos
           </NavLink>
         </div>
         <div className={style.icon}>

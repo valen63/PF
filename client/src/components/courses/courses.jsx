@@ -8,7 +8,6 @@ import {
 } from "../../../redux/actions/index";
 
 // utils
-import { filter } from "../../utils/filters";
 import { sortByRating } from "../../utils/sorter";
 
 // styles
@@ -21,7 +20,9 @@ import lightTheme from "./courseLight.module.css";
 import ArrowsUpDown from "../../icons/arrowsUpDown";
 
 function Courses({detail}) {
-  if(detail){detail= detail.filter(e=>e.isFavorite);detail =detail.map(e=>e.course); }
+  if(detail){
+    // detail= detail.filter(e=>e.isFavorite);
+    detail =detail.map(e=>e.course); }
   let style = darkTheme;
 
   const dispatch = useDispatch();

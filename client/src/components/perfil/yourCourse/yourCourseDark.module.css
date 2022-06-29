@@ -62,7 +62,16 @@
   }
 
   .cursos{
-    text-align: center;
+    display: flex;
     width: 20%;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: 'Anek Latin';
+    justify-content: center;
   }
-
+  @media (max-width: 768px) {
+    .cursos{
+      font-size: small;
+    }
+  }

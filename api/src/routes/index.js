@@ -14,6 +14,7 @@ router.use("/auth", auth);
 router.use("/usersprivate", usersPrivate);
 router.use("/cursosprivate", cursosPrivate);
 router.use('/pay', paysMethods)
+router.get('/pago', paysMethods)
 router.get("/reset", reset);
 
 module.exports = router;

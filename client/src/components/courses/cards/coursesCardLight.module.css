@@ -120,6 +120,7 @@
         align-self: center;
         justify-content: center;
         width: 100%;
+        align-items: center;
 
     }
 }

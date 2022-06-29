@@ -70,7 +70,7 @@ const UsernamePopUp = ({popUpFunction, id}) => {
             <input type="text" placeholder="New username" name="username"></input>
             {error.username && <label className={style.error}>{error.username}</label>}
           </div>
-          <input type="submit" value="Listo"></input>
+          <input className={style.send} type="submit" value="Listo"></input>
           {input.success && <label className={style.success}>{input.success}</label>}
           {updateError.err && <label className={style.error}>{updateError.err}</label>}
         </form>

@@ -11,8 +11,7 @@ import JSIcon from "../../icons/javascript";
 import { Reco } from "../../../CursosBases"
 import { AiFillHeart } from 'react-icons/ai';
 import "../../EstilosRecos.css"
-import { useSelector } from "react-redux"; import CoursesCard from "../courses/cards/coursesCard";
-;
+import { useSelector } from "react-redux"; 
 
 function Recomendaciones(name, hr, etiqueta, style, key) {
   var etiquet = ""

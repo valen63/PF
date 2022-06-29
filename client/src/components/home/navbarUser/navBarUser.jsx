@@ -10,7 +10,7 @@ import darkTheme from "./navbarUserBlack.module.css";
 import lightTheme from "./navbarUserLight.module.css";
 
 //  icones
-import FavoriteIcon from "../../../icons/Favorite";
+// import FavoriteIcon from "../../../icons/Favorite";
 import Moon from "../../../icons/moon";
 import Discord from "../../../icons/Discord.jsx";
 import CursoIcon from "../../../icons/libro.jsx";
@@ -84,32 +84,31 @@ function NavBarUser() {
           </div>
         </div>
         <div className={activeArrow ? style.icon2Active : style.icon2}>
-          <NavLink to="/favoritos">
-            <FavoriteIcon />
+          <NavLink to="/courses">
+            <CursoIcon />
           </NavLink>
         </div>
+
         <div className={activeArrow ? style.icon2Active : style.icon2}>
           <NavLink to="/perfil">
             <Notification />
           </NavLink>
         </div>
-        {/* <div className={style.icon4}>
-          <NavLink to="#">
-            <CodeIcon />
-          </NavLink>
-        </div> */}
         <div className={style.icon4}>
           <NavLink to="/courses">
             <CursoIcon />
           </NavLink>
         </div>
         <div className={activeArrow ? style.icon4Active : style.icon4}>
-          <a href="https://discord.gg/kwXhPtE" target="_blank" rel="noopener noreferrer">
+          <a href="https://discord.gg/kwXhPtED" target="_blank" rel="noopener noreferrer">
             <Discord />
           </a>
         </div>
+        <div className={style.username}>
+          <h2 className={style.username}>{user.username || "Invitado"}</h2>
+        </div>
         <div data-dropdown className={style.dropdown}>
-          <img
+          <input
             type="image"
             src={
               isLogged
@@ -118,10 +117,7 @@ function NavBarUser() {
             }
             data-dropdown-button
             className={activeArrow ? style.icon3Active : style.icon3}
-            onError="this.onerror=null; 
-   this.src='https://i.ebayimg.com/images/g/AFoAAOSw5e5cbgL6/s-l400.jpg';"
           />
-          <h2 className={style.username}>{user.username ? user.username.split(" ")[0] : "Invitado"}</h2>
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
@@ -129,11 +125,15 @@ function NavBarUser() {
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ? (<><NavLink to="#" onClick={() => logout(dispatch)} data-dropdown-button>
-              Log Out
-            </NavLink><NavLink to="/perfil" data-dropdown-button>
+            {isLogged ? (<>
+              <NavLink to="/perfil" data-dropdown-button>
                 Perfil
-              </NavLink></>) : (
+              </NavLink>
+              <NavLink to="#" data-dropdown-button>
+                <button onClick={() => logout()} className={lightTheme.salir}>Log Out</button>
+              </NavLink>
+            </>
+            ) : (
               <>
                 <NavLink to="/login" data-dropdown-button>
                   Log In
@@ -141,7 +141,6 @@ function NavBarUser() {
                 <NavLink to="/register" data-dropdown-button>
                   Registrarse
                 </NavLink>
-
               </>
             )}
             {user.isAdmin ? (

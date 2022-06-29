@@ -35,7 +35,6 @@ function App() {
   const theme = useSelector((store) => store.theme);
   const isLogged = useSelector((store) => store.isLogged);
   const user = useSelector((store) => store.user);
-console.log( import.meta.env.VITE_API)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,7 +61,8 @@ console.log( import.meta.env.VITE_API)
         <Route path="/Pagar" element={<PaymentGateway />} />
         <Route element={<PrivateRoute isLogged={isLogged} />}>
           <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
-          <Route path="/precios" element={<Prices />} />
+          <Route path="/precios" element={<Prices />} /> 
+          <Route path="/Pagar/:type" element={<PaymentGateway />} />
         </Route>
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} user={user} />} />
@@ -76,7 +76,6 @@ console.log( import.meta.env.VITE_API)
             <Route element={<AppLayout />}>
               <Route path="/favoritos" element={<Courses theme={theme} detail={user.courses} />}></Route>
             </Route>
-            <Route path="/Pagar/:type" element={<PaymentGateway />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />
