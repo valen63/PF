@@ -2,6 +2,7 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
+const { ServerApiVersion } = require('mongodb');
 const cors = require('cors')
 const router = require('./src/routes/index.js')
 const errorHandler = require('./src/middleware/error.js')
