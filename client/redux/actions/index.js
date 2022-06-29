@@ -555,19 +555,14 @@ export const CreateLesson = (idCurso, data) => {
 }
 
 export const Premium =(datos)=>{
- let {id,amount, plan, date, idUser} = datos
+ let {id,amount, date, idUser, description} = datos
   return async function(dispatch){
     try{
-      // let config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     authorization: `Bearer ${localStorage.getItem("authToken")}`
-      //   }
-      // };
-      let info = await axios.post(`/api/pay`,{id, amount, plan, fecha: date, idUser})
-      console.log(info.data)
+      let info = await axios.post(`api/pago`,{id, amount, fecha: date, idUser,description})
+      if(info.data.success){dispatch({type: "SET_UPDATEUSER", payload: info.data.user})}
+      return(info.data)
     }catch (err) {
-      console.log(err.response.data)
+      return(err.response.data)
     }
   }
 }

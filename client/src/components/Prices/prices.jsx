@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom"
 import "./prices.css"
 
 let productos = [
-    { name: "Desbloquear Todos los cursos", img: "https://www.nicepng.com/png/full/218-2186702_related-wallpapers-software-de-programacion-png.png", price: [14, 50, " $USD /Mes",], clase: "cardd", link: "/pagar/1" },
-    { name: "Desbloquear Todos los cursos", img: "https://sites.google.com/site/profeappinventor/_/rsrc/1511509657092/la-programacion-hoy-dia/leng4.png", price: [40, "00", " $USD /Anual",], clase: "cardd best", link: "/pagar/AllOneYear" }]
+    { name: "Desbloquear Todos los cursos", img: "https://www.nicepng.com/png/full/218-2186702_related-wallpapers-software-de-programacion-png.png", price: [14, 50, " $USD /Mes",], clase: "cardd", link: "/pagar/Mes" },
+    { name: "Desbloquear Todos los cursos", img: "https://sites.google.com/site/profeappinventor/_/rsrc/1511509657092/la-programacion-hoy-dia/leng4.png", price: [40, "00", " $USD /Anual",], clase: "cardd best", link: "/pagar/Year" }]
 export default function Prices() {
     let theme = useSelector(state=> state.theme)
     return (<div className={theme ==="light"?"body":"body2"}>

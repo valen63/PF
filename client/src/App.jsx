@@ -62,7 +62,7 @@ function App() {
         <Route element={<PrivateRoute isLogged={isLogged} />}>
           <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
           <Route path="/precios" element={<Prices />} /> 
-          <Route path="/Pagar/:type" element={<PaymentGateway />} />
+          <Route path="/Pagar/:Time" element={<PaymentGateway />} />
         </Route>
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} user={user} />} />

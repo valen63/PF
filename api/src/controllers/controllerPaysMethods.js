@@ -1,11 +1,15 @@
 const Stripe = require('stripe');
 const User = require("../model/modelUser.js");
 
+
+let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 const payStripe = async (req, res) => {
-  const { idUser, plan, amount, id, fecha, idCurso } = req.body;
+  const { idUser, amount, id, fecha, description } = req.body;
   try {
-    var user = await User.findById(idUser).catch(()=> res.status(500).send({ message: "Usuario invalido", success: false }).send())
-    if (user.isPremium && new Date().toString().slice(4, 24) > user.Vencimiento) {
+    var user = await User.findById(idUser).catch(() => res.status(500).send({ message: "Usuario invalido", success: false }).send())
+    let date = new Date().toString().split(" ")
+    let vencido = user.Vencimiento.split(" ")
+    if (user.isPremium && (vencido[2] > date[3] || (meses.findIndex((u) => u === date[1]) > meses.findIndex((u) => u === vencido[0])) || (meses.findIndex((u) => u === date[1]) === meses.findIndex((u) => u === vencido[0]) && date[2] > vencido[1]))) {
       res.status(404).send({ message: "Ya eres Premium, y no se ha vencido tu ultimo pago, tu proximo pago es el :" + user.Vencimiento, success: false }).end()
       return
     }
@@ -13,38 +17,21 @@ const payStripe = async (req, res) => {
     let payment = await stripe.paymentIntents.create({
       amount,
       currency: "USD",
-      description: "Compra de",
+      description,
       payment_method: id,
       confirm: true
-    }).catch((err)=> res.status(500).send({ message: err.raw.code, success: false }).end())
+    }).catch((err) => res.status(500).send({ message: err.raw, success: false }).end())
     if (payment.status === "succeeded") {
-      if (plan) {
-        var user = await User.findByIdAndUpdate(idUser, {
-          isPremium: true,
-          Vencimiento: fecha
-        }, { new: true })
-      } else {
-        let filter = user.courses.filter(e => e.course !== null)
-        let correccion = filter.map((e) => {
-          if (e.course._id.toString() === idCurso) {
-            e.completed = true;
-            return e
-          }
-          return e
-        })
-        var user = await User.findByIdAndUpdate(idUser, {
-          courses: correccion,
-          Vencimiento: fecha
-        }, { new: true })
-      }
+      var user = await User.findByIdAndUpdate(idUser, {
+        isPremium: true,
+        Vencimiento: fecha
+      }, { new: true })
       res.send({ message: "Genial, tu compra ha sido procesada correctamente", success: true, user }).end()
       return
     }
-    res.status(500).send({ message: payment.status, success: false })
   }
   catch (err) {
-    console.log(err)
-    res.status(500).send({ message: err, success: false })
+    res.status(500).send({ success: false })
   }
 };
 module.exports = { payStripe };

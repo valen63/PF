@@ -65,7 +65,7 @@ export default function CardD(props) {
                     let lock = true
                     if (ids.find((ele, index) => ele === e.lesson._id && !user.lessons[index].isLocked)) {; lock = false }
                     if (ids.find((ele, index) => ele === e.lesson._id && user.lessons[index].isComplete)) {; complete = true }
-                    if (i === 0) {; lock = false }
+                    if (i === 0 || user.isPremium) {; lock = false }
                     return (
                       <div className={style.ClasP} key={i}>
                         {complete ? (
