@@ -29,10 +29,7 @@ app.use('/api/', router)
 
 const connectDB = () => {
   try {
-    mongoose.connect(db, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+    mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 })
 
     app.listen(port, () => {
       console.log(`Server on port ${port} and connected to DB 🔌`)
@@ -47,3 +44,4 @@ const connectDB = () => {
 connectDB()
 
 //
+
