@@ -8,8 +8,8 @@ const payStripe = async (req, res) => {
   try {
     var user = await User.findById(idUser).catch(() => res.status(500).send({ message: "Usuario invalido", success: false }).send())
     let date = new Date().toString().split(" ")
-    let vencido = user.Vencimiento.split(" ")
-    if (user.isPremium && (vencido[2] > date[3] || (meses.findIndex((u) => u === date[1]) > meses.findIndex((u) => u === vencido[0])) || (meses.findIndex((u) => u === date[1]) === meses.findIndex((u) => u === vencido[0]) && date[2] > vencido[1]))) {
+    let vencido = user.Vencimiento? user.Vencimiento.split(" "): null
+    if (user.isPremium && vencido && (vencido[2] > date[3] || (meses.findIndex((u) => u === date[1]) > meses.findIndex((u) => u === vencido[0])) || (meses.findIndex((u) => u === date[1]) === meses.findIndex((u) => u === vencido[0]) && date[2] > vencido[1]))) {
       res.status(404).send({ message: "Ya eres Premium, y no se ha vencido tu ultimo pago, tu proximo pago es el :" + user.Vencimiento, success: false }).end()
       return
     }
@@ -26,11 +26,12 @@ const payStripe = async (req, res) => {
         isPremium: true,
         Vencimiento: fecha
       }, { new: true })
-      res.send({ message: "Genial, tu compra ha sido procesada correctamente", success: true, user }).end()
+      res.send({ message: "Genial, tu compra ha sido procesada correctamente", success: true, user, payment }).end()
       return
     }
   }
   catch (err) {
+    console.log(err)
     res.status(500).send({ success: false })
   }
 };
