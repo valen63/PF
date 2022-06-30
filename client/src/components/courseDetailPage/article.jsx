@@ -13,7 +13,7 @@ import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
 import NotFound from "../../NotFound/NotFound";
 import { NavLink } from "react-router-dom";
-
+let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 export default function CardD(props) {
   const [idClase, setIdClase] = useState({ num: 0, state: "Disponible" });
   let { detail, user } = useSelector(state => state)
