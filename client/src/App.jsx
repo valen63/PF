@@ -41,6 +41,7 @@ function App() {
     dispatch(getCourses());
     getRanking()(dispatch)
     Base.map(async (e) => await Create({ ...e, lessons: [] }, e.lessons)()) //EJECUTAR SOLO LA PRIMERA VEZ QUE LO USAS para generar los modelos de curso en la base de datos (procura limpiar la base de datos antes)
+  // Base.map((e)=> console.log({...e,lessons:[]}, e.lessons))
   });
 
   const AppLayout = () => (

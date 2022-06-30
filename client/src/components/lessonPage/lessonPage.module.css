@@ -25,7 +25,7 @@
 }
 
 .form {
-  min-width: 80%;
+  max-width: 80%;
   position: relative;
   min-height: 500px;
   background: #555555;

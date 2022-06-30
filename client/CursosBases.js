@@ -1,15 +1,64 @@
-export const Lesson1 = {
-    titulo: "Arrays",
+export const Lesson2 = function(titulo, video,num,last=false){
+    return({
+    titulo:titulo,
+    descripcion: "Non sequi aliquid et internos rerum sit voluptatem quos et possimus voluptas. Quo maiores amet et repudiandae modi et laborum veritatis. Hic architecto iure vel fugit eveniet qui eius galisum aut sunt odio vel deserunt accusantium. Hic voluptate quod vel odit dolor rem cumque explicabo eum magni consequatur ut dolor deleniti cum tenetur reprehenderit.",
+    video:video,
+    num:num,
+    last:last,
+    quiz: [
+        {
+            "titulo": "¿Cuál es el mejor lenguaje de programación?" +num,
+            "opciones": [
+                { "textoRespuesta": "JavaScript", "isCorrect": true },
+                { "textoRespuesta": "PHP", "isCorrect": false },
+                { "textoRespuesta": "C++", "isCorrect": false },
+                { "textoRespuesta": "Kotlin", "isCorrect": false }
+            ]
+        },
+        {
+            "titulo": "Non ipsum omnis eos quam autem ad magni. Id perferendis tempore aut debitis error ut doloremque minus At quaerat necessitatibus?" +num,
+            "opciones": [
+                { "textoRespuesta": "sin contenido", "isCorrect": false },
+                { "textoRespuesta": "Correcta", "isCorrect": true },
+                { "textoRespuesta": "sin gracia :v", "isCorrect": false },
+                { "textoRespuesta": "sin código", "isCorrect": false }
+            ],
+        }
+        ,
+        {
+            "titulo": "Non ipsum omnis eos debitis error ut doloremque minus At quaer hashha asjja at necessitatibus?" +num,
+            "opciones": [
+                { "textoRespuesta": "Esta no es", "isCorrect": false },
+                { "textoRespuesta": "Correcta", "isCorrect": true },
+                { "textoRespuesta": "Esta tampoco", "isCorrect": false },
+                { "textoRespuesta": "Nop, esta tampoco", "isCorrect": false }
+            ],
+        },
+        ,
+        {
+            "titulo": "Non ipsum omnis eos debitis error ut doloremque minus ?" +num,
+            "opciones": [
+                { "textoRespuesta": "Esta no es", "isCorrect": false },
+                { "textoRespuesta": "Correcta", "isCorrect": true },
+                { "textoRespuesta": "Esta tampoco", "isCorrect": false },
+                { "textoRespuesta": "Nop, esta tampoco", "isCorrect": false }
+            ],
+        },
+        {
+            "titulo": "Non ipsum omnis eos debitis error ut doloremque minus At quaerat necessitatibus?" +num,
+            "opciones": [
+                { "textoRespuesta": "Esta no es", "isCorrect": false },
+                { "textoRespuesta": "Correcta", "isCorrect": true },
+                { "textoRespuesta": "Esta tampoco", "isCorrect": false },
+                { "textoRespuesta": "Nop, esta tampoco", "isCorrect": false }
+            ],
+        }
+    ],
+})}
+export const Lesson1 ={
+    titulo: "Descubriendo",
     descripcion: "Descripcion de Arrays",
     video: "https://vimeo.com/47483575",
-    // quiz:
-    // {
-    //     data: "acatengo el quiz",
-    //     preguntas: [{ texto: "la pregunta", respuestas: ["option1", "option2", "option3"] }],
-    //     respuestas: ["option1"],
-    //     Resp_min: 1,
-    //     Resp_min_forAb:1,
-    // },
     quiz: [
         {
             "titulo": "¿Cuál es el mejor lenguaje de programación?",
@@ -48,7 +97,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
         userInscript: 0,
-        lessons: [{ ...Lesson1, num: 0 }, { ...Lesson1, num: 1 }, { ...Lesson1, num: 2, last:true }],
+        lessons: [Lesson2("Descubriendo Javascript", "https://vimeo.com/47483575",0,false), Lesson2("Javascript 2", "https://vimeo.com/335703184",1,false),Lesson2("Javascript 3", "https://vimeo.com/47483575",2,true)],
         userVotes: [],
         votes: [],
         lenguaje: "JavaScript"
@@ -59,7 +108,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo Javascript Medio", "https://vimeo.com/47483575",0,false), Lesson2("Javascript 2 medio", "https://vimeo.com/335703184",1,false),Lesson2("Javascript 3 medio", "https://vimeo.com/47483575",2, false), Lesson2("Javascript 4 medio", "https://vimeo.com/335703184",3,true)],
         userVotes: [],
         votes: [],
         lenguaje: "JavaScript"
@@ -70,7 +119,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo Javascript Avanzado", "https://vimeo.com/47483575",0), Lesson2("Javascript 2 Avanzado", "https://vimeo.com/335703184",1),Lesson2("Javascript 3 Avanzado", "https://vimeo.com/47483575",2), Lesson2("Javascript 4 Avanzado", "https://vimeo.com/335703184",3),Lesson2("Javascript 3 Avanzado", "https://vimeo.com/47483575",4) ,Lesson2("Javascript 3 Avanzado", "https://vimeo.com/47483575",5,true)],
         userVotes: [],
         votes: [],
         lenguaje: "JavaScript"
@@ -81,7 +130,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://cdn-icons-png.flaticon.com/512/174/174854.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo Html Avanzado", "https://vimeo.com/9680041",0), Lesson2("Html 2 Avanzado", "https://vimeo.com/29545369",1),Lesson2("Html 3 Avanzado", "https://vimeo.com/9680041",2), Lesson2("Html 4 Avanzado", "https://vimeo.com/29545369",3),Lesson2("Html 3 Avanzado", "https://vimeo.com/47483575",4) ,Lesson2("Html 3 Avanzado", "https://vimeo.com/9680041",5),Lesson2("Html 3 Avanzado", "https://vimeo.com/9680041",6,true)],
         userVotes: [],
         votes: [],
         lenguaje: "Html"
@@ -92,7 +141,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://cdn-icons-png.flaticon.com/512/174/174854.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo Html Medio", "https://vimeo.com/9680041",0), Lesson2("Html 2 Medio", "https://vimeo.com/29545369",1),Lesson2("Html 3 Medio", "https://vimeo.com/9680041",2), Lesson2("Html 4 Medio", "https://vimeo.com/29545369",3),Lesson2("Html 3 Medio", "https://vimeo.com/47483575",4,true)],
         userVotes: [],
         votes: [],
         lenguaje: "Html"
@@ -103,7 +152,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://cdn-icons-png.flaticon.com/512/174/174854.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo Html", "https://vimeo.com/9680041",0), Lesson2("Html 2", "https://vimeo.com/29545369",1),Lesson2("Html 3", "https://vimeo.com/9680041",2), Lesson2("Html 4", "https://vimeo.com/29545369",3,true)],
         userVotes: [],
         votes: [],
         lenguaje: "Html"
@@ -113,7 +162,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_1280.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo CSS", "https://vimeo.com/172444121",0), Lesson2("CSS 2", "https://vimeo.com/955042",1),Lesson2("CSS 3", "https://vimeo.com/172444121",2), Lesson2("CSS 4", "https://vimeo.com/955042",3,true)],
         userVotes: [],
         votes: [],
         lenguaje: "CSS"
@@ -123,7 +172,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_1280.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo CSS Medio", "https://vimeo.com/172444121",0), Lesson2("CSS 2", "https://vimeo.com/955042",1),Lesson2("CSS 3 Medio", "https://vimeo.com/172444121",2), Lesson2("CSS 4 Medio", "https://vimeo.com/955042",3), Lesson2("CSS 5 Medio", "https://vimeo.com/172444121",4), Lesson2("CSS 6 Medio", "https://vimeo.com/955042",5), Lesson2("CSS 7 Medio", "https://vimeo.com/172444121",6), Lesson2("CSS 8 Medio", "https://vimeo.com/955042",7), Lesson2("CSS 9 Medio", "https://vimeo.com/172444121",8,true)],
         userVotes: [],
         votes: [],
         lenguaje: "CSS"
@@ -133,7 +182,7 @@ export const Base = [
         calificacion: 0,
         imagen: "https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_1280.png",
         userInscript: 0,
-        lessons: [],
+        lessons: [Lesson2("Descubriendo CSS Avanzado", "https://vimeo.com/172444121",0), Lesson2("CSS 2Avanzado", "https://vimeo.com/955042",1),Lesson2("CSS 3 Avanzado", "https://vimeo.com/172444121",2), Lesson2("CSS 4 Avanzado", "https://vimeo.com/955042",3), Lesson2("CSS 5 Avanzado", "https://vimeo.com/172444121",4), Lesson2("CSS 6 Avanzado", "https://vimeo.com/955042",5), Lesson2("CSS 7 Avanzado", "https://vimeo.com/172444121",6), Lesson2("CSS 8 Avanzado", "https://vimeo.com/955042",7), Lesson2("CSS 9 Avanzado", "https://vimeo.com/172444121",8), Lesson2("CSS 10 Avanzado", "https://vimeo.com/955042",9), Lesson2("CSS 11 Avanzado", "https://vimeo.com/172444121",10,true)],
         userVotes: [],
         votes: [],
         lenguaje: "CSS"

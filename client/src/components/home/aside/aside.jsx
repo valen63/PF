@@ -52,7 +52,7 @@ function NavBar(props) {
         <div className={style.icon}>
         <NavLink to="/favoritos"><CodeIcon /></NavLink>
           <NavLink to="/favoritos" className={style.hide}>
-           Tus Cursos
+           Mis Cursos
           </NavLink>
         </div>
         <div className={style.icon}>

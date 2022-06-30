@@ -57,9 +57,9 @@ export default function CardD(props) {
               <h3>Descripcion</h3>
               <p>{Curso.descripcion}</p>
             </div>
-            {claseSumary ? claseSumary.lessons.length === 0 ? null : <div className={style.flexContainer4}>
+            {claseSumary ? claseSumary.lessons.length === 0 ? null : <div className={darkTheme.flexContainer4}>
               <div className={style.flexContainer5}>
-                <div className={style.progreso}>
+                <div className={darkTheme.progreso}>
                   {claseSumary.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1).map((e, i) => {
                     let complete = false
                     let lock = true

@@ -36,14 +36,14 @@ const CheckoutForm = ({ user }) => {
                 const { id } = paymentMethod
                 respuesta = await Premium({
                     id,
-                    amount: 350, // 4200/12 Se hace un monto mensual pero con precio anual //USD*100
+                    amount: 4000, // 4200/12 Se hace un monto mensual pero con precio anual //USD*100
                     date,
-                    description: "Pago por un mes",
+                    description: "Pago por un año",
                     idUser: user._id,
                     email: input
                 })(dispatch)
             }
-            if (Time === "Mes") {
+            else {
                 if (mes === 11) { date = `${meses[0]} ${1 + parseInt(date[2])} ${1 + parseInt(date[3])}` }
                 else { date = `${meses[mes + 1]} ${1 + parseInt(date[2])} ${date[3]}` }
                 const { id } = paymentMethod
@@ -51,7 +51,7 @@ const CheckoutForm = ({ user }) => {
                     id,
                     amount: 1450,//USD*100
                     date,
-                    description: "Pago por un año",
+                    description: "Pago por un mes",
                     idUser: user._id,
                     email: input
                 })(dispatch)
@@ -78,8 +78,9 @@ const CheckoutForm = ({ user }) => {
     }
     return (
         <form onSubmit={(e) => { handleSubmit(e) }} className={style.body}>
+
             <button className={style.proceed2}>
-                <NavLink className={style.proceed2} to="/home">X</NavLink>
+                <NavLink to="/home">X</NavLink>
             </button>
             <div className={style.container}>
                 <div className={style.card}>
@@ -99,8 +100,10 @@ const CheckoutForm = ({ user }) => {
                         <input className={style.toleft_ccv} placeholder="XXX" disabled value={input.cvv} /></div>
                 </div>
                 <div className={style.receipt} >
-
+                   
                     <p className={style.titulo}>Completa los siguientes campos:</p>
+                     <p className={style.comprobe}>4242424242424242 Pago Realizado</p>
+                    <p className={style.comprobe}>4000000000009995 Error en el pago</p>
                     {respuesta.message ? <div className={style.error}>{respuesta.message}</div> : null}
                     <div className={style.col}><p>Cost:</p>
                         <h2 className={style.seller}>{Time === "Year" ? "$40 usd" : "$14.5 usd"}</h2><br />
@@ -119,7 +122,9 @@ const CheckoutForm = ({ user }) => {
                     </div>
                     <div className={style.abajo}>
                         <p className={style.comprobe}>This information will be sended to your email</p>
+                        {(input.name && input.email && input.celular) ? <button className={style.proceed3}>{wait ? "Loading...":"Pagar"}</button> : null}
                     </div>
+
                 </div>
             </div>
         </form>)
