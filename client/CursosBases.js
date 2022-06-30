@@ -33,7 +33,7 @@ export const Lesson2 = function(titulo, video,num,last=false){
                 { "textoRespuesta": "Esta tampoco", "isCorrect": false },
                 { "textoRespuesta": "Nop, esta tampoco", "isCorrect": false }
             ],
-        },
+        }
         ,
         {
             "titulo": "Non ipsum omnis eos debitis error ut doloremque minus ?" +num,
