@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Premium } from '../../../redux/actions';
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 import style from "./paymentGateway.module.css"
 
@@ -13,11 +13,18 @@ let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct
 const CheckoutForm = ({ user }) => {
     let { Time } = useParams();
     let [respuesta, setRespuesta] = useState({});
+    let [wait, setWait] = useState(false)
+    let [input, setInput] = useState({ numero: "XXXX XXXX XXXX XXXX", name: null, cvv: 123, email: user.email })
     let stripe = useStripe();
     let elements = useElements();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    function Change(e) {
+        setInput({ ...input, [e.name]: e.value });
+        setRespuesta({})
+    }
 
     async function handleSubmit(e) {
+        setWait(true)
         e.preventDefault()
         const { error, paymentMethod } = await stripe.createPaymentMethod({ type: "card", card: elements.getElement(CardElement) })
         let date = new Date().toDateString().split(" ");
@@ -32,7 +39,8 @@ const CheckoutForm = ({ user }) => {
                     amount: 350, // 4200/12 Se hace un monto mensual pero con precio anual //USD*100
                     date,
                     description: "Pago por un mes",
-                    idUser: user._id
+                    idUser: user._id,
+                    email: input
                 })(dispatch)
             }
             if (Time === "Mes") {
@@ -44,60 +52,76 @@ const CheckoutForm = ({ user }) => {
                     amount: 1450,//USD*100
                     date,
                     description: "Pago por un año",
-                    idUser: user._id
+                    idUser: user._id,
+                    email: input
                 })(dispatch)
             }
-            // setRespuesta(respuesta)
-            console.log(respuesta)
+            setRespuesta(respuesta)
+            setWait(false)
             return
         }
-        else { console.log(error) }
+        else { setRespuesta(error); setWait(false) }
     }
-    if (respuesta.success) { return <div>Pago exitoso</div> }
+    if (respuesta.success) {
+        return (<div className={style.body}>
+            <img className={style.confeti} src="https://c.tenor.com/v35v-zbtwnUAAAAi/confetti.gif" alt="confeti" />
+            <div className={style.recuadro}>
+
+                <h1>Pago exitoso</h1>
+                <label>Tu pago fue confirmado ahora eres Premium.
+                    Ya puedes disfrutar de todos tus contenidos</label>
+                <label>Recuerda que tu pago va hasta {user.Vencimiento}</label>
+                <NavLink to="/home">Ir al home</NavLink>
+
+            </div>
+        </div>)
+    }
     return (
         <form onSubmit={(e) => { handleSubmit(e) }} className={style.body}>
-
+            <button className={style.proceed2}>
+                <NavLink className={style.proceed2} to="/home">X</NavLink>
+            </button>
             <div className={style.container}>
                 <div className={style.card}>
-                    <button className={style.proceed}><svg className={style.sendicon} width="24" height="24" viewBox="0 0 24 24">
+                    {wait ? <button className={style.proceed}><img className={style.load} src="https://acegif.com/wp-content/uploads/loading-6.gif" alt="" /></button> : (input.name && input.email && input.celular) ? <button className={style.proceed}><svg className={style.sendicon} width="24" height="24" viewBox="0 0 24 24" >
                         <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
-                    </svg></button>
+                    </svg></button> : null}
                     <img src="https://seeklogo.com/images/V/VISA-logo-62D5B26FE1-seeklogo.com.png" className={style.logo_card} />
                     <img src="https://1000marcas.net/wp-content/uploads/2019/12/logo-Mastercard.png" className={style.logo_card} />
                     <img src="https://1000marcas.net/wp-content/uploads/2020/03/logo-American-Express.png" className={style.logo_card} />
+                    <img src="https://lirp.cdn-website.com/876572b9/dms3rep/multi/opt/Dekart+favicon-1920w.png" className={style.chip_card} />
                     <label>Card number:</label>
-                    <input id="user" type="text" className={style.input_cardnumber} placeholder="1234 5678 9101 1121" />
+                    <input id="user" className={style.input_cardnumber} placeholder="1234 5678 9101 1121" />
                     <div>
                         <label>Name:</label>
-                        <input className={style.name} placeholder="XXXXXXXXX XXXXXX" /></div>
-                    <div><label className={style.toleft}>CCV:</label>
-                        <input className={style.toleft_ccv} placeholder="321" /></div>
+                        <label className={style.name} placeholder="XXXXXXXXX XXXXXX" disabled>{input.name}</label></div>
+                    <div><label className={style.toleft} >CCV:</label>
+                        <input className={style.toleft_ccv} placeholder="XXX" disabled value={input.cvv} /></div>
                 </div>
-                <div className={style.receipt}>
+                <div className={style.receipt} >
+
+                    <p className={style.titulo}>Completa los siguientes campos:</p>
+                    {respuesta.message ? <div className={style.error}>{respuesta.message}</div> : null}
                     <div className={style.col}><p>Cost:</p>
                         <h2 className={style.seller}>{Time === "Year" ? "$40 usd" : "$14.5 usd"}</h2><br />
                         <p>Name:</p>
                         <h2 className={style.seller}>CodeLine</h2>
                     </div>
-                    <div className={style.col}>
+                    <div className={style.col} >
                         <p>Numero de Tarjeta:</p>
-                        <CardElement className={style.tarjeta} />
+                        <CardElement className={style.tarjeta} id="Tarjeta" />
                         <p>Nombre que figura en la tajeta:</p>
-                        <input className={style.datos} placeholder="Nombre..." />
+                        <input className={style.input} placeholder="Nombre..." name="name" onChange={(e) => Change(e.target)} />
                         <p>Correo Electronico:</p>
-                        <input className={style.datos} placeholder="Email..." defaultValue={user.email} />
+                        <input className={style.input} placeholder="Email..." name="email" onChange={(e) => Change(e.target)} defaultValue={user.email} />
                         <p>Numero de telefono:</p>
-                        <input className={style.datos} type="celular" />
+                        <input className={style.input} type="celular" name="celular" onChange={(e) => Change(e.target)} />
                     </div>
                     <div className={style.abajo}>
                         <p className={style.comprobe}>This information will be sended to your email</p>
-                <label>{ }</label>
                     </div>
                 </div>
-                
             </div>
-
-
         </form>)
 }
 

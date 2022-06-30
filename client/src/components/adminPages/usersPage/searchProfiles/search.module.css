@@ -18,6 +18,7 @@
     background:none;
     height: 2em;
     outline: none;
+    padding: 20px;
 }
 
 .search input::placeholder{

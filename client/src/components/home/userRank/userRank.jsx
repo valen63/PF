@@ -37,7 +37,6 @@ const UserRank = () => {
         <div className={style.imgContainer}>
           <img
             src={user.Image}
-            alt={user.username}
             className={style.userPicture}
           />
           <img

@@ -105,7 +105,7 @@ function NavBarUser() {
           </a>
         </div>
         <div className={style.username}>
-          <h2 className={style.username}>{user.username || "Invitado"}</h2>
+          <h2 className={style.username}>{user.username ? user.username.split(" ")[0] : "Invitado"}</h2>
         </div>
         <div data-dropdown className={style.dropdown}>
           <input
@@ -130,7 +130,7 @@ function NavBarUser() {
                 Perfil
               </NavLink>
               <NavLink to="#" data-dropdown-button>
-                <button onClick={() => logout()} className={lightTheme.salir}>Log Out</button>
+                <button onClick={() => logout(dispatch)} className={lightTheme.salir}>Log Out</button>
               </NavLink>
             </>
             ) : (

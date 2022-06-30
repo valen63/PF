@@ -11,7 +11,7 @@ import { useState } from "react";
 import BanearDefini from "../PopUpBanear/BaneoDefinitivo";
 
 
-function UserCard({ id, name, username, email, isAdmin, image, courses, estado }) {
+function UserCard({ id, name, username, email, isAdmin, image, isPremium, estado }) {
   const dispatch = useDispatch();
   const [banearPopUp, setBanear] = useState(false);
   const [banearDefini, setBanearDef] = useState(false);
@@ -54,14 +54,7 @@ function UserCard({ id, name, username, email, isAdmin, image, courses, estado }
             <h4>{name}</h4>
             <h4>{email}</h4>
             <h4>isAdmin: {isAdmin.toString()}</h4>
-          </div>
-        </div>
-        <div className={style.userCourses}>
-          <h2>Cursos:</h2>
-          <div className={style.coursesContainer}>
-            {courses.map((course) => (
-              <h5 key={course.title}>{course.title}</h5>
-            ))}
+            <h4>isPremium: {isPremium.toString()}</h4>
           </div>
         </div>
         <div className={style.adminOptions}>

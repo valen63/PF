@@ -76,3 +76,16 @@
 .optionButton:hover {
   border: 1px solid #ffffff;
 }
+@media (max-width: 768px) {
+.cardContainer{
+  flex-direction: column;
+  min-width: 0;
+  max-height: none;
+  align-items: center;
+}
+.userIdentity{
+  flex-grow: none;
+  flex-direction: column;
+}
+
+}

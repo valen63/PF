@@ -7,7 +7,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [puntuación, setPuntuación] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
-  const [tiempoRestante, setTiempoRestante] = useState(10);
+  const [tiempoRestante, setTiempoRestante] = useState(200);
   const [areDisabled, setAreDisabled] = useState(false);
   const [answersShown, setAnswersShown] = useState(false);
 
@@ -27,9 +27,9 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
           handleApproved(true);
       } else {
         setPreguntaActual(preguntaActual + 1);
-        setTiempoRestante(10);
+        setTiempoRestante(200);
       }
-    }, 1500);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
               if (preguntaActual === questions.length - 1) {
                 setPreguntaActual(0);
                 setPuntuación(0);
-                setIsFinished(false); setTiempoRestante(10); setAreDisabled(false);
+                setIsFinished(false); setTiempoRestante(200); setAreDisabled(false);
                 setAnswersShown(false); handleApproved(false)
 
               } else {

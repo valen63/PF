@@ -21,7 +21,7 @@ export default function CardD(props) {
   let array = [];
   let ids = user.lessons ? user.lessons.map(e => e.lesson._id) : []
   let claseSumary = user.courses ? user.courses.find((o) => o.course._id === detail._id) : null;
-  claseSumary = claseSumary ? claseSumary.course :null
+  claseSumary = claseSumary ? claseSumary.course : null
   let style = darkTheme;
 
   if (!detail.titulo) { return <NotFound /> }
@@ -39,7 +39,7 @@ export default function CardD(props) {
               {user.courses ? claseSumary ? null : <button onClick={() => Añadir(user._id, detail._id)(props.dispatch)}>Añadir curso +</button> : <NavLink to="/login">Añadir curso +</NavLink>}
             </div>
             <div className={style.data}>
-            <label className={style.label}>
+              <label className={style.label}>
                 Numero de clases: {Curso.lessons.length}
               </label>
               <label className={style.label}>
@@ -63,9 +63,11 @@ export default function CardD(props) {
                   {claseSumary.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1).map((e, i) => {
                     let complete = false
                     let lock = true
-                    if (ids.find((ele, index) => ele === e.lesson._id && !user.lessons[index].isLocked)) {; lock = false }
-                    if (ids.find((ele, index) => ele === e.lesson._id && user.lessons[index].isComplete)) {; complete = true }
-                    if (i === 0 || user.isPremium) {; lock = false }
+                    if (ids.find((ele, index) => ele === e.lesson._id && !user.lessons[index].isLocked)) { ; lock = false }
+                    if (ids.find((ele, index) => ele === e.lesson._id && user.lessons[index].isComplete)) { ; complete = true }
+                    let date = new Date().toString().split(" ")
+                    let vencido = user.Vencimiento ? user.Vencimiento.split(" ") : null
+                    if (i === 0 || (user.isPremium && vencido && (vencido[2] > date[3] || (meses.findIndex((u) => u === date[1]) > meses.findIndex((u) => u === vencido[0])) || (meses.findIndex((u) => u === date[1]) === meses.findIndex((u) => u === vencido[0]) && date[2] > vencido[1])) )) { ; lock = false }
                     return (
                       <div className={style.ClasP} key={i}>
                         {complete ? (
@@ -84,7 +86,7 @@ export default function CardD(props) {
                         ) : (
                           <>
                             <div className={style.input}>
-                              <input defaultChecked={false} type="radio" name="disponible" key={e.id} onClick={() => setIdClase({ num:i, state: "Disponible" })} />
+                              <input defaultChecked={false} type="radio" name="disponible" key={e.id} onClick={() => setIdClase({ num: i, state: "Disponible" })} />
                             </div>
                             <p>Disponible</p></>
                         )}
@@ -95,7 +97,7 @@ export default function CardD(props) {
                 </div>
               </div>
               {claseSumary ? claseSumary.lessons.length !== 0 ? <div className={style.lessonSumary}>
-                <LessonSumary clase={claseSumary} num ={idClase.num} state={idClase.state} idCurse={detail._id} />
+                <LessonSumary clase={claseSumary} num={idClase.num} state={idClase.state} idCurse={detail._id} />
               </div> : null : null}
             </div> : null}
           </div>
