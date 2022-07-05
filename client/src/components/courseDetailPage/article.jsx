@@ -16,14 +16,15 @@ import { NavLink } from "react-router-dom";
 let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 export default function CardD(props) {
   const [idClase, setIdClase] = useState({ num: 0, state: "Disponible" });
+  const [mensaje, setMensaje] = useState(true);
   let { detail, user } = useSelector(state => state)
   let Curso = detail;
-  let array = [];
   let ids = user.lessons ? user.lessons.map(e => e.lesson._id) : []
   let claseSumary = user.courses ? user.courses.find((o) => o.course._id === detail._id) : null;
   claseSumary = claseSumary ? claseSumary.course : null
   let style = darkTheme;
-
+  let fecha = user.Vencimiento && user.Vencimiento.fecha ? user.Vencimiento.fecha.split(" ") : null;
+  let date = new Date().toString().split(" ");
   if (!detail.titulo) { return <NotFound /> }
   return (
     <ThemeProvider
@@ -48,7 +49,7 @@ export default function CardD(props) {
               <label className={style.label}>
                 Numero de votos: {Curso.userVotes.length}
               </label>
-              <Stars idCurso={detail._id} idUser={user._id} calificacion={detail.calificacion} />
+              <Stars idCurso={detail._id} idUser={user._id} calificacion={detail.calificacion} userVotes={detail.userVotes} />
             </div>
             <img className={style.imagen} alt="" src={Curso.imagen} />
           </div>
@@ -58,6 +59,11 @@ export default function CardD(props) {
               <p>{Curso.descripcion}</p>
             </div>
             {claseSumary ? claseSumary.lessons.length === 0 ? null : <div className={darkTheme.flexContainer4}>
+              {mensaje && user.isPremium && fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1])) ?
+                <div className={style.aviso}>Recuerda que eres Premium, asi que todas las clases tienen sus lecciones desbloquedas!. El equipo de CodeLearn te agradece por tu compra y te quiere recordar que lo feliz que nos hace que hagas parte de esta familia.Ante cualquier inconveniente comunicate con el correo:  {import.meta.env.VITE_CORREOSUPORT}
+                  <button className={lightTheme.cerrar} onClick={() => setMensaje(false)}>X</button>
+                </div>
+                : null}
               <div className={style.flexContainer5}>
                 <div className={darkTheme.progreso}>
                   {claseSumary.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1).map((e, i) => {
@@ -65,9 +71,8 @@ export default function CardD(props) {
                     let lock = true
                     if (ids.find((ele, index) => ele === e.lesson._id && !user.lessons[index].isLocked)) { ; lock = false }
                     if (ids.find((ele, index) => ele === e.lesson._id && user.lessons[index].isComplete)) { ; complete = true }
-                    let date = new Date().toString().split(" ")
-                    let vencido = user.Vencimiento ? user.Vencimiento.split(" ") : null
-                    if (i === 0 || (user.isPremium && vencido && (vencido[2] > date[3] || (meses.findIndex((u) => u === date[1]) > meses.findIndex((u) => u === vencido[0])) || (meses.findIndex((u) => u === date[1]) === meses.findIndex((u) => u === vencido[0]) && date[2] > vencido[1])) )) { ; lock = false }
+                    if (i === 0) { ; lock = false }
+                    if (user.isPremium && fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1]))) { ; lock = false }
                     return (
                       <div className={style.ClasP} key={i}>
                         {complete ? (
@@ -98,6 +103,7 @@ export default function CardD(props) {
               </div>
               {claseSumary ? claseSumary.lessons.length !== 0 ? <div className={style.lessonSumary}>
                 <LessonSumary clase={claseSumary} num={idClase.num} state={idClase.state} idCurse={detail._id} />
+                <hr />
               </div> : null : null}
             </div> : null}
           </div>

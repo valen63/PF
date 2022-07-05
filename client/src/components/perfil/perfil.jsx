@@ -90,16 +90,25 @@ const Perfil = (props) => {
                     <label> Email: </label>
                     <span> {user.email} </span>
                   </div>
+                  <div>
+                    <label> IsPremium: </label>
+                    <span> {user.isPremium ? "SI" : "NO"} </span>
+                  </div>
                 </div>
                 <div className={style.item}>
                   <div>
                     <label> Ultima Conexion : </label>
                     <span> {fecha} </span>
-
                   </div>
                   <div><label> Cursos Completados : </label>
-                    <span> {user.courses.filter(e => e.completed === true).length} </span></div>
+                    <span> {user.courses.filter(e => e.completed === true).length} </span>
+                  </div>
+                  {user.isPremium ? <div>
+                    <label> Vencimiento del Plan : </label>
+                    <span> {user.Vencimiento? user.Vencimiento.fecha: null} </span>
+                  </div> : null}
                 </div>
+
               </div>
             </div>
           </div>

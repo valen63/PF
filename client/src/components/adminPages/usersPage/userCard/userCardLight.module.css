@@ -79,7 +79,7 @@
 @media (max-width: 768px) {
 .cardContainer{
   flex-direction: column;
-  min-width: 0;
+  min-width: 350px;
   max-height: none;
   align-items: center;
 }

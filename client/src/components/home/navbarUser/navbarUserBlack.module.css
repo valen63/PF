@@ -168,6 +168,7 @@
   transform: translateY(0);
   pointer-events: auto; 
   transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+  z-index: 10;
 }
 
 .dropdownmenuActive a{

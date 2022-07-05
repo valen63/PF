@@ -21,9 +21,10 @@ const createLesson = async (req, res, next) => {
   }
 }
 const getLesson = async (req, res, next) => {
-  let id = req.params.id
+  let { id, num } = req.params
   try {
-    const lesson2 = await Lesson.find({ num: id })
+    const CursoFind = await Curso.find({ _id: id })
+    var lesson2 = CursoFind[0].lessons.filter(e => e.lesson && e.lesson.num + "" === num)
     res.send({ info: 'Clase obtenida correctamente', lesson2 })
   } catch (err) {
     console.log(err)
@@ -31,15 +32,15 @@ const getLesson = async (req, res, next) => {
   }
 }
 const isCompleted = async (req, res) => {
-  const { idLesson, idUser, num } = req.body
+  const { idLesson, idUser, num, idNext } = req.body
   try {
     const usuario = await User.findById({ _id: idUser });
     let filter = usuario.lessons.filter(e => e.lesson !== null)
-    let find = filter.length ? filter.find(e => e.lesson.num === num) : null;
+    let find = filter.length ? filter.find(e => e.lesson.num === num && e.lesson._id === idLesson) : null;
     if (find) {
 
       let correccion = filter.map((e, i) => {
-        if (e.lesson.num === num) {
+        if (e.lesson.num === num  && e.lesson._id === idLesson) {
           e.isComplete = true;
           e.isLocked = false;
           return e
@@ -52,14 +53,15 @@ const isCompleted = async (req, res) => {
         { lessons: correccion },
         { new: true }
       );
-      let Lewlesson = await Lesson.find({ num: num + 1 })
-      if(Lewlesson.length){
+      let Lewlesson = await Lesson.find({ num: num + 1, _id: idNext })
+      let find2 = filter.length ? filter.find(e => e.lesson.num === num + 1 && e.lesson._id === idNext) : null;
+      if (Lewlesson.length && !find2) {
         user = await User.findByIdAndUpdate(
           { _id: idUser },
           {
             $push: {
               lessons: {
-                lesson: { _id: Lewlesson[0]._id },
+                lesson: { _id: idNext },
                 isLocked: false,
               }
             }
@@ -83,7 +85,7 @@ const isCompleted = async (req, res) => {
         },
         { new: true }
       );
-      let lesson2 = await Lesson.find({ num: num + 1 })
+      let lesson2 = await Lesson.find({ _id:idNext })
       if (lesson2.length) {
         user = await User.findByIdAndUpdate(
           { _id: idUser },
@@ -98,7 +100,7 @@ const isCompleted = async (req, res) => {
           { new: true }
         );
       }
-      res.send({ info: "Lesson añadido y modificada exitosamente", user: user, success: true });
+      res.send({ info: "Lesson añadido y modificada exitosamente", user, success: true });
     }
 
 

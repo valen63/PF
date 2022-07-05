@@ -14,6 +14,7 @@ function Register() {
   const [registerError, setRegisterError] = useState({});
 
   const workOnChange = (event) => {
+    setRegisterError({})
     setInput({
       ...input,
       [event.target.name]: event.target.value,

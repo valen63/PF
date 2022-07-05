@@ -78,6 +78,9 @@
 }
 
 @media (max-width: 650px) {
+    .item .containerButton {
+        flex-direction: column;
+    }
     .containerMain{
         flex-direction: column;
     }

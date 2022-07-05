@@ -6,8 +6,12 @@ import Discord from "../../../icons/Discord.jsx";
 import CursoIcon from "../../../icons/libro.jsx";
 import { ThemeProvider } from "styled-components";
 import { NavLink } from "react-router-dom";
+import Home from "../../../icons/Home";
+import { useSelector } from "react-redux";
 
+let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 function NavBar(props) {
+  let user = useSelector(store => store.user)
   let style = props;
   let navBar = useRef(null);
   let logo = useRef(null);
@@ -21,7 +25,8 @@ function NavBar(props) {
   const handleMouseLeave = () => {
     logo.current.setAttribute("src", gif2);
   };
-
+  let fecha = user.Vencimiento && user.Vencimiento.fecha ? user.Vencimiento.fecha.split(" ") : null;
+  let date = new Date().toString().split(" ");
   return (
     <ThemeProvider
       theme={
@@ -30,7 +35,7 @@ function NavBar(props) {
     >
       <div
         ref={navBar}
-        className={style.navbar}
+        className={user.isPremium && fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1])) ? style.navgold : style.navbar}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -44,20 +49,26 @@ function NavBar(props) {
           />
         </NavLink>
         <div className={style.icon}>
-        <NavLink to="/courses"><CursoIcon /></NavLink>
+          <NavLink to="/Home"><Home /></NavLink>
+          <NavLink to="/Home" className={style.hide}>
+            Home
+          </NavLink>
+        </div>
+        <div className={style.icon}>
+          <NavLink to="/courses"><CursoIcon /></NavLink>
           <NavLink to="/courses" className={style.hide}>
             Cursos
           </NavLink>
         </div>
         <div className={style.icon}>
-        <NavLink to="/favoritos"><CodeIcon /></NavLink>
+          <NavLink to="/favoritos"><CodeIcon /></NavLink>
           <NavLink to="/favoritos" className={style.hide}>
-           Mis Cursos
+            Mis Cursos
           </NavLink>
         </div>
         <div className={style.icon}>
-        <a href="https://discord.gg/kwXhPtED" target="_blank" rel="noopener noreferrer"><Discord /></a>
-          <a href="https://discord.gg/kwXhPtED" target="_blank" rel="noopener noreferrer" className={style.hide}>
+          <a href="https://discord.gg/jUCT93a9UP" target="_blank" rel="noopener noreferrer"><Discord /></a>
+          <a href="https://discord.gg/jUCT93a9UP" target="_blank" rel="noopener noreferrer" className={style.hide}>
             Unete a Discord!
           </a>
         </div>

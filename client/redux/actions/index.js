@@ -273,7 +273,7 @@ export const Añadir = (idUser, idCurso) => {
         },
       };
       const resp = await axios.put( `/api/cursosprivate/add`,{ idUser, idCurso },config );
-      if(resp.data.success){console.log(resp.data.user);dispatch(updateUser(resp.data.user));}
+      if(resp.data.success){dispatch(updateUser(resp.data.user));}
     } catch (err) {
       console.log(err);
     }
@@ -300,7 +300,7 @@ export const ResetearContraseña = (token, password) => {
 };
 
 
-export const Aprobar  = (idUser, idLesson, num, id) => {
+export const Aprobar  = (idUser, idLesson, num, idNext) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -309,7 +309,7 @@ export const Aprobar  = (idUser, idLesson, num, id) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       };
-      const resp = await axios.put( `/api/cursosprivate/complete`,{ idLesson, num, idUser },config );
+      const resp = await axios.put( `/api/cursosprivate/complete`,{ idLesson, num, idUser,idNext },config );
       if(resp.data.success){dispatch(updateUser(resp.data.user));}
 
     } catch (err) {
@@ -358,7 +358,7 @@ export const unmarkfavorites = (idUser, idCurso) => {
   };
 };
 
-export const getLesson = (idLesson) => {
+export const getLesson = (curso,idLesson) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -367,8 +367,8 @@ export const getLesson = (idLesson) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       };
-      const metaData = await axios.get(`/api/cursosprivate/${idLesson}/lessons`, config);
-      dispatch({ type: "GET_LESSON", payload: metaData.data.lesson2[0] });
+      const metaData = await axios.get(`/api/cursosprivate/${curso}/${idLesson}/lessons`, config);
+      dispatch({ type: "GET_LESSON", payload: metaData.data.lesson2[0].lesson });
     } catch (err) {
       return err;
     }
@@ -548,6 +548,27 @@ export const CreateLesson = (idCurso, data) => {
     try {
       let info = await axios.put(`/api/cursosprivate/new/${idCurso}`, data);
       dispatch(setCourses(info))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+export const getReco = () => {
+  return async function (dispatch) {
+    try {
+      let recos = await axios.get(`/api/recomendaciones`);
+      let nombres = [];
+      let filtrar = recos.data.length? recos.data.filter(e=>{if(nombres.find(el=>el===e.name)){return false}else{nombres.push(e.name);return true}}):[]
+      dispatch({type: "RECOMENDACIONES", payload: filtrar})
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+export const CreateReco = (data) => {
+  return async function () {
+    try {
+      await axios.post(`/api/cretate/recomendacion`, { body: data});
     } catch (err) {
       console.log(err)
     }

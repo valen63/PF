@@ -11,6 +11,7 @@ import lightTheme from "./navbarUserLight.module.css";
 
 //  icones
 // import FavoriteIcon from "../../../icons/Favorite";
+import Home from "../../../icons/Home.jsx";
 import Moon from "../../../icons/moon";
 import Discord from "../../../icons/Discord.jsx";
 import CursoIcon from "../../../icons/libro.jsx";
@@ -99,11 +100,17 @@ function NavBarUser() {
             <CursoIcon />
           </NavLink>
         </div>
+        <div className={activeArrow ? style.icon2Active : style.icon4}>
+        <NavLink to="/Home">
+          <Home />
+          </NavLink>
+        </div>
         <div className={activeArrow ? style.icon4Active : style.icon4}>
-          <a href="https://discord.gg/kwXhPtED" target="_blank" rel="noopener noreferrer">
+          <a href="https://discord.gg/jUCT93a9UP" target="_blank" rel="noopener noreferrer">
             <Discord />
           </a>
         </div>
+        
         <div className={style.username}>
           <h2 className={style.username}>{user.username ? user.username.split(" ")[0] : "Invitado"}</h2>
         </div>

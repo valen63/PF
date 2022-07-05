@@ -22,6 +22,10 @@ const Landing = () => {
             <NavLink to="Register">
               <button> Registrarme </button>
             </NavLink>
+
+            <NavLink to="LogIn">
+              <button> LogIn </button>
+            </NavLink>
           </div>
         </div>
         <div className={style.item2}>

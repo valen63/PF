@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getUserRank } from "../../../../redux/actions";
+import gold from "/img/gold.png"
+import silver from "/img/silver.png"
+import bronze from "/img/bronze.png"
 
 // styles
 import style from "./userRank.module.css";
@@ -11,12 +14,8 @@ const UserRank = () => {
   const user = useSelector((store) => store.user);
   const [userRank, setUserRank] = useState();
   const [errorRank, setErrorRank] = useState({});
-  const [frame, setFrame] = useState();
 
   useEffect(() => {
-    if (userRank + 1 === 1) setFrame("img/gold.png");
-    if (userRank + 1 === 2) setFrame("img/silver.png");
-    if (userRank + 1 === 3) setFrame("img/bronze.png");
 
     async function axiosReq() {
       const data = await dispatch(getUserRank(user._id));
@@ -40,7 +39,7 @@ const UserRank = () => {
             className={style.userPicture}
           />
           <img
-            src={frame}
+            src={userRank === 0 ? gold: userRank === 1 ? silver: userRank=== 2? bronze:null}
             className={style.frame}
           />
         </div>

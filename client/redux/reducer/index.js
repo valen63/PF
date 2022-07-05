@@ -15,6 +15,7 @@ import {
 
 // index reducers app
 const initialState = {
+  Recos:[],
   user: {},
   lesson:{},
   detail:{},
@@ -110,6 +111,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case "GET_LESSON":
       return{
         ...state, lesson:payload
+      }
+    case "RECOMENDACIONES":
+      return{
+        ...state, Recos:payload
       }
     default:
       return state;

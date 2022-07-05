@@ -1,5 +1,5 @@
 
-.navbar{
+.navbar, .navgold{
   background-color: rgb(160, 20, 13);
   position: fixed;
   height: 100%;
@@ -14,7 +14,10 @@
 -moz-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
 padding-top: 30px;
 }
-.navbar:hover{
+.navgold{
+  background-color: darkgoldenrod;
+}
+.navbar:hover, .navgold:hover{
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -22,7 +25,6 @@ padding-top: 30px;
   padding-top: 30px;
   width: 14em;
 }
-
 .logo{
   padding-top: 1em;
   margin-left: 1.5em;
@@ -44,12 +46,12 @@ padding-top: 30px;
 }
 
 
-.navbar a{
+.navbar a, .navgold a{
   text-decoration: none;
   color: white;
 }
 
-.navbar a:hover{
+.navbar a:hover, .navgold a:hover{
   color: rgb(192, 192, 192);
 }
 
@@ -70,7 +72,7 @@ padding-top: 30px;
   color: white;
 }
 
-.navbar:hover .hide{
+.navbar:hover .hide, .navgold:hover .hide{
   margin-left: 3.5em;
   opacity: 100%;
   color: white;
@@ -79,7 +81,7 @@ padding-top: 30px;
   transition: margin-left 1.5s, opacity 2.5s;
 }
 
-.navbar:hover  .logo{
+.navbar:hover  .logo, .navgold:hover .logo{
   background-size: 10em 4em;
   margin-left: 2.5em;
 }
@@ -97,7 +99,7 @@ padding-top: 30px;
 
 
 @media (max-width: 768px) {
-  .navbar{
+  .navbar, .navgold{
     display: none;
     pointer-events: none;
   }

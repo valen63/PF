@@ -3,11 +3,14 @@ import { useDispatch } from "react-redux";
 import { addVotes, getCourses ,findCourse } from "../../../../redux/actions/index";
 import "./vote.css";
 
-export default function Stars({ idCurso, idUser, calificacion }) {
+export default function Stars({ idCurso, idUser, userVotes, calificacion }) {
+  let ids = userVotes.map(e=> e.user)
+  let voto = ids.find(e=> e === idUser)
   const dispatch = useDispatch()
   let [boton, setBoton] = useState(false);
   function Click() {
     setBoton(true);
+    if(voto){setBoton(false)}
     let inputs = document.getElementsByName("rating-star");
     let labels = document.getElementsByClassName("rating__item");
     let max = 5;
@@ -33,6 +36,8 @@ export default function Stars({ idCurso, idUser, calificacion }) {
     if (idCurso && idUser) {
       addVotes(idCurso, {idCurso, calificacion: calificacion + parseInt(max) , idUser: idUser, votes: parseInt(max) })();
     }
+    setBoton(false)
+    voto = true
     getCourses()(dispatch);
     findCourse(idCurso)(dispatch);
   }
@@ -150,6 +155,7 @@ export default function Stars({ idCurso, idUser, calificacion }) {
       ) : <button className="boton_send disab">
       Send Vote
     </button>}
+    {voto && <label>Ya has votado</label>}
     </div>
   );
 }

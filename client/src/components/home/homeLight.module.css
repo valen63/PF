@@ -39,7 +39,7 @@
 
 }
 
-.container {
+.container, .aviso {
     display: flex;
     flex-direction: row;
     background: linear-gradient(90deg, rgb(250, 250, 250) 40%, rgba(0, 0, 0, 0.1) 100%);
@@ -50,7 +50,26 @@
     -webkit-box-shadow: -4px 5px 15px 5px rgba(0, 0, 0, 0.11);
     box-shadow: -4px 5px 15px 5px rgba(0, 0, 0, 0.11);
 }
-
+.aviso{
+    text-align: center;
+    padding: 3px 50px;
+    margin: 10px 0;
+    min-height: 0px;
+    position: relative;
+    place-content: center;
+    background: linear-gradient(to right, #020fdd, #1cc052);
+    color: white;
+    mix-blend-mode: difference;
+}
+.cerrar{
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    font-size: xx-large;
+    background: transparent;
+    border: none;
+    color: white;
+}
 .container2 {
     display: flex;
     padding: 20px;

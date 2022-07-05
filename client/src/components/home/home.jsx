@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import Ranking from "./ranking/ranking";
 import UserRank from "./userRank/userRank";
 import JSIcon from "../../icons/javascript";
-import { Reco } from "../../../CursosBases"
 import { AiFillHeart } from 'react-icons/ai';
 import "../../EstilosRecos.css"
-import { useSelector } from "react-redux"; 
+import { useSelector } from "react-redux";
+import { useState } from "react";
+
+let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 function Recomendaciones(name, hr, etiqueta, style, key) {
   var etiquet = ""
@@ -23,11 +25,11 @@ function Recomendaciones(name, hr, etiqueta, style, key) {
 }
 
 function Home(props) {
-
-  const { courses, user } = useSelector((store) => store);
-  
+  const [mensaje, setMensaje] = useState(true);
+  const { courses, user, Recos } = useSelector((store) => store);
   let favoritos = user.courses ? user.courses.filter(e => e.isFavorite).map(e => e.course) : []
-
+  let fecha = user.Vencimiento && user.Vencimiento.fecha? user.Vencimiento.fecha.split(" "): null;
+  let date = new Date().toString().split(" ");
   let style = props;
   return (
     <ThemeProvider
@@ -40,24 +42,36 @@ function Home(props) {
           <UserRank />
           <Ranking />
         </div>
+        {mensaje && user.isPremium &&  fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1]) )?
+          <div className={style.aviso}>Recuerda que eres Premium, asi que todas las clases tienen sus lecciones desbloquedas!. El equipo de CodeLearn te agradece por tu compra y te quiere recordar que lo feliz que nos hace que hagas parte de esta familia.Ante cualquier inconveniente comunicate con el correo:  {import.meta.env.VITE_CORREOSUPORT}
+            <button className={lightTheme.cerrar} onClick={() => setMensaje(false)}>X</button>
+          </div>
+          : null}
         <div className={style.flexContainer2}>
           <div className={style.container2}>
             <h1>Recomendaciones del mes:</h1>
-            {Reco ? Reco.map((e, i) => Recomendaciones(e.name, e.hr, e.etiqueta, lightTheme, i)) : null}
+            {Recos.length ? Recos.map((e, i) => Recomendaciones(e.name, e.hr, e.etiqueta, lightTheme, i)) : null}
           </div>
           <div className={style.flexContainer3}>
             <div className={style.container31}>
               <img src={codeLearnGold} className={style.logoCont3} />
-              <div className={style.container3Text}>
+              {user.isPremium &&  fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1]) )? <div className={style.container3Text}>
+                <h3>Ya eres CodeLearn Gold!</h3>
+                <h1>
+                  Recuerda que tienes acceso a todos las lecciones de los cursos sin tener que desbloquear una a una.Ve a los cursos y aprovecha tu compra!
+                </h1>
+                <div className={style.button}>
+                  <Link to="/courses">Ir ahora</Link>
+                </div>
+              </div> : <div className={style.container3Text}>
                 <h3>Mejora a CodeLearn Gold ahora!</h3>
                 <h1>
-                  Ayuda a CodeLearn y obtiene mejoras como Pro stats,
-                  Comparativas con otros usuarios y mas.
+                  Vuelvete Premium y accede a todas las lecciones y clases sin tener que desbloquearlas individualmente
                 </h1>
                 <div className={style.button}>
                   <Link to="/Precios">Ver mas</Link>
                 </div>
-              </div>
+              </div>}
             </div>
             <div>
               {favoritos.length ? <h1 className={style.tit}>Favoritos</h1> : null}
@@ -85,7 +99,7 @@ function Home(props) {
                   <div></div></div>
               </div>).slice(0, 2) : null}
               {courses.length ? <h1 className={style.tit}>Mas Votados</h1> : null}
-              {courses ? courses.sort((a, b) => (a.votes.length > 0 ? (a.votes.reduce((a1, b1) => a1 + b1, 0) / a.userVotes.length).toFixed(1) : 0) < (b.votes.length > 0 ? (b.votes.reduce((a1, b1) => a1 + b1, 0) / b.userVotes.length).toFixed(1) : 0)? 1:-1).slice(0, 2).map((course, i) =>
+              {courses ? courses.sort((a, b) => (a.votes.length > 0 ? (a.votes.reduce((a1, b1) => a1 + b1, 0) / a.userVotes.length).toFixed(1) : 0) < (b.votes.length > 0 ? (b.votes.reduce((a1, b1) => a1 + b1, 0) / b.userVotes.length).toFixed(1) : 0) ? 1 : -1).slice(0, 2).map((course, i) =>
                 <div key={i} className={style.container3}>
 
                   <div className={style.flexContainerCard}>

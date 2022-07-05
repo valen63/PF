@@ -4,9 +4,8 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
-import { getCourses, getRanking } from "../redux/actions";
-import { Create } from "../redux/actions";
-import { Base } from "../CursosBases"
+import { getCourses, getRanking, Create, CreateReco,getReco } from "../redux/actions";
+import { Base, Reco} from "../CursosBases"
 
 
 // compoents
@@ -39,9 +38,10 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourses());
-    getRanking()(dispatch)
+    getRanking()(dispatch);
+    Reco.map(async (e) => await CreateReco(e)())
     Base.map(async (e) => await Create({ ...e, lessons: [] }, e.lessons)()) //EJECUTAR SOLO LA PRIMERA VEZ QUE LO USAS para generar los modelos de curso en la base de datos (procura limpiar la base de datos antes)
-  // Base.map((e)=> console.log({...e,lessons:[]}, e.lessons))
+    getReco()(dispatch);
   });
 
   const AppLayout = () => (

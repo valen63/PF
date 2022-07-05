@@ -11,9 +11,9 @@ import { useState } from 'react';
 
 
 function LessonPage() {
-  let { idLesson } = useParams();
+  let { idCourse, idLesson } = useParams();
   const dispatch = useDispatch();
-  getLesson(idLesson)(dispatch);
+  getLesson(idCourse,idLesson)(dispatch);
   let [refresh, setRefresh] =useState(false)
   return (
     <div className={style.highContainer}>

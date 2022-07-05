@@ -127,8 +127,10 @@ const googleLogin = async (req, res) => {
 }
 const Curso = require('../model/modelCurso')
 const Lesson = require('../model/modelLesson')
+const Recomendacion = require("../model/modelRecomendaciones.js");
 const reset = async (req, res) => {
   try {
+    await Recomendacion.deleteMany();
     await Curso.deleteMany();
     await Lesson.deleteMany();
     await User.deleteMany();

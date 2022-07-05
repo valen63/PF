@@ -55,31 +55,7 @@ export const Lesson2 = function(titulo, video,num,last=false){
         }
     ],
 })}
-export const Lesson1 ={
-    titulo: "Descubriendo",
-    descripcion: "Descripcion de Arrays",
-    video: "https://vimeo.com/47483575",
-    quiz: [
-        {
-            "titulo": "¿Cuál es el mejor lenguaje de programación?",
-            "opciones": [
-                { "textoRespuesta": "JavaScript", "isCorrect": true },
-                { "textoRespuesta": "PHP", "isCorrect": false },
-                { "textoRespuesta": "C++", "isCorrect": false },
-                { "textoRespuesta": "Kotlin", "isCorrect": false }
-            ]
-        },
-        {
-            "titulo": "Con Lasfito aprendes de tutoriales...?",
-            "opciones": [
-                { "textoRespuesta": "sin contenido", "isCorrect": false },
-                { "textoRespuesta": "sin relleno", "isCorrect": true },
-                { "textoRespuesta": "sin gracia :v", "isCorrect": false },
-                { "textoRespuesta": "sin código", "isCorrect": false }
-            ],
-        }
-    ],
-}
+
 export var Reco = [
     { name: "FLEXBOX FROGGY", hr: "http://flexboxfroggy.com/#es", etiqueta: "css" },
     { name: "GRID GARDEN", hr: "https://cssgridgarden.com/#es", etiqueta: "css" },

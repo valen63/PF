@@ -32,11 +32,11 @@ const CheckoutForm = ({ user }) => {
         if (!error) {
             var respuesta = {}
             if (Time === "Year") {
-                date = `${date[1]} ${1 + parseInt(date[2])} ${parseInt(date[3]) + 1}`
+                date = `${date[1]} ${parseInt(date[3]) + 1}`
                 const { id } = paymentMethod
                 respuesta = await Premium({
                     id,
-                    amount: 4000, // 4200/12 Se hace un monto mensual pero con precio anual //USD*100
+                    amount: 4200, // 4200/12 Se hace un monto mensual pero con precio anual //USD*100
                     date,
                     description: "Pago por un año",
                     idUser: user._id,
@@ -44,8 +44,8 @@ const CheckoutForm = ({ user }) => {
                 })(dispatch)
             }
             else {
-                if (mes === 11) { date = `${meses[0]} ${1 + parseInt(date[2])} ${1 + parseInt(date[3])}` }
-                else { date = `${meses[mes + 1]} ${1 + parseInt(date[2])} ${date[3]}` }
+                if (mes === 11) { date = `${meses[0]} ${1 + parseInt(date[3])}` }
+                else { date = `${meses[mes + 1]} ${date[3]}` }
                 const { id } = paymentMethod
                 respuesta = await Premium({
                     id,
@@ -62,26 +62,37 @@ const CheckoutForm = ({ user }) => {
         }
         else { setRespuesta(error); setWait(false) }
     }
+    console.log(respuesta)
     if (respuesta.success) {
         return (<div className={style.body}>
             <img className={style.confeti} src="https://c.tenor.com/v35v-zbtwnUAAAAi/confetti.gif" alt="confeti" />
             <div className={style.recuadro}>
-
-                <h1>Pago exitoso</h1>
-                <label>Tu pago fue confirmado ahora eres Premium.
-                    Ya puedes disfrutar de todos tus contenidos</label>
-                <label>Recuerda que tu pago va hasta {user.Vencimiento}</label>
-                <NavLink to="/home">Ir al home</NavLink>
-
+                <div>
+                    <h1>Pago exitoso</h1>
+                    <label>Tu pago fue confirmado ahora eres Premium.
+                        Ya puedes disfrutar de todos tus contenidos.
+                    </label>
+                    <label>Recuerda que el pago no se debita automaticamente. Y que se vence al iniciar el mes</label>
+                    <label>El pago realizado va hasta {user.Vencimiento.fecha}</label>
+                    <label>Si presentas cualquier inconveniente comunicate con {import.meta.env.VITE_CORREOSUPORT}</label>
+                    <NavLink to="/home">Ir al home</NavLink>
+                </div>
+                <div>
+                    <h2>Informacion de pago:</h2>
+                    <h5>Email:{input.email}</h5>
+                    <h5>Importe:{Time === "Year" ? "$42 usd" : "$14.5 usd"}</h5>
+                    <h5>Telefono de Contacto:{input.celular}</h5>
+                    <h5>Nombre:{input.name}</h5>
+                </div>
             </div>
         </div>)
     }
     return (
         <form onSubmit={(e) => { handleSubmit(e) }} className={style.body}>
 
-            <button className={style.proceed2}>
+            <label className={style.cerrar}>
                 <NavLink to="/home">X</NavLink>
-            </button>
+            </label>
             <div className={style.container}>
                 <div className={style.card}>
                     {wait ? <button className={style.proceed}><img className={style.load} src="https://acegif.com/wp-content/uploads/loading-6.gif" alt="" /></button> : (input.name && input.email && input.celular) ? <button className={style.proceed}><svg className={style.sendicon} width="24" height="24" viewBox="0 0 24 24" >
@@ -92,21 +103,21 @@ const CheckoutForm = ({ user }) => {
                     <img src="https://1000marcas.net/wp-content/uploads/2020/03/logo-American-Express.png" className={style.logo_card} />
                     <img src="https://lirp.cdn-website.com/876572b9/dms3rep/multi/opt/Dekart+favicon-1920w.png" className={style.chip_card} />
                     <label>Card number:</label>
-                    <input id="user" className={style.input_cardnumber} placeholder="1234 5678 9101 1121" />
+                    <input id="user" className={style.input_cardnumber} placeholder="1234 5678 9101 1121" readOnly />
                     <div>
                         <label>Name:</label>
-                        <label className={style.name} placeholder="XXXXXXXXX XXXXXX" disabled>{input.name}</label></div>
-                    <div><label className={style.toleft} >CCV:</label>
+                        <label className={style.name} placeholder="XXXXXXXXX XXXXXX" readOnly>{input.name}</label></div>
+                    <div><label className={style.toleft} readOnly>CCV:</label>
                         <input className={style.toleft_ccv} placeholder="XXX" disabled value={input.cvv} /></div>
                 </div>
                 <div className={style.receipt} >
-                   
+
                     <p className={style.titulo}>Completa los siguientes campos:</p>
-                     <p className={style.comprobe}>4242424242424242 Pago Realizado</p>
+                    <p className={style.comprobe}>4242424242424242 Pago Realizado</p>
                     <p className={style.comprobe}>4000000000009995 Error en el pago</p>
                     {respuesta.message ? <div className={style.error}>{respuesta.message}</div> : null}
                     <div className={style.col}><p>Cost:</p>
-                        <h2 className={style.seller}>{Time === "Year" ? "$40 usd" : "$14.5 usd"}</h2><br />
+                        <h2 className={style.seller}>{Time === "Year" ? "$42 usd" : "$14.5 usd"}</h2><br />
                         <p>Name:</p>
                         <h2 className={style.seller}>CodeLine</h2>
                     </div>
@@ -118,11 +129,11 @@ const CheckoutForm = ({ user }) => {
                         <p>Correo Electronico:</p>
                         <input className={style.input} placeholder="Email..." name="email" onChange={(e) => Change(e.target)} defaultValue={user.email} />
                         <p>Numero de telefono:</p>
-                        <input className={style.input} type="celular" name="celular" onChange={(e) => Change(e.target)} />
+                        <input className={style.input} name="celular" onChange={(e) => Change(e.target)} />
                     </div>
                     <div className={style.abajo}>
                         <p className={style.comprobe}>This information will be sended to your email</p>
-                        {(input.name && input.email && input.celular) ? <button className={style.proceed3}>{wait ? "Loading...":"Pagar"}</button> : null}
+                        {(input.name && input.email && (input.celular && input.celular.length >= 8)) ? <button className={style.proceed3}>{wait ? "Loading..." : "Pagar"}</button> : null}
                     </div>
 
                 </div>

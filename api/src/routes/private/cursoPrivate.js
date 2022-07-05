@@ -14,7 +14,7 @@ router.put('/completeCourse', protect, isCompletedCourse)
 router.put('/add', protect, add)
 router.put('/new/:id', createLesson)
 router.put('/:id', protect, createLesson)
-router.get('/:id/lessons', protect, getLesson)
+router.get('/:id/:num/lessons', protect, getLesson)
 router.put('/:id/votes', protect, addVotes)
 
 module.exports = router

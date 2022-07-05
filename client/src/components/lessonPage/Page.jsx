@@ -23,14 +23,15 @@ export default function Page(props) {
 
   if (!lesson.titulo) { return <></> }
   let next = lesson.num + 1
-
+  let idNext = detail.lessons ? detail.lessons.find(e => e.lesson && e.lesson.num === next) : null;
+  idNext= idNext? idNext.lesson._id: null
   function Revisar() {
-    Aprobar(user._id, lesson._id, lesson.num, detail._id)(props.dispatch)
+    Aprobar(user._id, lesson._id, lesson.num,idNext)(props.dispatch)
     props.setRefresh(true)
     setquiz(false)
     setApproved(false)
   }
-  function Finalizar(){
+  function Finalizar() {
     Revisar();
     AprobarCurso(user._id, detail._id)(props.dispatch);
   }
@@ -51,16 +52,16 @@ export default function Page(props) {
           handleApproved={handleApproved}
           approved={approved}
         /> : <button className={style.send} onClick={() => handleQuiz(true)}> Hacer quiz</button>}
-         {approved ?
+        {approved ?
           <label>
             *Recuerda que deber oprimir el boton para guardar tu progreso*
           </label> : null}
         {approved && !lesson.last ?
-          <button  className={style.sendb} onClick={() => Revisar()}><NavLink  className={style.sendN} to={`/course/${detail._id}/${next}`}>
+          <button className={style.sendb} onClick={() => Revisar()}><NavLink className={style.sendN} to={`/course/${detail._id}/${next}`}>
             Siguiente leccion
           </NavLink></button> : null}
-        {approved && lesson.last  ?
-          <button className={style.sendb}onClick={() => {Finalizar()}}><NavLink className={style.sendN} to={`/course/${detail._id}`}>
+        {approved && lesson.last ?
+          <button className={style.sendb} onClick={() => { Finalizar() }}><NavLink className={style.sendN} to={`/course/${detail._id}`}>
             Terminar el Curso
           </NavLink></button> : null}
       </div>

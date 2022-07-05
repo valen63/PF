@@ -248,6 +248,20 @@
     display: flex;
     align-self: center;
 }
+hr{
+    visibility: hidden;
+}
+.aviso {
+    text-align: center;
+    padding: 3px 50px;
+    margin: 10px 0;
+    min-height: 0px;
+    position: relative;
+    place-content: center;
+    background: linear-gradient(to right, #020fdd, #1cc052);
+    color: white;
+    mix-blend-mode: difference;
+}
 @media (max-width: 900px) {
     .flexContainer2{
         flex-direction: column;
@@ -277,4 +291,14 @@
         padding: 0 30px 20px 30px;
         margin: 0;
     }
+    .botoncito a, .botoncito button{
+        margin: 0 2em;
+    }
+    .flexContainer4{
+        max-width: 100%;
+    }
+    hr{
+        visibility: visible;
+    }
+    
 }
