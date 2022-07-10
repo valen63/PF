@@ -8,7 +8,7 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
 }
 
 .flexContainer2 {
@@ -323,7 +323,7 @@
 
     .container31 {
         width: 20em;
-        min-height: 10em;
+        min-height: 11em;
     }
 
     .recos {

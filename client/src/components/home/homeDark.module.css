@@ -10,7 +10,7 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
 }
 
 .flexContainer2 {
@@ -301,6 +301,8 @@
         align-items: center;
         gap: 1em;
         margin-top: 2em;
+        display: flex;
+        flex-direction: column-reverse;
     }
 
     .flexContainer3 {
@@ -315,15 +317,21 @@
     .container2 {
         width: 20em;
         min-height: 20em;
-
     }
 
     .container3 {
         width: 20em;
+        height: auto;
     }
 
     .container3Text {
         width: 10em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .button {
+        margin: 0;
     }
 
     .container3Text h3 {
@@ -337,6 +345,20 @@
 
     .container31 {
         width: 20em;
-        min-height: 10em;
+        min-height: 11em;
+    }
+
+    .recos {
+        flex-direction: column;
+    }
+
+    .recos h2 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .recos a {
+        width: 60%;
+        text-align: center;
     }
 }
