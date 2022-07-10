@@ -76,12 +76,10 @@ const getUsersByName = async (req, res, next) => {
 
 const editUsername = async (req, res, next) => {
   const { id } = req.params;
-  const { username } = req.body;
+  const { username, imagen} = req.body;
   try {
-    const user = await User.findByIdAndUpdate(id, { username }, { new: true });
-    if (!user)
-      return next(new ErrorResponse("Error al obtener el usuario", 500, false));
-    res.send(user);
+    if(username){const user = await User.findByIdAndUpdate(id, { username }, { new: true });res.send(user).end();}
+    else if(imagen){const user = await User.findByIdAndUpdate(id, { Image: imagen }, { new: true });res.send(user);}
   } catch (err) {
     next(new ErrorResponse("Error al obtener el usuario", 500, false));
   }

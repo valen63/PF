@@ -3,7 +3,18 @@
   width: 7em;
   height: 7em;
   border-radius: 0.2em;
+}
 
+.imgChanger {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Anek Latin';
+  position: absolute;
+  bottom: 7px;
+  right: 0;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 5px 0 0 0;
 }
 
 .container {
@@ -43,6 +54,7 @@
 
 .containerImg {
   margin: 22px;
+  position: relative;
 }
 
 .userDetail {
@@ -54,13 +66,14 @@
   gap: 4em;
 }
 
-.item label{
+.item label {
   display: inline-flex;
   margin-top: 0.5em;
   color: #a5a5a5;
   font-family: 'Anek Latin';
 }
-.item span{
+
+.item span {
   font-family: 'Anek Latin';
 }
 
@@ -169,7 +182,8 @@
     align-content: center;
     align-items: center;
   }
-  .cursos{
+
+  .cursos {
     font-size: small;
   }
 }

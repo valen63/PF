@@ -8,6 +8,7 @@ import { ThemeProvider } from "styled-components";
 import { NavLink } from "react-router-dom";
 import Home from "../../../icons/Home";
 import { useSelector } from "react-redux";
+import Help from "../../../icons/Help";
 
 let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 function NavBar(props) {
@@ -64,6 +65,12 @@ function NavBar(props) {
           <NavLink to="/favoritos"><CodeIcon /></NavLink>
           <NavLink to="/favoritos" className={style.hide}>
             Mis Cursos
+          </NavLink>
+        </div>
+        <div className={style.icon}>
+          <NavLink to="/AboutUs"><Help /></NavLink>
+          <NavLink to="/AboutUs" className={style.hide}>
+          Sobre Nosotros
           </NavLink>
         </div>
         <div className={style.icon}>

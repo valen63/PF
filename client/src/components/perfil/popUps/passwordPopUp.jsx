@@ -71,7 +71,7 @@ const PasswordPopUp = ({popUpFunction, email}) => {
             <input type="text" placeholder="Email" defaultValue={email} name="email"></input>
             {error.email && <label className={style.label}>{error.email}</label>}
           </div>
-          <input className={style.send} type="submit" value="Listo"></input>
+          {input.success? null:<input className={style.send} type="submit" value="Listo"></input>}
           {input.success && <label className={style.label2}>{input.success}</label>}
           {updateError.err && <label className={style.label}>{updateError.err}</label>}
         </form>

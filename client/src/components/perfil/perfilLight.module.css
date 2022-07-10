@@ -6,6 +6,18 @@
 
 }
 
+.imgChanger {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Anek Latin';
+  position: absolute;
+  bottom: 7px;
+  right: 0;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 5px 0 0 0;
+}
+
 .container {
   max-width: 100vw;
   width: 95%;
@@ -44,6 +56,7 @@
 
 .containerImg {
   margin: 22px;
+  position: relative;
 }
 
 .userDetail {
@@ -155,9 +168,10 @@
 }
 
 @media (max-width: 768px) {
-  body{
+  body {
     overflow-x: hidden;
   }
+
   .perfilDates {
     flex-direction: column;
   }
@@ -173,7 +187,8 @@
     align-content: center;
     align-items: center;
   }
-  .cursos{
+
+  .cursos {
     font-size: small;
   }
 

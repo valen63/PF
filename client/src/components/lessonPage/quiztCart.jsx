@@ -7,7 +7,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [puntuación, setPuntuación] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
-  const [tiempoRestante, setTiempoRestante] = useState(200);
+  const [tiempoRestante, setTiempoRestante] = useState(60);
   const [areDisabled, setAreDisabled] = useState(false);
   const [answersShown, setAnswersShown] = useState(false);
 
@@ -27,7 +27,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
           handleApproved(true);
       } else {
         setPreguntaActual(preguntaActual + 1);
-        setTiempoRestante(200);
+        setTiempoRestante(60);
       }
     }, 1000);
   }
@@ -87,7 +87,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
               if (preguntaActual === questions.length - 1) {
                 setPreguntaActual(0);
                 setPuntuación(0);
-                setIsFinished(false); setTiempoRestante(200); setAreDisabled(false);
+                setIsFinished(false); setTiempoRestante(60); setAreDisabled(false);
                 setAnswersShown(false); handleApproved(false)
 
               } else {
@@ -136,7 +136,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
         </div>
       </div>
       <div className={style.lado}>
-        {questions[preguntaActual].opciones.map((respuesta) => (
+        {questions[preguntaActual].opciones.map((respuesta) => ( //.sort(()=> Math.round(Math.random()*2)-1)
           <button
             className={style.button}
             disabled={areDisabled}

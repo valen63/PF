@@ -19,6 +19,7 @@ import Notification from "../../../icons/notification";
 import Sun from "../../../icons/sun";
 import Arrows from "../../../icons/arrows.jsx";
 import { setArrowDirection } from "../../../../redux/actions/index.js";
+import Help from "../../../icons/Help.jsx";
 
 function NavBarUser() {
   const dispatch = useDispatch();
@@ -90,7 +91,7 @@ function NavBarUser() {
           </NavLink>
         </div>
 
-        <div className={activeArrow ? style.icon2Active : style.icon2}>
+        <div className={activeArrow ? style.icon4 : style.icon2}>
           <NavLink to="/perfil">
             <Notification />
           </NavLink>
@@ -103,6 +104,11 @@ function NavBarUser() {
         <div className={activeArrow ? style.icon2Active : style.icon4}>
         <NavLink to="/Home">
           <Home />
+          </NavLink>
+        </div>
+        <div className={activeArrow ? style.icon2Active : style.icon4}>
+        <NavLink to="/AboutUs">
+          <Help />
           </NavLink>
         </div>
         <div className={activeArrow ? style.icon4Active : style.icon4}>

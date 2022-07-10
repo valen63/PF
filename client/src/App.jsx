@@ -29,6 +29,7 @@ import style from "./index.modules.css";
 import Prices from "./components/Prices/prices";
 import ChangePassw from "./components/ChangePassword/Change";
 import NotFound from "./NotFound/NotFound";
+import About from "./components/AboutUs/About";
 
 function App() {
   const theme = useSelector((store) => store.theme);
@@ -60,6 +61,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/passwordreset/:token" element={<ChangePassw />} />
         <Route path="/Pagar" element={<PaymentGateway />} />
+        <Route path="/AboutUs" element={<About />} />
         <Route element={<PrivateRoute isLogged={isLogged} />}>
           <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
           <Route path="/precios" element={<Prices />} /> 

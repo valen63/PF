@@ -8,8 +8,8 @@ import { NavLink, useParams } from "react-router-dom";
 export default function ChangePassw() {
     let token = useParams().token
 
-    const [input, setInput] = useState({});
-    const [error, setError] = useState({});
+    const [input, setInput] = useState({confirmPassword:"", password:""});
+    const [error, setError] = useState({confirmPassword: "Las contraseñas deben coincidir",password: "Contraseña Requerida" });
     const [registerError, setRegisterError] = useState({});
 
     const workOnChange = (event) => {
@@ -88,8 +88,7 @@ export default function ChangePassw() {
                     )}
 
                     <div className={style.btns}>
-                        {error.password || error.confirmPassword ? null : <input type="submit" value="Cambiar Contraseña" className={style.send} />}
-                        {registerError.success ? <NavLink className={style.send} to="/login">LogIn</NavLink> : null}
+                        {registerError.success ? <NavLink className={style.send} to="/login">LogIn</NavLink> :input.confirmPassword.length === 0 || (error.password || error.confirmPassword) ? null : <input type="submit" value="Cambiar Contraseña" className={style.send} /> }
                     </div>
                     {registerError.info && (
                         <label className={registerError.success ? style.good : style.errors}>{registerError.info}</label>

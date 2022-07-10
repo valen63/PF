@@ -212,6 +212,30 @@ export const editUsername = (username, id) => {
   };
 };
 
+export const editFoto = (url, id) => {
+  return async function (dispatch) {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    try {
+      const metaData = await axios.put(
+        `/api/usersprivate/${id}/profile`,
+        { imagen: url },
+        config
+      );
+      dispatch(updateUser(metaData.data));
+      return metaData.data;
+    } catch (err) {
+      alert("Ups! Something went wrong...");
+      new Error(err);
+    }
+  };
+};
+
 export const editPassword = (email) => {
   return async function () {
     try {
@@ -576,10 +600,10 @@ export const CreateReco = (data) => {
 }
 
 export const Premium =(datos)=>{
- let {id,amount, date, idUser, description} = datos
+ let {id,amount, date, idUser, description , correo, nombre, celular} = datos
   return async function(dispatch){
     try{
-      let info = await axios.post(`api/pago`,{id, amount, fecha: date, idUser,description})
+      let info = await axios.post(`api/pago`,{id, amount, fecha: date, idUser,description, correo, nombre, celular})
       if(info.data.success){dispatch({type: "SET_UPDATEUSER", payload: info.data.user})}
       return(info.data)
     }catch (err) {

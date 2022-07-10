@@ -1,0 +1,50 @@
+.continer {
+    display: flex;
+    width: 100%;
+    background: linear-gradient(to right, #bbd2c5, #536976, #292e49);
+    background: linear-gradient(to right, #8e9eab, #eef2f3);
+    min-height: 100vh;
+}
+
+.imagen {
+    background: url(https://static.wixstatic.com/media/bef6c9_dae59ac5e2274a918fe3922d7005467a~mv2.png/v1/fill/w_560,h_362,al_c,lg_1,q_85,enc_auto/pagina%20en%20construccion.png);
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: center;
+    position: relative;
+}
+
+.boton {
+    text-decoration: none;
+    font-family: 'Roboto Slab';
+    font-size: larger;
+    font-weight: bold;
+    background: #01807b;
+    padding: 15px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    color: white;
+    border-radius: 5px;
+}
+
+.ranking {
+    width: 100%;
+    text-align: center;
+    mix-blend-mode: difference;
+    color: white;
+    font-size: 25px;
+    align-self: center;
+    font-family: 'Roboto Slab', serif;
+    padding: 20px;
+}
+
+@media (max-width: 800px) {
+    .ranking {
+        display: flex;
+        display: flex;
+        height: 100%;
+        align-items: center;
+    }
+}

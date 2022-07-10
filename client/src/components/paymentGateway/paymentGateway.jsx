@@ -40,7 +40,9 @@ const CheckoutForm = ({ user }) => {
                     date,
                     description: "Pago por un año",
                     idUser: user._id,
-                    email: input
+                    correo: input.email, 
+                    nombre: input.name, 
+                    celular: input.celular
                 })(dispatch)
             }
             else {
@@ -53,7 +55,9 @@ const CheckoutForm = ({ user }) => {
                     date,
                     description: "Pago por un mes",
                     idUser: user._id,
-                    email: input
+                    correo: input.email, 
+                    nombre: input.name, 
+                    celular: input.celular
                 })(dispatch)
             }
             setRespuesta(respuesta)
