@@ -88,7 +88,7 @@ export default function ChangePassw() {
                     )}
 
                     <div className={style.btns}>
-                        {registerError.success ? <NavLink className={style.send} to="/login">LogIn</NavLink> :input.confirmPassword.length === 0 || (error.password || error.confirmPassword) ? null : <input type="submit" value="Cambiar Contraseña" className={style.send} /> }
+                        {registerError.success ? <NavLink className={style.send} to="/login">LogIn</NavLink> :(error.password || error.confirmPassword) ? null : <input type="submit" value="Cambiar Contraseña" className={style.send} /> }
                     </div>
                     {registerError.info && (
                         <label className={registerError.success ? style.good : style.errors}>{registerError.info}</label>

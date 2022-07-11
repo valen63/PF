@@ -343,6 +343,6 @@ body {
 }
 @media (max-width: 500px) {
   .frame {
-    margin-left: 10%;
+    margin-left: 0%;
   }
 }
