@@ -37,14 +37,14 @@ completing classes, this would allow the user to be aware of their general progr
 
 
 ## Aclaracion/ Clarification:
-Es:Este repositorio es una version personal del proyecto original.
+Es:Este repositorio es una version personal del proyecto original. El panel lateral se visualiza abajo por ser un screenshot largo.
 
 -------------------------------------
 
 En:This repository is a personal version of the original project
 
 <div style="display:flex;justify-content: space-between;">
-  <p align="center"><img src="./Imagenes/CodeLearn.png"></p>
+  <p align="center"><img src="./Imagenes/CodeLearn.png" style="max-width:300px"></p>
  <div>
    <table align="center" style="background-color:#FFFFFF; width:50%" >
    <h2 align="center">🚀Site Demo for this Repo:</h2> 
@@ -53,7 +53,7 @@ En:This repository is a personal version of the original project
    <tr style="background-color:#FFFFFF;display:flex;flex-direction:column;align-items: center;">
     <th><h2>⚙Built with </h2></th>
     <th><img align="center" alt="javascript" width="40" height="40" src="https://user-images.githubusercontent.com/86882630/173864252-6fab4ba3-38cc-4ecf-a948-cbf84367feb9.svg"/></th> 
-    <th><img align="center" alt="express" width="40" height="40" background='white' src="https://user-images.githubusercontent.com/86882630/ 174008427-01e86351-8228-448c-901f-119f4ff8099f.svg"/></th>
+    <th><img align="center" alt="express" width="40" height="40" src="https://user-images.githubusercontent.com/86882630/174008427-01e86351-8228-448c-901f-119f4ff8099f.svg"/></th>
     <th><img align="center" alt="nodejs" width="40" height="40" src="https://user-images.githubusercontent.com/86882630/173864575-3201ee72-d00e-44ba-9425-cf08d251c1c2.svg"/></th>
     <th><img align="center" alt="mongodb" width="40" height="40" src="https://user-images.githubusercontent.com/86882630/173864331-d0dd7419-7614-4d42-971c-02b420991451.svg"/></th>
     <th><img align="center" alt="react" width="40" height="40" src="https://user-images.githubusercontent.com/86882630/173864477-2a2ede98-60c3-4002-9ef0-24a6161c70b4.svg"/></th>
@@ -66,7 +66,7 @@ En:This repository is a personal version of the original project
    <p align="center"> 
    <a href='https://github.com/KraosFex' target="_blank" rel="noreferrer"><img align="center" width="50" height="50" src="https://avatars.githubusercontent.com/u/86781666?v=4"/></a>
    <a href='https://github.com/Agus1510' target="_blank" rel="noreferrer"><img align="center"  width="50" height="50"  src="https://avatars.githubusercontent.com/u/50965316?v=4"/></a>
-   <a href='https://github.com/valen63' target="_blank" rel="noreferrer"><img align="center" alt="Valentina" width="70" height="70" style="padding:6px" src="https://avatars.githubusercontent.com/u/89048062?v=4"/></a>
+   <a href='https://github.com/valen63' target="_blank" rel="noreferrer"><img align="center" alt="Valentina" width="75" height="75" style="padding:6px" src="https://avatars.githubusercontent.com/u/89048062?v=4"/></a>
    <a href='https://github.com/ChampiMagic' target="_blank" rel="noreferrer"><img align="center"  width="50" height="50" src="https://avatars.githubusercontent.com/u/97173716?v=4"/></a>
    <a href='https://github.com/cfremoto' target="_blank" rel="noreferrer"><img align="center"  width="50" height="50" src="https://avatars.githubusercontent.com/u/48156077?v=4"/></a>
    </table>
@@ -75,7 +75,7 @@ En:This repository is a personal version of the original project
 
 ## Galeria/Gallery:
 -------------------------------------
-<table style="width:100%"><div style="display:flex;flex-wrap: wrap;"><img style="max-width:400px;heigth:auto" src="./Imagenes/CodeLearn.png"/><img style="max-width:400px;heigth:auto"  src="./Imagenes/CodeLearn2.png"/><img style="max-width:400px;heigth:auto"  src="./Imagenes/CodeLearn3.png"/><img style="max-width:400px;heigth:auto"  src="./Imagenes/CodeLearn4.png"/></div></table>
+<table style="width:100%"><div style="display:flex;flex-wrap: wrap;"><img style="max-width:300px;heigth:auto" src="./Imagenes/CodeLearn.png"/><img style="max-width:300px;heigth:auto"  src="./Imagenes/CodeLearn2.png"/><img style="max-width:300px;heigth:auto"  src="./Imagenes/CodeLearn3.png"/><img style="max-width:300px;heigth:auto"  src="./Imagenes/CodeLearn4.png"/></div></table>
 
 ## Responsive Dessing:
-<img style="max-width:400px;heigth:auto"  src="./Imagenes/CodeLearn7.png"/><img style="max-width:400px;heigth:auto"  src="./Imagenes/CodeLearn5.png"/><img style="max-width:400px;heigth:auto"  src="./Imagenes/CodeLearn6.png"/>
+<img style="max-width:300px;heigth:auto"  src="./Imagenes/CodeLearn7.png"/><img style="max-width:300px;heigth:auto"  src="./Imagenes/CodeLearn5.png"/><img style="max-width:300px;heigth:auto"  src="./Imagenes/CodeLearn6.png"/>

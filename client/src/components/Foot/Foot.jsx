@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import style from "./Foot.module.css"
-export default function Foot() {
+export default function Foot({estilo}) {
     return (
-        <div className={style.All}>
+        <div className={estilo? style.All2: style.All}>
             <div className={style.Info}>
                 <h3>CODE<span>LEARN</span></h3>
                 <div>

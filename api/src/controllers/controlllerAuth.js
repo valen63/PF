@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const { google } = require('googleapis')
 const { OAuth2 } = google.auth
 
-const { Bienvenida, Password } = require("../utils/sendEmail.js")
+const { Bienvenida, Password, Contacto } = require("../utils/sendEmail.js")
 const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 const registerUser = async (req, res, next) => {
@@ -13,12 +13,25 @@ const registerUser = async (req, res, next) => {
     const user = await User.create(req.body)
     await user.save()
     const token = user.generateToken()
-    try { Bienvenida(username, email);res.status(201).send({ info: 'Usuario creado y correo enenviado', success: true, token, user }).end();return }
-    catch(err){console.log(err)}
+    try { Bienvenida(username, email); res.status(201).send({ info: 'Usuario creado y correo enenviado', success: true, token, user }).end(); return }
+    catch (err) { console.log(err) }
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token, user })
   } catch (err) {
     console.log(err)
     return res.status(500).send({ info: 'Ya existe una cuenta con ese gmail', success: false })
+    //next(err);
+  }
+}
+const send = async (req, res, next) => {
+  try {
+    let { correo, name, text } = req.body;
+    Contacto(correo, name, text); 
+    res.status(201).send({success: true}).end();
+    return
+  }
+  catch (err) {
+    console.log(err)
+    return res.status(500).send({ info: 'No se puedo enviar el correo', success: false })
     //next(err);
   }
 }
@@ -117,8 +130,8 @@ const googleLogin = async (req, res) => {
       await newUser.save()
 
       const token = newUser.generateToken()
-      try { Bienvenida(name, email);res.send({ info: 'Credenciales correctasy correo enenviado', success: true, token, user: newUser }).end();return}
-      catch(err){console.log(err)}
+      try { Bienvenida(name, email); res.send({ info: 'Credenciales correctasy correo enenviado', success: true, token, user: newUser }).end(); return }
+      catch (err) { console.log(err) }
       res.send({ info: 'Credenciales correctas', success: true, token, user: newUser })
     }
   } catch (err) {
@@ -147,5 +160,6 @@ module.exports = {
   login,
   forgotPassword,
   resetPassword,
-  googleLogin
+  googleLogin,
+  send
 }

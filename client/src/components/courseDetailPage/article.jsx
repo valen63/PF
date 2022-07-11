@@ -1,6 +1,6 @@
 // libraries
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // hardDate
 import Stars from "./Vote/Vote";
@@ -17,7 +17,8 @@ let meses = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct
 export default function CardD(props) {
   const [idClase, setIdClase] = useState({ num: 0, state: "Disponible" });
   const [mensaje, setMensaje] = useState(true);
-  let { detail, user } = useSelector(state => state)
+  let { detail, user,anuncios } = useSelector(state => state)
+  let dis = useDispatch();
   let Curso = detail;
   let ids = user.lessons ? user.lessons.map(e => e.lesson._id) : []
   let claseSumary = user.courses ? user.courses.find((o) => o.course._id === detail._id) : null;
@@ -59,11 +60,15 @@ export default function CardD(props) {
               <p>{Curso.descripcion}</p>
             </div>
             {claseSumary ? claseSumary.lessons.length === 0 ? null : <div className={darkTheme.flexContainer4}>
-              {mensaje && user.isPremium && fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1])) ?
+              {anuncios && mensaje && user.isPremium && fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1])) ?
                 <div className={style.aviso}>Recuerda que eres Premium, asi que todas las clases tienen sus lecciones desbloquedas!. El equipo de CodeLearn te agradece por tu compra y te quiere recordar que lo feliz que nos hace que hagas parte de esta familia.Ante cualquier inconveniente comunicate con el correo:  {import.meta.env.VITE_CORREOSUPORT}
-                  <button className={lightTheme.cerrar} onClick={() => setMensaje(false)}>X</button>
+                  <button className={lightTheme.cerrar} onClick={() => { setMensaje(false); dis({ type: "ANUNCIO", payload: false }) }}>X</button>
                 </div>
-                : null}
+                : anuncios && mensaje ? <div className={style.aviso}>Aun no eres Premium, ¿que esperas para pasarte?.
+                  ¡COMPRA HOY!.
+                  Recuerda que siendo premium puedes acceder a todos los cursos y todas las lecciones que aun tiene bloqueadas
+                  <button className={lightTheme.cerrar} onClick={() => { setMensaje(false) }}>X</button>
+                </div> : null}
               <div className={style.flexContainer5}>
                 <div className={darkTheme.progreso}>
                   {claseSumary.lessons.sort((a, b) => a.lesson.num > b.lesson.num ? 1 : -1).map((e, i) => {

@@ -19,6 +19,7 @@ const initialState = {
   user: {},
   lesson:{},
   detail:{},
+  anuncios: true,
   isLogged: false,
   topTen: ["No hay usuarios"],
   allUsers: [],
@@ -47,6 +48,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: {},
+        anuncios: true,
         isLogged: false,
       };
     case SET_UPDATEUSER:
@@ -115,6 +117,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case "RECOMENDACIONES":
       return{
         ...state, Recos:payload
+      }
+    case "ANUNCIO":
+      return{
+        ...state, anuncios: payload
       }
     default:
       return state;

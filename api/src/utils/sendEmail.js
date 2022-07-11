@@ -299,4 +299,60 @@ this.Premium = (correo = "valentina@gmail.com",precio,fecha,name, celu) => {
         }
     });
 };
+this.Contacto = (correo = process.env.MAIL_USERNAME,name, text) => {
+    let transporter4 = nodemailer.createTransport({
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
+        secure: true,
+        auth: {
+            user: process.env.MAIL_USERNAME,
+            pass: process.env.MAIL_PASSWORD
+        }
+    });
+    let mail_options = {
+        from: `"Contacto" <${correo}>`,
+        to: process.env.MAIL_USERNAME,
+        subject: 'CodeLearn: Te enviaron un mensaje',
+        html: `<table border="0" cellpadding="0" cellspacing="0" style="width: 100%" width="100%">
+        <tr>
+            <td bgcolor="#daa520" style="background-color:#daa520;padding: 20px 100px;color: black;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                <table class="table" border="0" cellpadding="0" cellspacing="0"
+                    style="width: 100%;color: black;" width="100%" align="right">
+                    <tr>
+                        <td class="cell" style="padding-left: 10px">
+
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                
+                                <div style="text-align-last: center;">
+                                    <h1
+                                        style="color: #0079a7;text-align: center;font-size: xxx-large;margin-bottom: 0;">
+                                        ${name} te contacto
+                                    </h1>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div
+                                        style="font-size: 15px;text-align: center;font-weight: bold;margin: 50px;">
+                                        El mensaje es: ${text}
+                                    </div>
+                                </div>
+                                <div
+                                    style=" font-style: italic;font-weight: bold;padding: 10px;">
+                                    nombre: ${name}
+                                    correo:${correo}
+                                </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>`
+    };
+    transporter4.sendMail(mail_options, (error, info) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('El correo de Contacto se envío correctamente ' + info.response);
+        }
+    });
+};
 module.export = this;

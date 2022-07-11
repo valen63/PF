@@ -10,7 +10,7 @@ import UserRank from "./userRank/userRank";
 import JSIcon from "../../icons/javascript";
 import { AiFillHeart } from 'react-icons/ai';
 import "../../EstilosRecos.css"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import Foot from "../Foot/Foot";
 
@@ -27,7 +27,8 @@ function Recomendaciones(name, hr, etiqueta, style, key) {
 
 function Home(props) {
   const [mensaje, setMensaje] = useState(true);
-  const { courses, user, Recos } = useSelector((store) => store);
+  let dis = useDispatch();
+  const { courses, user, Recos, anuncios  } = useSelector((store) => store);
   let favoritos = user.courses ? user.courses.filter(e => e.isFavorite).map(e => e.course) : []
   let fecha = user.Vencimiento && user.Vencimiento.fecha ? user.Vencimiento.fecha.split(" ") : null;
   let date = new Date().toString().split(" ");
@@ -43,11 +44,15 @@ function Home(props) {
           <UserRank />
           <Ranking />
         </div>
-        {mensaje && user.isPremium && fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1])) ?
+        {anuncios && mensaje && user.isPremium && fecha && (fecha[1] > date[3] || meses.indexOf(fecha[0]) > meses.indexOf(date[1])) ?
           <div className={style.aviso}>Recuerda que eres Premium, asi que todas las clases tienen sus lecciones desbloquedas!. El equipo de CodeLearn te agradece por tu compra y te quiere recordar que lo feliz que nos hace que hagas parte de esta familia.Ante cualquier inconveniente comunicate con el correo:  {import.meta.env.VITE_CORREOSUPORT}
-            <button className={lightTheme.cerrar} onClick={() => setMensaje(false)}>X</button>
+            <button className={lightTheme.cerrar} onClick={() => {setMensaje(false);dis({type:"ANUNCIO",payload: false})}}>X</button>
           </div>
-          : null}
+          :anuncios && mensaje? <div className={style.aviso}>Aun no eres Premium, ¿que esperas para pasarte?. 
+          ¡COMPRA HOY!.
+          Recuerda que siendo premium puedes acceder a todos los cursos y todas las lecciones que aun tiene bloqueadas
+          <button className={lightTheme.cerrar} onClick={() => {setMensaje(false)}}>X</button>
+        </div>:null}
         <div className={style.flexContainer2}>
           <div className={style.container2}>
             <h1>Recomendaciones del mes:</h1>

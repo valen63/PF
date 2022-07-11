@@ -18,6 +18,7 @@ import lightTheme from "./courseLight.module.css";
 
 //Icons
 import ArrowsUpDown from "../../icons/arrowsUpDown";
+import Foot from "../Foot/Foot";
 
 function Courses({detail}) {
   if(detail){
@@ -164,8 +165,9 @@ function Courses({detail}) {
             />}
             </div>
           </div>
-        </div>
+        </div>  
       </div>
+      <Foot/>
     </ThemeProvider>
   );
 }

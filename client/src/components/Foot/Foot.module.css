@@ -1,4 +1,4 @@
-.All {
+.All,.All2 {
     background: #a0140d;
     padding: 15px 30px 15px 8em;
     display: flex;
@@ -6,6 +6,9 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+}
+.All2{
+    padding: 15px 30px
 }
 
 .Info h3 {
@@ -148,7 +151,7 @@
 }
 
 @media (max-width: 768px) {
-    .All {
+    .All,.All2 {
         padding: 15px 20px;
         flex-direction: column
     }

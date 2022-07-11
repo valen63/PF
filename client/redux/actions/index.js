@@ -108,6 +108,20 @@ export const register = (userData) => {
     }
   };
 };
+export const contactar = (Data) => {
+  return async function () {
+    try {
+      const metaData = await axios.post(
+        "/api/auth/contacto",
+        Data
+      );
+      console.log(metaData.data);
+    } catch (err) {
+      console.log(err.response.data)
+    }
+  };
+};
+
 export const addVotes = function (id, info) {
   return async function () {
     try {
